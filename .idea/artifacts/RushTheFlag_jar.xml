@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact name="RushTheFlag:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/RushTheFlag_jar</output-path>
+    <root id="root">
+      <element id="archive" name="RushTheFlag.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$USER_HOME$/Desktop/Output/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="RushTheFlag" />
+      </element>
+    </root>
+  </artifact>
+</component>
