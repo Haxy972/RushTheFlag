@@ -1,5 +1,6 @@
 package fr.haxy972.RushTheFlag.commands;
 
+import fr.haxy972.RushTheFlag.Main;
 import fr.haxy972.RushTheFlag.team.TeamSelect;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,9 +17,8 @@ public class CommandDebug implements CommandExecutor {
         if(cmd.getName().equalsIgnoreCase("debug")){
 
             Player player = (Player) sender;
-            player.sendMessage("Bleu" + TeamSelect.teamBleu);
-            player.sendMessage("Rouge" + TeamSelect.teamRouge);
-
+            player.sendMessage("Bleu: " + Main.getNexusBleu().getBlock().toString());
+            player.sendMessage("Rouge: " + Main.getNexusRouge().getBlock().toString());
         }
 
 

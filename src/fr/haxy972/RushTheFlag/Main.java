@@ -1,6 +1,7 @@
 package fr.haxy972.RushTheFlag;
 
 import fr.haxy972.RushTheFlag.commands.CommandDebug;
+import fr.haxy972.RushTheFlag.commands.CommandKits;
 import fr.haxy972.RushTheFlag.commands.CommandTeam;
 import fr.haxy972.RushTheFlag.listeners.ListenerManager;
 import org.bukkit.*;
@@ -8,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
-    Main INSTANCE;
+    public static Main INSTANCE;
 
 
 
@@ -19,6 +20,8 @@ public class Main extends JavaPlugin {
         GameStatut.setStatut(GameStatut.INLOBBY);
         new ListenerManager(INSTANCE).registerEvent();
         getCommand("join").setExecutor(new CommandTeam());
+        getCommand("kits").setExecutor(new CommandTeam());
+        getCommand("admkits").setExecutor(new CommandKits());
         getCommand("debug").setExecutor(new CommandDebug());
 
         for(Player players : Bukkit.getOnlinePlayers()){
@@ -32,6 +35,7 @@ public class Main extends JavaPlugin {
         for(int i = 0; i < 300; i++){
             player.sendMessage(" ");
         }
+        player.getInventory().clear();
         player.sendMessage(Main.getPrefix() + "§6Le serveur a été reload");
         player.sendMessage(Main.getPrefix() + "§7Tapez §e§l/join§7 pour rejoindre la partie");
         player.setGameMode(GameMode.SPECTATOR);
@@ -77,6 +81,22 @@ public class Main extends JavaPlugin {
 
 
         return new Location(getWorld(), x, y, z, yaw, pitch);
+    }
+
+    public static Location getNexusRouge(){
+        double x = -600.500;
+        double y = 71;
+        double z = -160.500;
+
+        return new Location(getWorld(), x, y, z);
+    }
+
+    public static Location getNexusBleu(){
+        double x = -600.500;
+        double y = 71;
+        double z = -66.500;
+
+        return new Location(getWorld(), x, y, z);
     }
 
     public static World getWorld(){
