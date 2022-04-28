@@ -13,18 +13,20 @@ public class TeamSelect {
 
 
     public static void openTeamSelectInventory(Player player) {
-        Inventory inventory = Bukkit.createInventory(player, 9, "§b§lChoisir son équipe");
+        Inventory inventory = Bukkit.createInventory(player, 9, "§8§lEquipes§8§l»");
 
         //laine rouge
         ItemStack it = new ItemStack(Material.WOOL, 1, (byte)14);
         ItemMeta im = it.getItemMeta();
-        im.setDisplayName("§c§lÉquipe Rouge");
+        im.setDisplayName("§c§lRouge");
+        it.setItemMeta(im);
         inventory.setItem(3, it);
 
         //laine bleu
         it = new ItemStack(Material.WOOL, 1, (byte)11);
         im = it.getItemMeta();
-        im.setDisplayName("§9§lÉquipe Bleu");
+        im.setDisplayName("§9§lBleu");
+        it.setItemMeta(im);
         inventory.setItem(5, it);
 
 
