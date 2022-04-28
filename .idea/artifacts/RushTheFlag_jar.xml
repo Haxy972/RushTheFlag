@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact name="RushTheFlag:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/RushTheFlag_jar</output-path>
+    <output-path>$USER_HOME$/Desktop/Minecraft/D01_I/plugins</output-path>
     <root id="root">
       <element id="archive" name="RushTheFlag.jar">
         <element id="directory" name="META-INF">

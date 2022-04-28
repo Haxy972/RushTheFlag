@@ -12,7 +12,8 @@ public enum GameStatut {
     public static GameStatut getStatut(){
         return statut;
     }
-    public static void setStatut(){
+    public static void setStatut(GameStatut statuts){
+        statut = statuts;
 
     }
     public static boolean isStatut(GameStatut statuts){
