@@ -1,5 +1,6 @@
 package fr.haxy972.RushTheFlag.listeners;
 
+import fr.haxy972.RushTheFlag.Main;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,6 +16,7 @@ public class OnPlayerJoin implements Listener {
 
         event.setJoinMessage("§e" + player.getName() + "a rejoint le §b§lRushTheFlag");
         player.setGameMode(GameMode.SPECTATOR);
+        player.teleport(Main.getJoinSpawn());
 
 
 
