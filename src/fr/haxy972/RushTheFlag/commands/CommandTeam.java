@@ -1,5 +1,6 @@
-package fr.haxy972.RushTheFlag;
+package fr.haxy972.RushTheFlag.commands;
 
+import fr.haxy972.RushTheFlag.Main;
 import fr.haxy972.RushTheFlag.team.TeamSelect;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -23,6 +24,8 @@ public class CommandTeam implements CommandExecutor {
 
 
                 TeamSelect.openTeamSelectInventory(player);
+            }else{
+                player.sendMessage(Main.getPrefix() + "§cVous ne pouvez pas exécuter cette commande en cours de jeu");
             }
         }
 
