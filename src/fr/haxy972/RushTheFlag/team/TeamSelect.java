@@ -1,6 +1,7 @@
 package fr.haxy972.RushTheFlag.team;
 
 import fr.haxy972.RushTheFlag.Main;
+import fr.haxy972.RushTheFlag.commands.CommandKits;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -20,6 +21,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class TeamSelect implements Listener {
@@ -140,8 +142,26 @@ public class TeamSelect implements Listener {
         kmeta.setDisplayName("§a§lArcher");
         kmeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         kitarcher.setItemMeta(kmeta);
-        kitInventory.setItem(5, kitarcher);
-        kitInventory.setItem(3, kitguerrier);
+        kitInventory.setItem(1, kitarcher);
+        kitInventory.setItem(0, kitguerrier);
+
+
+        File file = new File("plugins/RushTheFlag/kits/");
+        ArrayList<String> list = new ArrayList<>();
+        try{
+            if(file.isDirectory()){
+                for(File files : file.listFiles()){
+                    list.add(files.getName());
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        for(int i = 0; i < list.size(); i++){
+
+            kitInventory.setItem(2 + i , CommandKits.getKit(list.get(i).replace(".yml", "")));
+        }
+
 
         player.openInventory(kitInventory);
     }

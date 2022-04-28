@@ -17,6 +17,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         this.INSTANCE = this;
+        saveDefaultConfig();
         GameStatut.setStatut(GameStatut.INLOBBY);
         new ListenerManager(INSTANCE).registerEvent();
         getCommand("join").setExecutor(new CommandTeam());

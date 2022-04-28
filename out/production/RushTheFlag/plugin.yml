@@ -10,3 +10,5 @@ commands:
   debug:
     description: commande de debug
     permission: admin
+  admkits:
+    description: Gérer les kits
