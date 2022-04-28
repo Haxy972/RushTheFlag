@@ -1,0 +1,2 @@
+# RushTheFlag
+Plugin RushTheFlag
