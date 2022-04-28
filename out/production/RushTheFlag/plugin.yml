@@ -5,5 +5,8 @@ main: fr.haxy972.RushTheFlag.Main
 commands:
   join:
     description: Choisir une équipe
+  kits:
+    description: permet de choisir son kit
   debug:
     description: commande de debug
+    permission: admin

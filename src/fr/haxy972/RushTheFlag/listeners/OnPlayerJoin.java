@@ -19,6 +19,7 @@ public class OnPlayerJoin implements Listener {
     public void PlayerJoinEvent(PlayerJoinEvent event){
 
         Player player = event.getPlayer();
+        player.getInventory().clear();
         player.playSound(player.getLocation(), Sound.LEVEL_UP, 1f, 1f);
         event.setJoinMessage("");
 
