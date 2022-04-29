@@ -2,10 +2,8 @@ package fr.haxy972.RushTheFlag.team;
 
 import fr.haxy972.RushTheFlag.Main;
 import fr.haxy972.RushTheFlag.commands.CommandKits;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import fr.haxy972.RushTheFlag.scoreboard.ScoreboardManager;
+import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Item;
@@ -21,6 +19,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
@@ -113,9 +112,15 @@ public class TeamSelect implements Listener {
         if(team.equalsIgnoreCase("rouge")){
             player.teleport(Main.getSpawnRouge());
             player.setGameMode(GameMode.SURVIVAL);
+            if(ScoreboardManager.scoreboardGame.containsKey(player)){
+                ScoreboardManager.scoreboardGame.get(player).setLine(7, "§fEquipe: §c§lRouge");
+            }
         }else if(team.equalsIgnoreCase("bleu")){
             player.teleport(Main.getSpawnBleu());
             player.setGameMode(GameMode.SURVIVAL);
+            if(ScoreboardManager.scoreboardGame.containsKey(player)){
+                ScoreboardManager.scoreboardGame.get(player).setLine(7, "§fEquipe: §9§lBleu");
+            }
 
 
         }
@@ -134,20 +139,7 @@ public class TeamSelect implements Listener {
 
         player.sendMessage(Main.getPrefix() + "§aVeuillez choisir un kit");
         Inventory kitInventory = Bukkit.createInventory(player, 9, "§b§lKits");
-//        ItemStack kitguerrier = new ItemStack(Material.IRON_SWORD);
-//        ItemMeta gmeta = kitguerrier.getItemMeta();
-//        gmeta.setDisplayName("§e§lGuerrier");
-//        gmeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-//        kitguerrier.setItemMeta(gmeta);
-//
-//
-//        ItemStack kitarcher = new ItemStack(Material.BOW);
-//        ItemMeta kmeta = kitarcher.getItemMeta();
-//        kmeta.setDisplayName("§a§lArcher");
-//        kmeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-//        kitarcher.setItemMeta(kmeta);
-//        kitInventory.setItem(1, kitarcher);
-//        kitInventory.setItem(0, kitguerrier);
+
 
 
         File file = new File("plugins/RushTheFlag/kits/");
@@ -214,6 +206,11 @@ public class TeamSelect implements Listener {
                     clickedOn = kitCorrespondance.get(item.getItemMeta().getDisplayName());
                     player.playSound(player.getLocation(), Sound.NOTE_PLING, 1f,1f);
                     player.sendMessage(Main.getPrefix() + "§7Vous avez choisi le kit: " + item.getItemMeta().getDisplayName());
+                    if(ScoreboardManager.scoreboardGame.containsKey(player)){
+                        ScoreboardManager.scoreboardGame.get(player).setLine(2, "§fKit: §r" + item.getItemMeta().getDisplayName());
+                    }
+
+
                 }
             }
 
@@ -225,9 +222,81 @@ public class TeamSelect implements Listener {
                 player.closeInventory();
 
             }
+            Bukkit.getScheduler().runTaskLater(Main.INSTANCE, new Runnable() {
+                @Override
+                public void run() {
+                    replaceArmor(player);
+                }
+            }, 1);
 
 
         }
+    }
+
+    private void replaceArmor(Player player) {
+
+        ItemStack[] armor = player.getInventory().getArmorContents();
+        String team = null;
+        if(teamRouge.contains(player)){
+            team = "rouge";
+        }else if(teamBleu.contains(player)){
+            team = "bleu";
+        }
+
+        if(armor[0].getType() == Material.LEATHER_BOOTS){
+            LeatherArmorMeta armormeta = (LeatherArmorMeta) armor[0].getItemMeta();
+
+            if(teamBleu.equals(team.equalsIgnoreCase("bleu"))){
+                Color color = Color.fromRGB(51, 76,178);
+                armormeta.setColor(color);
+            }else if(team.equalsIgnoreCase("rouge")){
+                Color color = Color.fromRGB(153, 51,51);
+                armormeta.setColor(color);
+            }else{
+            }
+            armor[0].setItemMeta(armormeta);
+        }
+        if(armor[1].getType() == Material.LEATHER_LEGGINGS){
+            LeatherArmorMeta armormeta = (LeatherArmorMeta) armor[1].getItemMeta();
+
+            if(teamBleu.equals(team.equalsIgnoreCase("bleu"))){
+                Color color = Color.fromRGB(51, 76,178);
+                armormeta.setColor(color);
+            }else if(team.equalsIgnoreCase("rouge")){
+                Color color = Color.fromRGB(153, 51,51);
+                armormeta.setColor(color);
+            }
+
+            armor[1].setItemMeta(armormeta);
+        }
+        if(armor[2].getType() == Material.LEATHER_CHESTPLATE){
+            LeatherArmorMeta armormeta = (LeatherArmorMeta) armor[2].getItemMeta();
+
+            if(teamBleu.equals(team.equalsIgnoreCase("bleu"))){
+                Color color = Color.fromRGB(51, 76,178);
+                armormeta.setColor(color);
+            }else if(team.equalsIgnoreCase("rouge")){
+                Color color = Color.fromRGB(153, 51,51);
+                armormeta.setColor(color);
+            }
+            armor[2].setItemMeta(armormeta);
+        }
+        if(armor[3].getType() == Material.LEATHER_HELMET){
+            LeatherArmorMeta armormeta = (LeatherArmorMeta) armor[3].getItemMeta();
+            if(teamBleu.equals(team.equalsIgnoreCase("bleu"))){
+                Color color = Color.fromRGB(51, 76,178);
+                armormeta.setColor(color);
+            }else if(team.equalsIgnoreCase("rouge")){
+                Color color = Color.fromRGB(153, 51,51);
+                armormeta.setColor(color);
+            }
+            armor[3].setItemMeta(armormeta);
+        }
+
+        player.getInventory().setArmorContents(armor);
+
+
+
     }
 
     @EventHandler

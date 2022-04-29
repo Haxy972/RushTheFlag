@@ -273,7 +273,7 @@ public class CommandKits implements CommandExecutor {
                                 } else {
                                     player.sendMessage(Main.getPrefix() + "§c/rtf kits §eadd §7<nom>");
                                 }
-                            } else if(args[1].equalsIgnoreCase("remove")){
+                            } else if (args[1].equalsIgnoreCase("remove")) {
                                 if (args.length == 3) {
                                     deleteKit(player, args[2]);
 
@@ -282,11 +282,24 @@ public class CommandKits implements CommandExecutor {
                                     player.sendMessage(Main.getPrefix() + "§c/rtf kits §eremove §7<nom>");
                                 }
 
+                            } else if (args[1].equalsIgnoreCase("list")) {
+                                File show = new File("plugins/RushTheFlag/kits/");
+                                try {
+                                    if(show.isDirectory()) {
+                                        player.sendMessage(Main.getPrefix() + "§7Affichage de la liste des kits:");
+                                        for(File file : show.listFiles()){
+                                            player.sendMessage("§e- " + file.getName().replace(".yml", ""));
+                                        }
+                                    }
+
+                                }catch(Exception e){
+                                    e.printStackTrace();
+                                }
                             }else{
-                                player.sendMessage(Main.getPrefix() + "§c/rtf §ekits §7<add/remove>");
+                                player.sendMessage(Main.getPrefix() + "§c/rtf §ekits §7<add/remove/list>");
                             }
                         } else {
-                        player.sendMessage(Main.getPrefix() + "§c/rtf <kits> <add/remove>");
+                        player.sendMessage(Main.getPrefix() + "§c/rtf §ekits §7<add/remove/list>");
                     }
 
                     } else {

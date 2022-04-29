@@ -1,6 +1,8 @@
 package fr.haxy972.RushTheFlag.commands;
 
+import fr.haxy972.RushTheFlag.GameStatut;
 import fr.haxy972.RushTheFlag.Main;
+import fr.haxy972.RushTheFlag.scoreboard.ScoreboardManager;
 import fr.haxy972.RushTheFlag.team.TeamSelect;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -18,10 +20,11 @@ public class CommandDebug implements CommandExecutor {
         Player player = (Player) sender;
         if(cmd.getName().equalsIgnoreCase("debug")){
             if(args.length == 1){
-                CommandKits.getKitContent(player, args[0]);
-                player.sendMessage("executed --> " + args[0]);
+                player.sendMessage(GameStatut.getStatut().toString());
+
             }else{
                 player.sendMessage("§c/debug <args>");
+
             }
         }
 
