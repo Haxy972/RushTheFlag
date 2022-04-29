@@ -17,10 +17,12 @@ public class CommandDebug implements CommandExecutor {
 
         Player player = (Player) sender;
         if(cmd.getName().equalsIgnoreCase("debug")){
-
-            ItemStack test = CommandKits.getKit("test");
-            Bukkit.broadcastMessage("exe:" + test.getType().toString());
-            player.getInventory().addItem(test);
+            if(args.length == 1){
+                CommandKits.getKitContent(player, args[0]);
+                player.sendMessage("executed --> " + args[0]);
+            }else{
+                player.sendMessage("§c/debug <args>");
+            }
         }
 
 

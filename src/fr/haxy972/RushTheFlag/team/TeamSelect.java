@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -20,9 +21,12 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TeamSelect implements Listener {
     public static ArrayList<Player> teamRouge = new ArrayList<>();
@@ -124,26 +128,26 @@ public class TeamSelect implements Listener {
     }
 
 
-
+    public static Map<String, String> kitCorrespondance = new HashMap<>();
 
     public static void kitChoose(Player player) {
 
         player.sendMessage(Main.getPrefix() + "§aVeuillez choisir un kit");
         Inventory kitInventory = Bukkit.createInventory(player, 9, "§b§lKits");
-        ItemStack kitguerrier = new ItemStack(Material.IRON_SWORD);
-        ItemMeta gmeta = kitguerrier.getItemMeta();
-        gmeta.setDisplayName("§e§lGuerrier");
-        gmeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        kitguerrier.setItemMeta(gmeta);
-
-
-        ItemStack kitarcher = new ItemStack(Material.BOW);
-        ItemMeta kmeta = kitarcher.getItemMeta();
-        kmeta.setDisplayName("§a§lArcher");
-        kmeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        kitarcher.setItemMeta(kmeta);
-        kitInventory.setItem(1, kitarcher);
-        kitInventory.setItem(0, kitguerrier);
+//        ItemStack kitguerrier = new ItemStack(Material.IRON_SWORD);
+//        ItemMeta gmeta = kitguerrier.getItemMeta();
+//        gmeta.setDisplayName("§e§lGuerrier");
+//        gmeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+//        kitguerrier.setItemMeta(gmeta);
+//
+//
+//        ItemStack kitarcher = new ItemStack(Material.BOW);
+//        ItemMeta kmeta = kitarcher.getItemMeta();
+//        kmeta.setDisplayName("§a§lArcher");
+//        kmeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+//        kitarcher.setItemMeta(kmeta);
+//        kitInventory.setItem(1, kitarcher);
+//        kitInventory.setItem(0, kitguerrier);
 
 
         File file = new File("plugins/RushTheFlag/kits/");
@@ -159,7 +163,12 @@ public class TeamSelect implements Listener {
         }
         for(int i = 0; i < list.size(); i++){
 
-            kitInventory.setItem(2 + i , CommandKits.getKit(list.get(i).replace(".yml", "")));
+            ItemStack item = CommandKits.getKit(list.get(i).replace(".yml", ""));
+
+            if(!kitCorrespondance.containsKey(list.get(i))){
+                kitCorrespondance.put(item.getItemMeta().getDisplayName(), list.get(i));
+            }
+            kitInventory.setItem(0 + i , CommandKits.getKit(list.get(i).replace(".yml", "")));
         }
 
 
@@ -180,69 +189,43 @@ public class TeamSelect implements Listener {
             event.setCancelled(true);
             player.getInventory().clear();
 
-            if(item.getType().equals(Material.IRON_SWORD)){
-                player.playSound(player.getLocation(), Sound.NOTE_PLING, 1f, 1f);
-                if(!hasKit.contains(player)){
-                    hasKit.add(player);
+            File file = new File("plugins/RushTheFlag/kits/");
+            ArrayList<String> displayedNames = new ArrayList<>();
+            try {
+                if (file.isDirectory()) {
+                    for (File files : file.listFiles()) {
+                        YamlConfiguration yaml = new YamlConfiguration();
+                        yaml.load(files);
+                        displayedNames.add(yaml.getString("display-name"));
+
+
+                    }
+
                 }
-                player.sendMessage(Main.getPrefix() + "§aVous avez choisi le kit: §e§lGuerrier");
-
-                ItemStack sword = new ItemStack(Material.IRON_SWORD);
-                ItemMeta im = sword.getItemMeta();
-                im.addEnchant(Enchantment.DAMAGE_ALL, 2, true);
-                sword.setItemMeta(im);
-                player.getInventory().setItem(0, sword);
-
-
-
-                ItemStack pioche = new ItemStack(Material.IRON_PICKAXE);
-                im = pioche.getItemMeta();
-                im.addEnchant(Enchantment.DIG_SPEED, 3, true);
-                pioche.setItemMeta(im);
-                player.getInventory().setItem(1, pioche);
-
-                player.getInventory().setItem(2, new ItemStack(Material.SANDSTONE, 64));
-                player.getInventory().setItem(3, new ItemStack(Material.SANDSTONE, 64));
-                player.getInventory().setItem(4, new ItemStack(Material.SANDSTONE, 64));
-
-
-                player.closeInventory();
-            }else if(item.getType().equals(Material.BOW)){
-                if(!hasKit.contains(player)){
-                    hasKit.add(player);
-                }
-                player.sendMessage(Main.getPrefix() + "§aVous avez choisi le kit: §e§lArcher");
-                player.playSound(player.getLocation(), Sound.NOTE_PLING, 1f, 1f);
-
-
-
-
-                ItemStack sword = new ItemStack(Material.IRON_SWORD);
-                ItemMeta im = sword.getItemMeta();
-                im.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
-                sword.setItemMeta(im);
-                player.getInventory().setItem(0, sword);
-
-                ItemStack arc = new ItemStack(Material.BOW);
-                im = arc.getItemMeta();
-                im.addEnchant(Enchantment.ARROW_DAMAGE, 1, true);
-                im.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-                arc.setItemMeta(im);
-                player.getInventory().setItem(1, arc);
-
-                ItemStack pioche = new ItemStack(Material.IRON_PICKAXE);
-                im = pioche.getItemMeta();
-                im.addEnchant(Enchantment.DIG_SPEED, 3, true);
-                pioche.setItemMeta(im);
-                player.getInventory().setItem(2, pioche);
-
-                player.getInventory().setItem(3, new ItemStack(Material.SANDSTONE, 64));
-                player.getInventory().setItem(4, new ItemStack(Material.SANDSTONE, 64));
-                player.getInventory().setItem(5, new ItemStack(Material.SANDSTONE, 64));
-                player.getInventory().setItem(8, new ItemStack(Material.ARROW, 1));
-
-                player.closeInventory();
+            }catch(Exception e){
+                e.printStackTrace();
             }
+            boolean isHere = false;
+            String clickedOn = null;
+
+            for(String is : displayedNames){
+                if(is.replace("&", "§").equalsIgnoreCase(item.getItemMeta().getDisplayName())){
+                    isHere= true;
+                    clickedOn = kitCorrespondance.get(item.getItemMeta().getDisplayName());
+                    player.playSound(player.getLocation(), Sound.NOTE_PLING, 1f,1f);
+                    player.sendMessage(Main.getPrefix() + "§7Vous avez choisi le kit: " + item.getItemMeta().getDisplayName());
+                }
+            }
+
+            if(isHere){
+                CommandKits.getKitContent(player, clickedOn.replace(".yml", ""));
+                if(!hasKit.contains(player)){
+                    hasKit.add(player);
+                }
+                player.closeInventory();
+
+            }
+
 
         }
     }
