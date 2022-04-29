@@ -10,5 +10,6 @@ commands:
   debug:
     description: commande de debug
     permission: admin
-  admkits:
+  rushtheflag:
     description: Gérer les kits
+    aliases: rtf

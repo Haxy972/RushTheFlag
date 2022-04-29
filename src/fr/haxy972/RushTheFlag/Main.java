@@ -22,7 +22,7 @@ public class Main extends JavaPlugin {
         new ListenerManager(INSTANCE).registerEvent();
         getCommand("join").setExecutor(new CommandTeam());
         getCommand("kits").setExecutor(new CommandTeam());
-        getCommand("admkits").setExecutor(new CommandKits());
+        getCommand("rushtheflag").setExecutor(new CommandKits());
         getCommand("debug").setExecutor(new CommandDebug());
 
         for(Player players : Bukkit.getOnlinePlayers()){
