@@ -20,7 +20,7 @@ public class CommandTeam implements CommandExecutor {
 
         Player player = (Player) sender;
         if(cmd.getName().equalsIgnoreCase("join")){
-            if(player.getGameMode().equals(GameMode.SPECTATOR)){
+            if(player.getGameMode().equals(GameMode.SPECTATOR) && !TeamSelect.teamBleu.contains(player) && !TeamSelect.teamRouge.contains(player)){
 
 
                 TeamSelect.openTeamSelectInventory(player);

@@ -4,8 +4,12 @@ import fr.haxy972.RushTheFlag.commands.CommandDebug;
 import fr.haxy972.RushTheFlag.commands.CommandKits;
 import fr.haxy972.RushTheFlag.commands.CommandTeam;
 import fr.haxy972.RushTheFlag.listeners.ListenerManager;
+import fr.haxy972.RushTheFlag.runnables.GameRunnable;
+import fr.haxy972.RushTheFlag.runnables.ScoreboardRunnable;
+import fr.haxy972.RushTheFlag.scoreboard.ScoreboardManager;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
@@ -41,12 +45,34 @@ public class Main extends JavaPlugin {
         player.sendMessage(Main.getPrefix() + "§7Tapez §e§l/join§7 pour rejoindre la partie");
         player.setGameMode(GameMode.SPECTATOR);
         player.teleport(Main.getJoinSpawn());
+        ItemStack[] armor = player.getInventory().getArmorContents();
+        armor[0].setType(Material.AIR);
+        armor[1].setType(Material.AIR);
+        armor[2].setType(Material.AIR);
+        armor[3].setType(Material.AIR);
+
+
+        player.getInventory().setArmorContents(armor);
+        new ScoreboardRunnable().runTaskTimer(this, 0, 1);
+        new GameRunnable().runTaskTimer(this, 0, 20);
         player.playSound(player.getLocation(), Sound.LEVEL_UP, 1f, 1f);
+
+        Bukkit.getScheduler().runTaskLater(this, new Runnable() {
+            @Override
+            public void run() {
+                new ScoreboardManager(player).loadScoreboard();
+            }
+        }, 20);
     }
 
     @Override
     public void onDisable() {
-
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            if (ScoreboardManager.scoreboardGame.containsKey(player)) {
+                ScoreboardManager.scoreboardGame.get(player).destroy();
+                ScoreboardManager.scoreboardGame.remove(player);
+            }
+        }
     }
 
     public static String getPrefix() {
@@ -87,7 +113,7 @@ public class Main extends JavaPlugin {
     public static Location getNexusRouge(){
         double x = -600.500;
         double y = 71;
-        double z = -160.500;
+        double z = -66.500;
 
         return new Location(getWorld(), x, y, z);
     }
@@ -95,7 +121,7 @@ public class Main extends JavaPlugin {
     public static Location getNexusBleu(){
         double x = -600.500;
         double y = 71;
-        double z = -66.500;
+        double z = -160.500;
 
         return new Location(getWorld(), x, y, z);
     }
