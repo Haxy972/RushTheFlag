@@ -27,16 +27,16 @@ public class ScoreboardManager {
         ((ScoreboardSign) scoreboardGame.get(player)).setLine(9, "§d");
         ((ScoreboardSign) scoreboardGame.get(player)).setLine(8, "§fJoueur: §b§l" + player.getName());
         ((ScoreboardSign) scoreboardGame.get(player)).setLine(7, "§fEquipe: §7§lAucune");
-        ((ScoreboardSign) scoreboardGame.get(player)).setLine(6, "§d");
+        ((ScoreboardSign) scoreboardGame.get(player)).setLine(6, "§2");
         ((ScoreboardSign) scoreboardGame.get(player)).setLine(5, "§c§lRouge§7: §a§l✔");
         ((ScoreboardSign) scoreboardGame.get(player)).setLine(4, "§9§lBleu§7: §a§l✔");
-        ((ScoreboardSign) scoreboardGame.get(player)).setLine(3, "§e");
+        ((ScoreboardSign) scoreboardGame.get(player)).setLine(3, "§a");
         ((ScoreboardSign) scoreboardGame.get(player)).setLine(2, "§fKit: §e§lAucun");
         ((ScoreboardSign) scoreboardGame.get(player)).setLine(1, "§d");
         ((ScoreboardSign) scoreboardGame.get(player)).setLine(0, "    §fplay.selarium.fr");
 
-        scoreboardGame.get(player).setLine(2, "§fKit: §e§lAucun");
-        scoreboardGame.get(player).setLine(7, "§fEquipe: §7§lAucune");
+//        scoreboardGame.get(player).setLine(2, "§fKit: §e§lAucun");
+//        scoreboardGame.get(player).setLine(7, "§fEquipe: §7§lAucune");
     }
 
 

@@ -22,6 +22,7 @@ public class ListenerManager {
         pluginManager.registerEvents(new OnPlayerJoin(), plugin);
         pluginManager.registerEvents(new TeamSelect(), plugin);
         pluginManager.registerEvents(new GameListener(), plugin);
+        pluginManager.registerEvents(new ResetListeners(), plugin);
 
 
 
