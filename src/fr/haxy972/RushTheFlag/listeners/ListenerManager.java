@@ -1,6 +1,5 @@
 package fr.haxy972.RushTheFlag.listeners;
 
-import fr.haxy972.RushTheFlag.Main;
 import fr.haxy972.RushTheFlag.team.TeamSelect;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
