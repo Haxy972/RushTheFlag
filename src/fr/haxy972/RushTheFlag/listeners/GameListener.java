@@ -118,6 +118,20 @@ public class GameListener implements Listener {
                     loc = new Location(Main.getWorld(), xs + x-0.5, ys + y , zs+ z-0.5);
                     blockat.add(loc);
 
+                    xs = Main.getSpawnRouge().getX();
+                    ys = Main.getSpawnRouge().getY();
+                    zs = Main.getSpawnRouge().getZ();
+
+                    loc = new Location(Main.getWorld(), xs + x - 0.5, ys + y, zs + z - 0.5);
+                    blockat.add(loc);
+
+                    xs = Main.getSpawnBleu().getX();
+                    ys = Main.getSpawnBleu().getY();
+                    zs = Main.getSpawnBleu().getZ();
+
+                    loc = new Location(Main.getWorld(), xs + x - 0.5, ys + y, zs + z - 0.5);
+                    blockat.add(loc);
+
 
 
 
@@ -129,6 +143,7 @@ public class GameListener implements Listener {
             event.setCancelled(true);
             player.sendMessage(Main.getPrefix() + "§cVous ne pouvez pas poser de blocs ici");
         }
+
 
 
     }
