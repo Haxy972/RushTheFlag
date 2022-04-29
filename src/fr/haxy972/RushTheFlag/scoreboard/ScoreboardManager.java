@@ -32,7 +32,6 @@ public class ScoreboardManager {
         ((ScoreboardSign) scoreboardGame.get(player)).setLine(4, "§9§lBleu§7: §a§l✔");
         ((ScoreboardSign) scoreboardGame.get(player)).setLine(3, "§a");
         ((ScoreboardSign) scoreboardGame.get(player)).setLine(2, "§fKit: §e§lAucun");
-        ((ScoreboardSign) scoreboardGame.get(player)).setLine(2, "§fKit: §e§lAucun");
         ((ScoreboardSign) scoreboardGame.get(player)).setLine(1, "§d");
         ((ScoreboardSign) scoreboardGame.get(player)).setLine(0, "    §fplay.selarium.fr");
 
