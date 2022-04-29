@@ -8,6 +8,7 @@ import fr.haxy972.RushTheFlag.listeners.ResetListeners;
 import fr.haxy972.RushTheFlag.runnables.GameRunnable;
 import fr.haxy972.RushTheFlag.runnables.ScoreboardRunnable;
 import fr.haxy972.RushTheFlag.scoreboard.ScoreboardManager;
+import fr.haxy972.RushTheFlag.utils.PluginUpdater;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
@@ -24,6 +25,12 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        PluginUpdater.check(this, "Haxy972", "RushTheFlag");
+
+
+
+
         this.INSTANCE = this;
         saveDefaultConfig();
         GameStatut.setStatut(GameStatut.INLOBBY);
