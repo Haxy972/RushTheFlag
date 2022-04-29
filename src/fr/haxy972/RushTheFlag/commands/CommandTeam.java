@@ -1,5 +1,6 @@
 package fr.haxy972.RushTheFlag.commands;
 
+import fr.haxy972.RushTheFlag.GameStatut;
 import fr.haxy972.RushTheFlag.Main;
 import fr.haxy972.RushTheFlag.team.TeamSelect;
 import org.bukkit.GameMode;
@@ -20,6 +21,13 @@ public class CommandTeam implements CommandExecutor {
 
         Player player = (Player) sender;
         if(cmd.getName().equalsIgnoreCase("join")){
+            if(GameStatut.isStatut(GameStatut.END)){
+                player.sendMessage(Main.getPrefix() + "§cAction impossible, veuillez attendre la fin de la partie");
+                return false;
+            }
+
+
+
             if(player.getGameMode().equals(GameMode.SPECTATOR) && !TeamSelect.teamBleu.contains(player) && !TeamSelect.teamRouge.contains(player)){
 
 

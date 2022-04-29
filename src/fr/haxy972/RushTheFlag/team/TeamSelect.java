@@ -40,6 +40,10 @@ public class TeamSelect implements Listener {
         ItemStack it = new ItemStack(Material.WOOL, 1, (byte)14);
         ItemMeta im = it.getItemMeta();
         im.setDisplayName("§c§lRouge");
+
+        ArrayList<String> lore = new ArrayList<String>();
+        lore.add("§7Joueurs§8» §e" + teamRouge.size());
+        im.setLore(lore);
         it.setItemMeta(im);
         inventory.setItem(3, it);
 
@@ -47,7 +51,11 @@ public class TeamSelect implements Listener {
         it = new ItemStack(Material.WOOL, 1, (byte)11);
         im = it.getItemMeta();
         im.setDisplayName("§9§lBleu");
+        lore = new ArrayList<String>();
+        lore.add("§7Joueurs§8» §e" + teamBleu.size());
+        im.setLore(lore);
         it.setItemMeta(im);
+
         inventory.setItem(5, it);
 
 
@@ -68,14 +76,20 @@ public class TeamSelect implements Listener {
         }
         if(inventory.getName().equalsIgnoreCase("§8Equipes§8§l»"))
             event.setCancelled(true);
+            int margeteam = 2;
             if (item.getType().equals(Material.WOOL)) {
 
                 if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lRouge")){
                     if(!teamRouge.contains(player) && !teamBleu.contains(player)) {
-                        player.closeInventory();
-                        player.sendMessage(Main.getPrefix() + "§7Vous avez rejoint l'équipe §c§lRouge");
-                        teamRouge.add(player);
-                        joinTeam(player, "rouge");
+                        if(teamRouge.size() <= teamBleu.size() + margeteam) {
+                            player.closeInventory();
+                            player.sendMessage(Main.getPrefix() + "§7Vous avez rejoint l'équipe §c§lRouge");
+                            teamRouge.add(player);
+                            joinTeam(player, "rouge");
+                        }else{
+                            player.sendMessage(Main.getPrefix() + "§cIl n'y a pas assez de joueur dans l'autre équipe");
+                            player.sendMessage(Main.getPrefix() + "§eChangez de camp ou attendez :/");
+                        }
                     }else if(teamBleu.contains(player)) {
 
                         teamBleu.remove(player);
@@ -90,10 +104,16 @@ public class TeamSelect implements Listener {
 
                 if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§9§lBleu")) {
                     if(!teamBleu.contains(player) && !teamRouge.contains(player)) {
-                        player.closeInventory();
-                        player.sendMessage(Main.getPrefix() + "§7Vous avez rejoint l'équipe §9§lBleu");
-                        teamBleu.add(player);
-                        joinTeam(player, "bleu");
+
+                        if(teamBleu.size() <= teamRouge.size() + margeteam) {
+                            player.closeInventory();
+                            player.sendMessage(Main.getPrefix() + "§7Vous avez rejoint l'équipe §9§lBleu");
+                            teamBleu.add(player);
+                            joinTeam(player, "bleu");
+                        }else{
+                            player.sendMessage(Main.getPrefix() + "§cIl n'y a pas assez de joueur dans l'autre équipe");
+                            player.sendMessage(Main.getPrefix() + "§eChangez de camp ou attendez :/");
+                        }
                     }else if(teamRouge.contains(player)){
                         teamRouge.remove(player);
                         player.sendMessage(Main.getPrefix() + "§cERREUR ACTION IMPOSSIBLE");

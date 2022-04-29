@@ -28,6 +28,8 @@ public class OnPlayerJoin implements Listener {
         armor[1].setType(Material.AIR);
         armor[2].setType(Material.AIR);
         armor[3].setType(Material.AIR);
+        player.setHealth(20);
+        player.setFoodLevel(20);
         player.getInventory().setArmorContents(armor);
         if(!ScoreboardManager.scoreboardGame.containsKey(player)){
             new ScoreboardManager(player).loadScoreboard();

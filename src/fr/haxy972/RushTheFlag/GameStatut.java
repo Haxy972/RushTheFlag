@@ -2,7 +2,7 @@ package fr.haxy972.RushTheFlag;
 
 public enum GameStatut {
 
-    INGAME(), INLOBBY();
+    INGAME(), INLOBBY(), END();
 
 
 

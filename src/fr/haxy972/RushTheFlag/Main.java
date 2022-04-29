@@ -4,15 +4,19 @@ import fr.haxy972.RushTheFlag.commands.CommandDebug;
 import fr.haxy972.RushTheFlag.commands.CommandKits;
 import fr.haxy972.RushTheFlag.commands.CommandTeam;
 import fr.haxy972.RushTheFlag.listeners.ListenerManager;
+import fr.haxy972.RushTheFlag.listeners.ResetListeners;
 import fr.haxy972.RushTheFlag.runnables.GameRunnable;
 import fr.haxy972.RushTheFlag.runnables.ScoreboardRunnable;
 import fr.haxy972.RushTheFlag.scoreboard.ScoreboardManager;
 import org.bukkit.*;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
+    public static final boolean DEBUG = true;
     public static Main INSTANCE;
 
 
@@ -50,12 +54,24 @@ public class Main extends JavaPlugin {
         armor[1].setType(Material.AIR);
         armor[2].setType(Material.AIR);
         armor[3].setType(Material.AIR);
-
+        player.setFoodLevel(20);
+        player.setHealth(20);
+        player.closeInventory();
 
         player.getInventory().setArmorContents(armor);
         new ScoreboardRunnable().runTaskTimer(this, 0, 1);
         new GameRunnable().runTaskTimer(this, 0, 20);
         player.playSound(player.getLocation(), Sound.LEVEL_UP, 1f, 1f);
+
+        for(Chunk chunk : Main.getWorld().getLoadedChunks()){
+            for(Entity en : chunk.getEntities()){
+                if(en instanceof Item){
+                    en.remove();
+                }
+            }
+        }
+
+
 
         Bukkit.getScheduler().runTaskLater(this, new Runnable() {
             @Override
@@ -73,6 +89,8 @@ public class Main extends JavaPlugin {
                 ScoreboardManager.scoreboardGame.remove(player);
             }
         }
+        ResetListeners.reloadBlocks();
+        Bukkit.broadcastMessage(Main.getPrefix() + "§aLa map a été regénérée");
     }
 
     public static String getPrefix() {
@@ -92,17 +110,17 @@ public class Main extends JavaPlugin {
     }
 
     public static Location getSpawnBleu() {
-        double x = -599.897;
+        double x = -599.500;
         double y = 70;
-        double z = -167.770;
+        double z = -167.500;
         int yaw = 114;
         int pitch = -3;
         return new Location(getWorld(), x, y, z, yaw, pitch);
     }
     public static Location getSpawnRouge() {
-        double x = -601.561;
+        double x = -601.500;
         double y = 70;
-        double z = -59.477;
+        double z = -59.500;
         int yaw = -60;
         int pitch = -4;
 
