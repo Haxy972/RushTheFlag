@@ -6,6 +6,7 @@ import fr.haxy972.RushTheFlag.listeners.GameListener;
 import fr.haxy972.RushTheFlag.listeners.ResetListeners;
 import fr.haxy972.RushTheFlag.scoreboard.ScoreboardManager;
 import fr.haxy972.RushTheFlag.team.TeamSelect;
+import fr.haxy972.RushTheFlag.utils.PluginUpdater;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,14 +23,7 @@ public class CommandDebug implements CommandExecutor {
         Player player = (Player) sender;
         if(cmd.getName().equalsIgnoreCase("debug")){
             if(args.length == 1){
-                if(GameListener.hasRedWool != null) {
-                    Bukkit.broadcastMessage("Red: " + GameListener.hasRedWool.getName());
-                }
-
-                if(GameListener.hasBlueWool != null) {
-                    Bukkit.broadcastMessage("Blue: " + GameListener.hasBlueWool.getName());
-                }
-
+                PluginUpdater.check(Main.INSTANCE, "Haxy972", "RushTheFlag");
             }else{
                 player.sendMessage("§c/debug <args>");
                 GameListener.hasRedWool = null;

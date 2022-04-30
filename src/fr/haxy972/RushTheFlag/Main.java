@@ -19,15 +19,18 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin {
     public static final boolean DEBUG = true;
     public static Main INSTANCE;
-
+    public static boolean blocked = false;
 
 
 
     @Override
     public void onEnable() {
 
-        PluginUpdater.check(this, "Haxy972", "RushTheFlag");
 
+        PluginUpdater.check(this, "Haxy972", "RushTheFlag");
+        if (blocked){
+            return;
+        }
 
 
 
@@ -97,7 +100,7 @@ public class Main extends JavaPlugin {
             }
         }
         ResetListeners.reloadBlocks();
-        Bukkit.broadcastMessage(Main.getPrefix() + "§aLa map a été regénérée");
+
     }
 
     public static String getPrefix() {

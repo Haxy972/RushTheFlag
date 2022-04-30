@@ -76,7 +76,7 @@ public class ResetListeners implements Listener {
 
     }
 
-    @EventHandler
+
     public static void reloadBlocks() {
         //replace par air
         for (Location loc : blocksPlaced.keySet()) {
