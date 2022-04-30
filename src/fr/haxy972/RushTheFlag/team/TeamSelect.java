@@ -287,7 +287,7 @@ public class TeamSelect implements Listener {
         }
     }
 
-    private void replaceArmor(Player player) {
+    public static void replaceArmor(Player player) {
 
         ItemStack[] armor = player.getInventory().getArmorContents();
         String team = null;

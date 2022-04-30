@@ -1,5 +1,6 @@
 package fr.haxy972.RushTheFlag.runnables;
 
+import fr.haxy972.RushTheFlag.GameStatut;
 import fr.haxy972.RushTheFlag.Main;
 import fr.haxy972.RushTheFlag.team.TeamSelect;
 import fr.haxy972.RushTheFlag.utils.MessageYaml;
@@ -8,6 +9,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.ArrayList;
 
 
 public class DeathRunnable extends BukkitRunnable {
@@ -39,7 +42,18 @@ public class DeathRunnable extends BukkitRunnable {
 
     }
 
+    public static ArrayList<Player> respawnedList = new ArrayList<>();
+
+
     private void respawn(Player player) {
+
+        if(GameStatut.isStatut(GameStatut.END)){
+            player.setGameMode(GameMode.SPECTATOR);
+            return;
+        }
+
+
+
         if(TeamSelect.teamBleu.contains(player)){
             player.teleport(Main.getSpawnBleu());
             player.setGameMode(GameMode.SURVIVAL);
@@ -48,8 +62,17 @@ public class DeathRunnable extends BukkitRunnable {
         if(TeamSelect.teamRouge.contains(player)){
             player.teleport(Main.getSpawnRouge());
             player.setGameMode(GameMode.SURVIVAL);
+
             player.setFoodLevel(20);
         }
+        player.sendMessage(Main.getPrefix() + "§7Vous pouvez changer de kit via §e§l/kits");
+        respawnedList.add(player);
+        Bukkit.getScheduler().runTaskLater(Main.INSTANCE, new Runnable() {
+            @Override
+            public void run() {
+                respawnedList.remove(player);
+            }
+        }, 3*20);
 
 
 

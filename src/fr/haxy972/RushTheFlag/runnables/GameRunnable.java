@@ -22,7 +22,7 @@ public class GameRunnable extends BukkitRunnable {
 
 
 
-
+        Main.getWorld().setTime(1000);
         if(!GameStatut.isStatut(GameStatut.END)){
             checkGameStatut();
             checkWools();
@@ -68,8 +68,9 @@ public class GameRunnable extends BukkitRunnable {
                         }else{
                             TitleManager.sendTitle(players, MessageYaml.getValue("team.end-default-title").replace("&", "§"), MessageYaml.getValue("team.end-default-subtitle").replace("&", "§").replace("{team}", "§c§lRouge"), 3 * 20);
                         }
-                        Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.restart").replace("&", "§"));
+
                     }
+                    Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.restart").replace("&", "§"));
 
                     Bukkit.getScheduler().runTaskLater(Main.INSTANCE, new Runnable() {
                         @Override
@@ -114,8 +115,9 @@ public class GameRunnable extends BukkitRunnable {
                         } else {
                             TitleManager.sendTitle(players, MessageYaml.getValue("team.end-default-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§9§lBleu"), 3 * 20);
                         }
-                        Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.restart").replace("&", "§"));
+
                     }
+                    Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.restart").replace("&", "§"));
 
                     Bukkit.getScheduler().runTaskLater(Main.INSTANCE, new Runnable() {
                         @Override

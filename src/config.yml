@@ -36,6 +36,7 @@ debug: false
 game:
   world: "world"
   # Join is also the death teleportation
+
   spawnJoin:
     x: -623.175
     y: 108
@@ -43,6 +44,9 @@ game:
     yaw: -89
     pitch: 43
   # Coordinates of spawn and nexus requires decimal (0.500)*
+  #
+  # IMPORTANT: Y value doesn't require 0.500 don't write ! Keep integer value
+  #
   spawnBlue:
     x: -599.500
     y: 70
@@ -81,6 +85,8 @@ game:
     # Value (-1) is for remove team selection on player join
     # It's to equilibrate team, an player can't join a team if team + {value} are >= other team count
     count-tolerance: 2
+    # Coins win with VoltEconomy
+    win-team-max-coins: 20
 
 
 # ------------------------------------ | OTHER OPTIONS | ------------------------------------#
@@ -106,6 +112,10 @@ blocks:
 kits:
   # Number of rows of kit inventory
   inventory-rows: 1
+
+# The player will be dead if his y-coordinate is under this value
+altitude-min: 0
+
 
 
 

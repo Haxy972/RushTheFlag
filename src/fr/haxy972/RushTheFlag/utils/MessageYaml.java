@@ -40,6 +40,7 @@ public class MessageYaml {
                 yaml.set("team.player-back", "&e{player}&a a ramené la laine {wool-color}&a à sa base");
                 yaml.set("team.lost-wool", "§e{player}§c a perdu la laine {wool-color}");
                 yaml.set("team.win", "&7L'equipe {team} &7gagne la partie");
+                yaml.set("team.same-team", "&cVous ne pouvez pas attaquer vos alliés");
                 yaml.set("team.win-title", "&a&lVictoire");
                 yaml.set("team.defeat-title", "&c&lDéfaite");
                 yaml.set("team.end-default-title", "&c&lFIN");

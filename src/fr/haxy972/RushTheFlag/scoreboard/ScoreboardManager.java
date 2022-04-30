@@ -22,7 +22,7 @@ public class ScoreboardManager {
     }
 
     public void loadScoreboard() {
-        scoreboard.setObjectiveName(Main.getPrefix().replace("§8»", ""));
+        scoreboard.setObjectiveName(Main.getPrefix().replace("§8»", "").replace(">", ""));
         scoreboard.create();
         ((ScoreboardSign) scoreboardGame.get(player)).setLine(9, "§d");
         ((ScoreboardSign) scoreboardGame.get(player)).setLine(8, "§fJoueur: §b§l" + player.getName());

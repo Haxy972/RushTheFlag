@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -47,7 +48,7 @@ public class CommandKits implements CommandExecutor {
 
                 im.setLore(lore);
                 im.setDisplayName(yaml.getString("display-name").replace("&", "§"));
-
+                im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                 it.setItemMeta(im);
                 return it;
 
@@ -251,7 +252,6 @@ public class CommandKits implements CommandExecutor {
         }
         Player player = (Player) sender;
         if (cmd.getName().equalsIgnoreCase("rushtheflag") ||cmd.getName().equalsIgnoreCase("rtf")) {
-            Bukkit.broadcastMessage(GameStatut.getStatut().toString());
             if (args.length > 0) {
                 if (args.length >= 1) {
 
