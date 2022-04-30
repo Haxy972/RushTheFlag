@@ -79,7 +79,7 @@ public class GameListener implements Listener {
         event.getDrops().clear();
 
     }
-    @EventHandler
+
     public void onDeath(Player player){
 
 
