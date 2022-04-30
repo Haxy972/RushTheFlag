@@ -23,6 +23,7 @@ import java.util.Map;
 
 public class CommandKits implements CommandExecutor {
     private static Map<Integer, ItemStack> kit = new HashMap<>();
+
     private String kitName;
 
     public static ItemStack getKit(String kitName) {
@@ -337,6 +338,23 @@ public class CommandKits implements CommandExecutor {
             e.printStackTrace();
         }
     }
+
+    public static void createKitFolder(){
+        File file = new File("plugins/RushTheFlag/kits/");
+        try {
+            if(!file.isDirectory()){
+                file.mkdir();
+            }
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
 
     private void createKit(Player player) {
         File folder = new File("plugins/RushTheFlag/kits/");

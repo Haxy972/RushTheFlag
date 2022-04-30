@@ -18,7 +18,7 @@
 #              The plugin settings section is to modify visual settings                        #
 #----------------------------------------------------------------------------------------------#
 
-prefix: "&b&lRush&f&lThe&b&lFlag&8» "
+prefix: "&b&lRush&f&lThe&b&lFlag&8> "
 
 # The red team has 1 player in more, it's very useful for test
 # If you are solo go to the blue team to test
@@ -102,6 +102,10 @@ blocks:
   # Allow infinite sandstone
   # On place of sandstone the amount of sandstone doesn't drop of
   infinite-sandstone: false
+
+kits:
+  # Number of rows of kit inventory
+  inventory-rows: 1
 
 
 

@@ -2,6 +2,7 @@ package fr.haxy972.RushTheFlag.listeners;
 
 import fr.haxy972.RushTheFlag.GameStatut;
 import fr.haxy972.RushTheFlag.Main;
+import fr.haxy972.RushTheFlag.commands.CommandKits;
 import fr.haxy972.RushTheFlag.runnables.DeathRunnable;
 import fr.haxy972.RushTheFlag.team.TeamSelect;
 import fr.haxy972.RushTheFlag.utils.MessageYaml;
@@ -79,10 +80,16 @@ public class GameListener implements Listener {
         TitleManager.sendTitle(player,MessageYaml.getValue("death.title").replace("&", "§"), MessageYaml.getValue("death.subtitle").replace("&", "§"), 40);
         new DeathRunnable(player).runTaskTimer(Main.INSTANCE, 0,20);
         event.setKeepInventory(true);
+        for(ItemStack item : player.getInventory()){
+            if(item.getType() == Material.SANDSTONE){
+                item.setAmount(64);
+            }
+        }
         event.setDeathMessage("");
         event.getDrops().clear();
 
         checkIfHasWool(player);
+        CommandKits.getKitContent(player, TeamSelect.playerKit.get(player).replace(".yml", ""));
 
     }
 
@@ -95,6 +102,7 @@ public class GameListener implements Listener {
         TitleManager.sendTitle(player,MessageYaml.getValue("death.title").replace("&", "§"), MessageYaml.getValue("death.subtitle").replace("&", "§"), 40);
         new DeathRunnable(player).runTaskTimer(Main.INSTANCE, 0,20);
         checkIfHasWool(player);
+        CommandKits.getKitContent(player, TeamSelect.playerKit.get(player).replace(".yml", ""));
     }
 
     private void checkIfHasWool(Player player) {

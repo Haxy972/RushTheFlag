@@ -10,6 +10,8 @@ package fr.haxy972.RushTheFlag.utils;
 
 import fr.haxy972.RushTheFlag.Main;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.BufferedReader;
@@ -19,6 +21,8 @@ import java.net.URL;
 import java.util.Objects;
 
 public class PluginUpdater {
+    private static String prefix = Main.INSTANCE.getConfig().getString("prefix").replace("&", "§");
+
     public static void check(JavaPlugin plugin, String user, String repo) {
         String currentversion = plugin.getDescription().getVersion();
         Bukkit.getLogger().info("[RushTheFlag] --> Verification du paiement...");
@@ -28,12 +32,15 @@ public class PluginUpdater {
             InputStreamReader ir = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(ir);
             String checkBlocked = br.readLine();
-            checkBlocked = "false";
             if (checkBlocked.equals("true")) {
                 Bukkit.getLogger().info("Version: bloque");
-                Bukkit.broadcastMessage(Main.getPrefix() + "§c§lPlugin verouille");
-                Bukkit.broadcastMessage(Main.getPrefix() + "§cVous devez payer le plugin");
-                Bukkit.broadcastMessage(Main.getPrefix() + "§7Si vous voulez que le plugin refonctionne, veuillez payer");
+                Bukkit.broadcastMessage(prefix + "§c§lPlugin verouille");
+                Bukkit.broadcastMessage(prefix + "§cVous devez payer le plugin");
+                Bukkit.broadcastMessage(prefix + "§7Si vous voulez que le plugin refonctionne, veuillez payer");
+                for(Player players : Bukkit.getOnlinePlayers()){
+                    players.playSound(players.getLocation(), Sound.NOTE_PLING, 2,2);
+                }
+
                 Main.blocked = true;
             }else{
                 Bukkit.getLogger().info("[RushTheFlag] --> Paiement effectue.");
@@ -50,9 +57,12 @@ public class PluginUpdater {
                 String checkBlocked = br.readLine();
                 if (checkBlocked.equals("true")) {
                     Bukkit.getLogger().info("Version: bloque");
-                    Bukkit.broadcastMessage(Main.getPrefix() + "§c§lPlugin verouille");
-                    Bukkit.broadcastMessage(Main.getPrefix() + "§cVous devez payer le plugin");
-                    Bukkit.broadcastMessage(Main.getPrefix() + "§7Si vous voulez que le plugin refonctionne, veuillez payer");
+                    Bukkit.broadcastMessage(prefix + "§c§lPlugin verouille");
+                    Bukkit.broadcastMessage(prefix + "§cVous devez payer le plugin");
+                    Bukkit.broadcastMessage(prefix + "§7Si vous voulez que le plugin refonctionne, veuillez payer");
+                    for(Player players : Bukkit.getOnlinePlayers()){
+                        players.playSound(players.getLocation(), Sound.NOTE_PLING, 2,2);
+                    }
 
                     Main.blocked = true;
                 }else{
@@ -60,9 +70,13 @@ public class PluginUpdater {
                 }
             } catch (Throwable e) {
                 Bukkit.getLogger().info("[RushTheFlag] --> Erreur lors de la verification, veuillez contacter l'auteur du programme");
-                Bukkit.broadcastMessage(Main.getPrefix() + "§c§lPlugin verouille");
-                Bukkit.broadcastMessage(Main.getPrefix() + "§7Une erreur est survenue lors de la verification du paiement");
-                Bukkit.broadcastMessage(Main.getPrefix() + "§7Le plugin est donc §c§lbloque §7jusqu'a nouvel ordre");
+                Bukkit.broadcastMessage(prefix + "§c§lPlugin verouille");
+                Bukkit.broadcastMessage(prefix + "§7Une erreur est survenue lors de la verification du paiement");
+                Bukkit.broadcastMessage(prefix + "§7Le plugin est donc §c§lbloque §7jusqu'a nouvel ordre");
+                for(Player players : Bukkit.getOnlinePlayers()){
+                    players.playSound(players.getLocation(), Sound.NOTE_PLING, 2,2);
+                }
+
                 Main.blocked = true;
             }
         }

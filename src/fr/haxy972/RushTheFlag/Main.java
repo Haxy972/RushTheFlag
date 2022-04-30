@@ -79,25 +79,27 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
+        this.INSTANCE = this;
         saveDefaultConfig();
         MessageYaml.checkYaml();
+        CommandKits.createKitFolder();
         PluginUpdater.check(this, "Haxy972", "MyPluginBlocker");
-        if (blocked) {
-            return;
-        }
 
 
-        this.INSTANCE = this;
+        if (!blocked) {
 
-        GameStatut.setStatut(GameStatut.INLOBBY);
-        new ListenerManager(INSTANCE).registerEvent();
-        getCommand("join").setExecutor(new CommandTeam());
-        getCommand("kits").setExecutor(new CommandTeam());
-        getCommand("rushtheflag").setExecutor(new CommandKits());
 
-        for (Player players : Bukkit.getOnlinePlayers()) {
-            serverReloaded(players);
+
+
+            GameStatut.setStatut(GameStatut.INLOBBY);
+            new ListenerManager(INSTANCE).registerEvent();
+            getCommand("join").setExecutor(new CommandTeam());
+            getCommand("kits").setExecutor(new CommandTeam());
+            getCommand("rushtheflag").setExecutor(new CommandKits());
+
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                serverReloaded(players);
+            }
         }
 
 

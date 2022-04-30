@@ -161,8 +161,10 @@ public class TeamSelect implements Listener {
 
     public static void kitChoose(Player player) {
 
+
+        int range = Main.INSTANCE.getConfig().getInt("kits.inventory-rows");
         player.sendMessage(Main.getPrefix() + MessageYaml.getValue("kits.choose-kit").replace("&", "§"));
-        Inventory kitInventory = Bukkit.createInventory(player, 9, "§b§lKits");
+        Inventory kitInventory = Bukkit.createInventory(player, range*9, "§b§lKits");
 
 
 
@@ -186,11 +188,33 @@ public class TeamSelect implements Listener {
             }
             kitInventory.setItem(0 + i , CommandKits.getKit(list.get(i).replace(".yml", "")));
         }
+        File show = new File("plugins/RushTheFlag/kits/");
+        boolean havefile = false;
+        try {
+            if(show.isDirectory()) {
+                for(File file2 : show.listFiles()){
+                    havefile = true;
+                }
+            }
 
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        if(!havefile){
+            ItemStack item = new ItemStack(Material.BARRIER);
+            ItemMeta im = item.getItemMeta();
+            im.setDisplayName("§cAuncun");
+            ArrayList<String> lore = new ArrayList<>();
+            lore.add("§7Vérifiez la configuration du plugin");
+            lore.add("§ePour en ajouter: §c/rtf kits add <nom>");
+            im.setLore(lore);
+            item.setItemMeta(im);
+            kitInventory.setItem(0, item);
+        }
 
         player.openInventory(kitInventory);
     }
-
+    public static Map<Player, String> playerKit = new HashMap<>();
     @EventHandler
     public void kitInteract(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
@@ -229,6 +253,7 @@ public class TeamSelect implements Listener {
                     isHere= true;
                     clickedOn = kitCorrespondance.get(item.getItemMeta().getDisplayName());
                     player.playSound(player.getLocation(), Sound.NOTE_PLING, 1f,1f);
+
                     player.sendMessage(Main.getPrefix() + MessageYaml.getValue("kits.chosen-kit").replace("&", "§").replace("{kit}", "" + item.getItemMeta().getDisplayName()));
 
                     if(ScoreboardManager.scoreboardGame.containsKey(player)){
@@ -244,6 +269,10 @@ public class TeamSelect implements Listener {
                 if(!hasKit.contains(player)){
                     hasKit.add(player);
                 }
+                if(playerKit.containsKey(player)){
+
+                }
+                playerKit.put(player, clickedOn);
                 player.closeInventory();
 
             }
@@ -358,6 +387,23 @@ public class TeamSelect implements Listener {
     public void onInventoryClose(InventoryCloseEvent event){
         Player player = (Player) event.getPlayer();
         if(event.getInventory().getName().equalsIgnoreCase("§b§lKits")) {
+            File show = new File("plugins/RushTheFlag/kits/");
+            boolean havefile = false;
+            try {
+                if(show.isDirectory()) {
+                    for(File file2 : show.listFiles()){
+                        havefile = true;
+                    }
+                }
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            if(!havefile){
+                hasKit.add(player);
+                player.playSound(player.getLocation(), Sound.NOTE_PLING, 2,2);
+            }
+
             if (!hasKit.contains(player)) {
                 player.sendMessage(Main.getPrefix() + MessageYaml.getValue("kits.please-choose").replace("&", "§"));
                 Bukkit.getScheduler().runTaskLater(Main.INSTANCE, new Runnable() {
@@ -369,6 +415,12 @@ public class TeamSelect implements Listener {
                     }
                 }, 1/100000000);
 
+            }
+            if(!havefile){
+                hasKit.remove(player);
+                player.sendMessage(Main.getPrefix() + "§cVeuillez modifier la configuration du plugin");
+                player.sendMessage(Main.getPrefix() + "§eAucun kit enregistré");
+                player.playSound(player.getLocation(), Sound.NOTE_PLING, 2,2);
             }
         }
     }
