@@ -4,6 +4,7 @@ import fr.haxy972.RushTheFlag.GameStatut;
 import fr.haxy972.RushTheFlag.Main;
 import fr.haxy972.RushTheFlag.runnables.DeathRunnable;
 import fr.haxy972.RushTheFlag.team.TeamSelect;
+import fr.haxy972.RushTheFlag.utils.MessageYaml;
 import fr.haxy972.RushTheFlag.utils.TitleManager;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -17,6 +18,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,8 +29,7 @@ public class GameListener implements Listener {
 
     @EventHandler
     public void onFood(FoodLevelChangeEvent event){
-        Player player = (Player) event.getEntity();
-        player.setFoodLevel(20);
+        event.setCancelled(true);
     }
 
     @EventHandler
@@ -71,12 +73,16 @@ public class GameListener implements Listener {
 
         Player player = event.getEntity();
         player.setGameMode(GameMode.SPECTATOR);
+        player.teleport(Main.getJoinSpawn());
+
         player.setHealth(20);
-        TitleManager.sendTitle(player,"§c§lMort", "§7Vous allez bientot réapparaître", 40);
+        TitleManager.sendTitle(player,MessageYaml.getValue("death.title").replace("&", "§"), MessageYaml.getValue("death.subtitle").replace("&", "§"), 40);
         new DeathRunnable(player).runTaskTimer(Main.INSTANCE, 0,20);
         event.setKeepInventory(true);
         event.setDeathMessage("");
         event.getDrops().clear();
+
+        checkIfHasWool(player);
 
     }
 
@@ -84,9 +90,40 @@ public class GameListener implements Listener {
 
 
         player.setGameMode(GameMode.SPECTATOR);
+        player.teleport(Main.getJoinSpawn());
         player.setHealth(20);
-        TitleManager.sendTitle(player,"§c§lMort", "§7Vous allez bientot réapparaître", 40);
+        TitleManager.sendTitle(player,MessageYaml.getValue("death.title").replace("&", "§"), MessageYaml.getValue("death.subtitle").replace("&", "§"), 40);
         new DeathRunnable(player).runTaskTimer(Main.INSTANCE, 0,20);
+        checkIfHasWool(player);
+    }
+
+    private void checkIfHasWool(Player player) {
+
+        if(hasBlueWool == player){
+
+            player.getInventory().setContents(hasBlueWoolInventory);
+
+            ItemStack[] armored = hasBlueArmor;
+            player.getInventory().setArmorContents(hasBlueArmor);
+
+            Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.lost-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§9§lBleu"));
+            hasBlueWool = null;
+            hasBlueArmor = null;
+            hasBlueWoolInventory = null;
+        }
+
+        if(hasRedWool == player){
+
+            player.getInventory().setContents(hasRedWoolInventory);
+
+            ItemStack[] armored = hasRedArmor;
+            player.getInventory().setArmorContents(hasRedArmor);
+
+            Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.lost-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§c§lRouge"));
+            hasRedWool = null;
+            hasRedArmor = null;
+            hasRedWoolInventory = null;
+        }
 
     }
 
@@ -97,7 +134,14 @@ public class GameListener implements Listener {
         Player player = event.getPlayer();
 
 
+        if(event.getBlockPlaced().getType() == Material.WOOL){
+            if(event.getBlockPlaced().getData() == 14 || event.getBlockPlaced().getData() == 11){
 
+                player.sendMessage(Main.getPrefix() + MessageYaml.getValue("blocks.cant-place-wool").replace("&", "§"));
+                event.setCancelled(true);
+                return;
+            }
+        }
 
         ArrayList<Location> blockat = new ArrayList<>();
         for(int x = -2; x <= 2; x++){
@@ -123,31 +167,61 @@ public class GameListener implements Listener {
         }
         if(blockat.contains(event.getBlockPlaced().getLocation())){
             event.setCancelled(true);
-            player.sendMessage(Main.getPrefix() + "§cVous ne pouvez pas poser de blocs ici");
+            player.sendMessage(Main.getPrefix() + MessageYaml.getValue("blocks.cant-place").replace("&", "§"));
         }
 
     }
+
+
+
+
+
+
     public static Player hasRedWool = null;
+    public static ItemStack[] hasRedWoolInventory = null;
+    public static ItemStack[] hasRedArmor = null;
+
     public static Player hasBlueWool = null;
+    public static ItemStack[] hasBlueWoolInventory = null;
+    public static ItemStack[] hasBlueArmor = null;
 
     @EventHandler
     public void onFlagBreak(BlockBreakEvent event){
 
 
+
+
         Player player = event.getPlayer();
 
-        if(GameStatut.isStatut(GameStatut.INLOBBY)){
-            player.sendMessage(Main.getPrefix() + "§cIl n'y a personne dans l'équipe adverse, action impossible");
-            event.setCancelled(true);
-            return;
+        if(!GameStatut.isStatut(GameStatut.INLOBBY)) {
+            if (event.getBlock().getType() == Material.WOOL) {
+                if (event.getBlock().getData() == 14) {
+                    if (!TeamSelect.teamRouge.contains(player)) {
+                        event.getBlock().getDrops().clear();
+                        event.setCancelled(true);
+                        event.getBlock().setType(Material.AIR);
+                    }
+
+                } else if (event.getBlock().getData() == 11) {
+                    if (!TeamSelect.teamBleu.contains(player)) {
+                        event.getBlock().getDrops().clear();
+                        event.setCancelled(true);
+                        event.getBlock().setType(Material.AIR);
+                    }
+
+                }
+            }
         }
+
+
 
 
         ArrayList<Location> blockatbleu = new ArrayList<>();
         ArrayList<Location> blockatrouge = new ArrayList<>();
-        for(int x = -2; x <= 2; x++){
-            for(int y = -2; y <= 2; y++){
-                for(int z = -2; z <= 2; z++){
+        int margeflag = Main.INSTANCE.getConfig().getInt("regions.flag");
+        for(int x = -margeflag; x <= margeflag; x++){
+            for(int y = -margeflag; y <= margeflag; y++){
+                for(int z = -margeflag; z <= margeflag; z++){
 
                     double xs = Main.getNexusRouge().getX();
                     double ys = Main.getNexusRouge().getY();
@@ -167,14 +241,41 @@ public class GameListener implements Listener {
 
         }
         if(blockatrouge.contains(event.getBlock().getLocation())){
-            if(event.getBlock().getType() != Material.WOOL) {
+            if(event.getBlock().getType() != Material.WOOL && event.getBlock().getType() != Material.AIR && !TeamSelect.teamRouge.contains(player)) {
                 event.setCancelled(true);
-                player.sendMessage(Main.getPrefix() + "§cVous ne pouvez pas casser de blocs ici");
+                player.sendMessage(Main.getPrefix() + MessageYaml.getValue("blocks.cant-place").replace("&", "§"));
 
             }else{
                 if(TeamSelect.teamBleu.contains(player)){
-                    Bukkit.broadcastMessage(Main.getPrefix() + "§e" + player.getName() + "§a a récupéré la laine §c§lRouge§a !");
+                    if(GameStatut.isStatut(GameStatut.INLOBBY)){
+                        player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.no-one").replace("&", "§"));
+                        event.setCancelled(true);
+                        return;
+                    }
+                    hasRedArmor = player.getInventory().getArmorContents();
+                    hasRedWoolInventory = player.getInventory().getContents();
                     hasRedWool = player;
+                    player.getInventory().clear();
+
+                    Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.take-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§c§lRouge"));
+                    ItemStack[] armor = player.getInventory().getArmorContents();
+
+
+
+
+
+                    for(int i = 0; i < 9; i++){
+                        player.getInventory().setItem(i, new ItemStack(Material.WOOL, 1, (short) 0, (byte) 14));
+
+                    }
+
+
+                    armor[0].setType(Material.AIR);
+                    armor[1].setType(Material.AIR);
+                    armor[2].setType(Material.AIR);
+                    armor[3] = new ItemStack(new ItemStack(Material.WOOL, 1, (short) 0, (byte) 14));
+                    player.getInventory().setArmorContents(armor);
+
 
 
                     for(Player players : Bukkit.getOnlinePlayers()){
@@ -194,19 +295,41 @@ public class GameListener implements Listener {
 
                 }else if(TeamSelect.teamRouge.contains(player)){
                     event.setCancelled(true);
-                    player.sendMessage(Main.getPrefix() + "§cVous ne pouvez pas casser votre propre laine");
+                    player.sendMessage(Main.getPrefix() + MessageYaml.getValue("blocks.own-wool").replace("&", "§"));
                 }
             }
         }
         if(blockatbleu.contains(event.getBlock().getLocation())){
-            if(event.getBlock().getType() != Material.WOOL) {
+            if(event.getBlock().getType() != Material.WOOL && event.getBlock().getType() != Material.AIR && !TeamSelect.teamBleu.contains(player)) {
                 event.setCancelled(true);
-                player.sendMessage(Main.getPrefix() + "§cVous ne pouvez pas casser de blocs ici");
+                player.sendMessage(Main.getPrefix() + MessageYaml.getValue("blocks.cant-place").replace("&", "§"));
 
             }else{
                 if(TeamSelect.teamRouge.contains(player)){
-                    Bukkit.broadcastMessage(Main.getPrefix() + "§e" + player.getName() + "§a a récupéré la laine §9§lBleu§a !");
+                    if(GameStatut.isStatut(GameStatut.INLOBBY)){
+                        player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.no-one").replace("&", "§"));;
+                        event.setCancelled(true);
+                        return;
+                    }
+
+                    hasBlueArmor = player.getInventory().getArmorContents();
+                    hasBlueWoolInventory = player.getInventory().getContents();
                     hasBlueWool = player;
+                    player.getInventory().clear();
+                    Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.take-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§9§lBleu"));
+
+
+                    for(int i = 0; i < 9; i++){
+                        player.getInventory().setItem(i, new ItemStack(Material.WOOL, 1, (short) 0, (byte) 11));
+
+                    }
+
+                    ItemStack[] armor = player.getInventory().getArmorContents();
+                    armor[0].setType(Material.AIR);
+                    armor[1].setType(Material.AIR);
+                    armor[2].setType(Material.AIR);
+                    armor[3] = new ItemStack(new ItemStack(Material.WOOL, 1, (short) 0, (byte) 11));
+                    player.getInventory().setArmorContents(armor);
 
                     for(Player players : Bukkit.getOnlinePlayers()){
                         players.playSound(player.getLocation(), Sound.FIREWORK_LAUNCH, 1f, 1f);
@@ -225,7 +348,7 @@ public class GameListener implements Listener {
 
                 }else if(TeamSelect.teamBleu.contains(player)){
                     event.setCancelled(true);
-                    player.sendMessage(Main.getPrefix() + "§cVous ne pouvez pas casser votre propre laine");
+                    player.sendMessage(Main.getPrefix() + MessageYaml.getValue("blocks.own-wool").replace("&", "§"));
                 }
             }
         }
@@ -235,9 +358,18 @@ public class GameListener implements Listener {
     public void onBlockSpawnPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         ArrayList<Location> blockat = new ArrayList<>();
-        for (int x = -5; x <= 5; x++) {
-            for (int y = -4; y <= 4; y++) {
-                for (int z = -2; z <= 2; z++) {
+
+
+
+
+
+        int margeX = Main.INSTANCE.getConfig().getInt("regions.base.x");
+        int margeY = Main.INSTANCE.getConfig().getInt("regions.base.y");
+        int margeZ = Main.INSTANCE.getConfig().getInt("regions.base.z");
+
+        for (int x = -margeX; x <= margeX; x++) {
+            for (int y = -margeY; y <= margeY; y++) {
+                for (int z = -margeZ; z <= margeZ; z++) {
 
                     double xs = Main.getSpawnBleu().getX()-0.5;
                     double ys = Main.getSpawnBleu().getY();
@@ -256,16 +388,37 @@ public class GameListener implements Listener {
         }
         if(blockat.contains(event.getBlockPlaced().getLocation())){
             event.setCancelled(true);
-            player.sendMessage(Main.getPrefix() + "§cVous ne pouvez pas poser de blocs ici");
+            player.sendMessage(Main.getPrefix() + MessageYaml.getValue("blocks.cant-place").replace("&", "§"));
+        }
+        //INFINITE BLOCKS
+        if(event.isCancelled()){
+            return;
+        }
+        if(!Main.INSTANCE.getConfig().getBoolean("blocks.infinite-sandstone")){return;}
+
+        if(event.getBlockPlaced().getType() == Material.SANDSTONE){
+            int amount = player.getItemInHand().getAmount();
+            Bukkit.getScheduler().runTaskLater(Main.INSTANCE, new Runnable() {
+                @Override
+                public void run() {
+                    player.getItemInHand().setAmount(amount);
+                }
+            }, 1);
         }
     }
     @EventHandler
     public void onBlockSpawnBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         ArrayList<Location> blockat = new ArrayList<>();
-        for (int x = -5; x <= 5; x++) {
-            for (int y = -4; y <= 4; y++) {
-                for (int z = -2; z <= 2; z++) {
+
+
+        int margeX = Main.INSTANCE.getConfig().getInt("regions.base.x");
+        int margeY = Main.INSTANCE.getConfig().getInt("regions.base.y");
+        int margeZ = Main.INSTANCE.getConfig().getInt("regions.base.z");
+
+        for (int x = -margeX; x <= margeX; x++) {
+            for (int y = -margeY; y <= margeY; y++) {
+                for (int z = -margeZ; z <= margeZ; z++) {
 
                     double xs = Main.getSpawnBleu().getX()-0.5;
                     double ys = Main.getSpawnBleu().getY();
@@ -284,8 +437,9 @@ public class GameListener implements Listener {
         }
         if(blockat.contains(event.getBlock().getLocation())){
             event.setCancelled(true);
-            player.sendMessage(Main.getPrefix() + "§cVous ne pouvez pas casser de blocs ici");
+            player.sendMessage(Main.getPrefix() + MessageYaml.getValue("blocks.cant-place").replace("&", "§"));
         }
+
     }
 
     @EventHandler
@@ -300,16 +454,18 @@ public class GameListener implements Listener {
 
     }
 
+
+
     private String getTeam(Player player) {
 
         if(TeamSelect.teamBleu.contains(player)){
-            return "§9§lBleu §9" + player.getName() + "§8» §7";
+            return MessageYaml.getValue("team.chat-blue").replace("&", "§").replace("{player}", player.getName());
         }else if (TeamSelect.teamRouge.contains(player)){
-            return "§c§lRouge §c" + player.getName() + "§8» §7";
+            return MessageYaml.getValue("team.chat-red").replace("&", "§").replace("{player}", player.getName());
         }
 
 
-        return "§7" + player.getName() + "§8» §7";
+        return MessageYaml.getValue("team.chat-default").replace("&", "§").replace("{player}", player.getName());
     }
 
 }

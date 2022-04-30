@@ -14,6 +14,7 @@ public class ScoreboardRunnable extends BukkitRunnable {
         temp ++;
 
         for(Player players : Bukkit.getOnlinePlayers()){
+            players.setFoodLevel(20);
             if(ScoreboardManager.scoreboardGame.containsKey(players)){
                 if(temp == 1){
                     ScoreboardManager.scoreboardGame.get(players).setLine(0, "    §fplay.selarium.fr");

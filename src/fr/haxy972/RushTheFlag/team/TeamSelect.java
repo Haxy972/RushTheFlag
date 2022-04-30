@@ -3,6 +3,7 @@ package fr.haxy972.RushTheFlag.team;
 import fr.haxy972.RushTheFlag.Main;
 import fr.haxy972.RushTheFlag.commands.CommandKits;
 import fr.haxy972.RushTheFlag.scoreboard.ScoreboardManager;
+import fr.haxy972.RushTheFlag.utils.MessageYaml;
 import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -76,19 +77,20 @@ public class TeamSelect implements Listener {
         }
         if(inventory.getName().equalsIgnoreCase("§8Equipes§8§l»"))
             event.setCancelled(true);
-            int margeteam = 2;
+            int margeteam = Main.INSTANCE.getConfig().getInt("game.team.count-tolerance");
             if (item.getType().equals(Material.WOOL)) {
 
                 if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lRouge")){
                     if(!teamRouge.contains(player) && !teamBleu.contains(player)) {
                         if(teamRouge.size() <= teamBleu.size() + margeteam) {
                             player.closeInventory();
-                            player.sendMessage(Main.getPrefix() + "§7Vous avez rejoint l'équipe §c§lRouge");
+                            player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.join").replace("&", "§").replace("{team}", "§c§lRouge"));
+                            player.setPlayerListName(Main.INSTANCE.getConfig().getString("game.team.tab-name-red").replace("&", "§").replace("{player}", player.getName()));
                             teamRouge.add(player);
                             joinTeam(player, "rouge");
                         }else{
-                            player.sendMessage(Main.getPrefix() + "§cIl n'y a pas assez de joueur dans l'autre équipe");
-                            player.sendMessage(Main.getPrefix() + "§eChangez de camp ou attendez :/");
+                            player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.too-much-1").replace("&", "§"));
+                            player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.too-much-2").replace("&", "§"));
                         }
                     }else if(teamBleu.contains(player)) {
 
@@ -97,7 +99,7 @@ public class TeamSelect implements Listener {
                         player.kickPlayer(Main.getPrefix() + "§cErreur Système");
 
                     }else{
-                        player.sendMessage(Main.getPrefix() + "§c Vous êtes déjà dans cette équipe");
+                        player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.already").replace("&", "§"));
                     }
                 }
 
@@ -107,12 +109,14 @@ public class TeamSelect implements Listener {
 
                         if(teamBleu.size() <= teamRouge.size() + margeteam) {
                             player.closeInventory();
-                            player.sendMessage(Main.getPrefix() + "§7Vous avez rejoint l'équipe §9§lBleu");
+                            player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.join").replace("&", "§").replace("{team}", "§9§lBleu"));
+                            player.setPlayerListName(Main.INSTANCE.getConfig().getString("game.team.tab-name-blue").replace("&", "§").replace("{player}", player.getName()));
+
                             teamBleu.add(player);
                             joinTeam(player, "bleu");
                         }else{
-                            player.sendMessage(Main.getPrefix() + "§cIl n'y a pas assez de joueur dans l'autre équipe");
-                            player.sendMessage(Main.getPrefix() + "§eChangez de camp ou attendez :/");
+                            player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.too-much-1").replace("&", "§"));
+                            player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.too-much-2").replace("&", "§"));
                         }
                     }else if(teamRouge.contains(player)){
                         teamRouge.remove(player);
@@ -120,7 +124,7 @@ public class TeamSelect implements Listener {
                         player.kickPlayer(Main.getPrefix() + "§cErreur Système");
 
                     }else{
-                        player.sendMessage(Main.getPrefix() + "§cVous êtes déjà dans cette équipe");
+                        player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.already").replace("&", "§"));
                     }
 
                 }
@@ -157,7 +161,7 @@ public class TeamSelect implements Listener {
 
     public static void kitChoose(Player player) {
 
-        player.sendMessage(Main.getPrefix() + "§aVeuillez choisir un kit");
+        player.sendMessage(Main.getPrefix() + MessageYaml.getValue("kits.choose-kit").replace("&", "§"));
         Inventory kitInventory = Bukkit.createInventory(player, 9, "§b§lKits");
 
 
@@ -225,7 +229,8 @@ public class TeamSelect implements Listener {
                     isHere= true;
                     clickedOn = kitCorrespondance.get(item.getItemMeta().getDisplayName());
                     player.playSound(player.getLocation(), Sound.NOTE_PLING, 1f,1f);
-                    player.sendMessage(Main.getPrefix() + "§7Vous avez choisi le kit: " + item.getItemMeta().getDisplayName());
+                    player.sendMessage(Main.getPrefix() + MessageYaml.getValue("kits.chosen-kit").replace("&", "§").replace("{kit}", "" + item.getItemMeta().getDisplayName()));
+
                     if(ScoreboardManager.scoreboardGame.containsKey(player)){
                         ScoreboardManager.scoreboardGame.get(player).setLine(2, "§fKit: §r" + item.getItemMeta().getDisplayName());
                     }
@@ -354,7 +359,7 @@ public class TeamSelect implements Listener {
         Player player = (Player) event.getPlayer();
         if(event.getInventory().getName().equalsIgnoreCase("§b§lKits")) {
             if (!hasKit.contains(player)) {
-                player.sendMessage(Main.getPrefix() + "§cVous n'avez pas choisi de kit");
+                player.sendMessage(Main.getPrefix() + MessageYaml.getValue("kits.please-choose").replace("&", "§"));
                 Bukkit.getScheduler().runTaskLater(Main.INSTANCE, new Runnable() {
                     @Override
                     public void run() {

@@ -2,6 +2,7 @@ package fr.haxy972.RushTheFlag.listeners;
 
 import fr.haxy972.RushTheFlag.Main;
 import fr.haxy972.RushTheFlag.scoreboard.ScoreboardManager;
+import fr.haxy972.RushTheFlag.utils.MessageYaml;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -28,15 +29,18 @@ public class OnPlayerJoin implements Listener {
         armor[1].setType(Material.AIR);
         armor[2].setType(Material.AIR);
         armor[3].setType(Material.AIR);
-        player.setHealth(20);
+        if(!Main.INSTANCE.getConfig().getString("game.team.tab-name-default").equalsIgnoreCase("none")) {
+            player.setPlayerListName(Main.INSTANCE.getConfig().getString("game.team.tab-name-default").replace("&", "§").replace("{player}", player.getName()));
+        }
+            player.setHealth(20);
         player.setFoodLevel(20);
         player.getInventory().setArmorContents(armor);
         if(!ScoreboardManager.scoreboardGame.containsKey(player)){
             new ScoreboardManager(player).loadScoreboard();
         }
 
-        Bukkit.broadcastMessage("§7[§a+§7] §7" + player.getName());
-        player.sendMessage(Main.getPrefix() + "§7Tapez §e§l/join§7 pour rejoindre la partie");
+        Bukkit.broadcastMessage(MessageYaml.getValue("join.broadcast-message").replace("&", "§").replace("{player}", player.getName()));
+        player.sendMessage(MessageYaml.getValue("join.message-player").replace("&", "§").replace("{player}", player.getName()));
         player.setGameMode(GameMode.SPECTATOR);
         player.teleport(Main.getJoinSpawn());
     }
