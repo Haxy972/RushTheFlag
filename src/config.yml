@@ -1,0 +1,107 @@
+
+#        ╘╗_۩_╔╛                                               ╘╗_۩_╔╛
+#         ]█▓[                  Nom: Haxy                       ]█▓[
+#         ]█▓[                Discord: Haxy#3002                ]█▓[
+#         ]█▓[            Plugin Made by Haxy972                ]█▓[
+#         ]█▓[                                                  ]█▓[
+#         ]█▓[           Enjoy this beautiful plugin            ]█▓[
+#         ]█▓[                                                  ]█▓[
+#         ]█▓[                                                  ]█▓[
+#  ╘╗____╔╝█▓╚╗____╔╛                                    ╘╗____╔╝█▓╚╗____╔╛
+#
+# Made 30/04/22
+# Price 20€
+# For Selenia Server
+
+
+# ------------------------------------ | PLUGIN SETTINGS | ------------------------------------#
+#              The plugin settings section is to modify visual settings                        #
+#----------------------------------------------------------------------------------------------#
+
+prefix: "&b&lRush&f&lThe&b&lFlag&8» "
+
+# The red team has 1 player in more, it's very useful for test
+# If you are solo go to the blue team to test
+debug: false
+
+# Game Settings
+# Remember to reload your plugin after a modification of the config file
+
+# FOR ALL PERMISSIONS ON THIS PLUGIN ADD: RushTheFlag.*
+
+# ------------------------------------ | GAME OPTIONS | ------------------------------------#
+#           The game options section is to modify some settings like spawns and timer       #
+# ------------------------------------------------------------------------------------------#
+
+game:
+  world: "world"
+  # Join is also the death teleportation
+  spawnJoin:
+    x: -623.175
+    y: 108
+    z: -116.946
+    yaw: -89
+    pitch: 43
+  # Coordinates of spawn and nexus requires decimal (0.500)*
+  spawnBlue:
+    x: -599.500
+    y: 70
+    z: -167.500
+    yaw: 114
+    pitch: -3
+  spawnRed:
+    x: -601.500
+    y: 70
+    z: -59.500
+    yaw: -60
+    pitch: -4
+  # Nexus doesn't contain pitch and yaw
+  nexusBlue:
+    x: -600.500
+    y: 71
+    z: -160.500
+  nexusRed:
+    x: -600.500
+    y: 71
+    z: -66.500
+  death-timer: 5
+
+  team:
+    # Here you need to set the name of players in the tab
+
+    # To remove default grade please write "none"
+    # REMARKS: On reload of the game the player keep it's team tablist name if is "none"
+    # option: [{player} = player's name]
+
+    tab-name-default: "&7{player}"
+
+    tab-name-blue: "&9&lBleu &7{player}"
+    tab-name-red: "&c&lRouge &7{player}"
+
+    # Value (-1) is for remove team selection on player join
+    # It's to equilibrate team, an player can't join a team if team + {value} are >= other team count
+    count-tolerance: 2
+
+
+# ------------------------------------ | OTHER OPTIONS | ------------------------------------#
+#                        More options here to limit player action and movement               #
+# -------------------------------------------------------------------------------------------#
+
+# There is the region where you can build
+regions:
+  # Default value is 2, you can't build 2 blocks around the flag
+  flag: 2
+  # Default value is 2, you can't build 2 blocks around the flag
+  # Integer is required here
+  base:
+    x: 5
+    y: 4
+    z: 2
+
+blocks:
+  # Allow infinite sandstone
+  # On place of sandstone the amount of sandstone doesn't drop of
+  infinite-sandstone: false
+
+
+

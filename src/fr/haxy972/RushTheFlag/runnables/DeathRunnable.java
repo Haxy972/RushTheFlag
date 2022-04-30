@@ -2,6 +2,7 @@ package fr.haxy972.RushTheFlag.runnables;
 
 import fr.haxy972.RushTheFlag.Main;
 import fr.haxy972.RushTheFlag.team.TeamSelect;
+import fr.haxy972.RushTheFlag.utils.MessageYaml;
 import fr.haxy972.RushTheFlag.utils.TitleManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -13,7 +14,7 @@ public class DeathRunnable extends BukkitRunnable {
 
 
 
-    int timer = 6;
+    int timer = Main.INSTANCE.getConfig().getInt("game.death-timer") + 1;
     private Player player;
 
     public DeathRunnable(Player player) {
@@ -25,11 +26,11 @@ public class DeathRunnable extends BukkitRunnable {
 
 
         if (timer == 0) {
-            TitleManager.sendActionBar(player, "§eRéapparition en cours");
+            TitleManager.sendActionBar(player, MessageYaml.getValue("death.end").replace("&", "§"));
             respawn(player);
             this.cancel();
         } else {
-            TitleManager.sendActionBar(player, "§eRéapparition dans " + timer + getSeconds(timer));
+            TitleManager.sendActionBar(player, MessageYaml.getValue("death.timer").replace("&", "§").replace("{secondes}", "" + timer).replace("{unite}", getSeconds(timer)));
 
 
         }
@@ -42,10 +43,12 @@ public class DeathRunnable extends BukkitRunnable {
         if(TeamSelect.teamBleu.contains(player)){
             player.teleport(Main.getSpawnBleu());
             player.setGameMode(GameMode.SURVIVAL);
+            player.setFoodLevel(20);
         }
         if(TeamSelect.teamRouge.contains(player)){
             player.teleport(Main.getSpawnRouge());
             player.setGameMode(GameMode.SURVIVAL);
+            player.setFoodLevel(20);
         }
 
 
@@ -54,9 +57,9 @@ public class DeathRunnable extends BukkitRunnable {
 
     private String getSeconds ( int timer){
         if (timer == 1) {
-            return " seconde";
+            return "seconde";
         } else {
-            return " secondes";
+            return "secondes";
         }
 
     }

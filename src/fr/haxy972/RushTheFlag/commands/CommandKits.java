@@ -1,5 +1,6 @@
 package fr.haxy972.RushTheFlag.commands;
 
+import fr.haxy972.RushTheFlag.GameStatut;
 import fr.haxy972.RushTheFlag.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -249,6 +250,7 @@ public class CommandKits implements CommandExecutor {
         }
         Player player = (Player) sender;
         if (cmd.getName().equalsIgnoreCase("rushtheflag") ||cmd.getName().equalsIgnoreCase("rtf")) {
+            Bukkit.broadcastMessage(GameStatut.getStatut().toString());
             if (args.length > 0) {
                 if (args.length >= 1) {
 
