@@ -28,7 +28,6 @@ public class PluginUpdater {
             InputStreamReader ir = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(ir);
             String checkBlocked = br.readLine();
-            Bukkit.broadcastMessage(checkBlocked);
             if (checkBlocked.equals("true")) {
                 Bukkit.getLogger().info("Version: bloque");
                 Bukkit.broadcastMessage(Main.getPrefix() + "§c§lPlugin verouille");
