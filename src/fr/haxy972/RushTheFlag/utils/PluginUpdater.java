@@ -23,15 +23,14 @@ public class PluginUpdater {
         String currentversion = plugin.getDescription().getVersion();
         Bukkit.getLogger().info("[RushTheFlag] --> Verification du paiement...");
         try {
-            URL url = new URL(Objects.requireNonNull(
-                    Objects.requireNonNull("https://raw.githubusercontent.com/user-name/repo-name/main/blocked.txt")
-                            .replace("user-name", user).replace("repo-name", repo)));
+            URL url = new URL("https://raw.githubusercontent.com/user-name/repo-name/main/blocked.txt".replace("user-name", user).replace("repo-name", repo));
             InputStream is = url.openStream();
             InputStreamReader ir = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(ir);
             String checkBlocked = br.readLine();
+            Bukkit.broadcastMessage(checkBlocked);
             if (checkBlocked.equals("true")) {
-                Bukkit.getLogger().info("Version: bloqué");
+                Bukkit.getLogger().info("Version: bloque");
                 Bukkit.broadcastMessage(Main.getPrefix() + "§c§lPlugin verouille");
                 Bukkit.broadcastMessage(Main.getPrefix() + "§cVous devez payer le plugin");
                 Bukkit.broadcastMessage(Main.getPrefix() + "§7Si vous voulez que le plugin refonctionne, veuillez payer");
@@ -41,7 +40,7 @@ public class PluginUpdater {
             }
         } catch (Throwable t) {
             try {
-                Bukkit.getLogger().info("[RushTheFlag] --> Erreur lors de la verrification, nouvelle tentative");
+                Bukkit.getLogger().info("[RushTheFlag] --> Erreur lors de la verification, nouvelle tentative");
                 URL url = new URL(Objects.requireNonNull(
                         Objects.requireNonNull("https://cdn.jsdelivr.net/gh/user-name/repo-name/blocked.txt")
                                 .replace("user-name", user).replace("repo-name", repo)));
@@ -50,7 +49,7 @@ public class PluginUpdater {
                 BufferedReader br = new BufferedReader(ir);
                 String checkBlocked = br.readLine();
                 if (checkBlocked.equals("true")) {
-                    Bukkit.getLogger().info("Version: bloqué");
+                    Bukkit.getLogger().info("Version: bloque");
                     Bukkit.broadcastMessage(Main.getPrefix() + "§c§lPlugin verouille");
                     Bukkit.broadcastMessage(Main.getPrefix() + "§cVous devez payer le plugin");
                     Bukkit.broadcastMessage(Main.getPrefix() + "§7Si vous voulez que le plugin refonctionne, veuillez payer");
@@ -60,7 +59,7 @@ public class PluginUpdater {
                     Bukkit.getLogger().info("[RushTheFlag] --> Paiement effectue.");
                 }
             } catch (Throwable e) {
-                Bukkit.getLogger().info("[RushTheFlag] --> Erreur lors de la verrification, veuillez contacter l'auteur du programme");
+                Bukkit.getLogger().info("[RushTheFlag] --> Erreur lors de la verification, veuillez contacter l'auteur du programme");
                 Bukkit.broadcastMessage(Main.getPrefix() + "§c§lPlugin verouille");
                 Bukkit.broadcastMessage(Main.getPrefix() + "§7Une erreur est survenue lors de la verification du paiement");
                 Bukkit.broadcastMessage(Main.getPrefix() + "§7Le plugin est donc §c§lbloque §7jusqu'a nouvel ordre");
