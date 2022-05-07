@@ -15,7 +15,7 @@ La dernière version du plugin se trouve dans [Release Page](https://github.com/
 Ce plugin a été développer par Haxy972, les contributions sont autorisés, le projet est open source.
 ``Veuillez tout de même a me mentionné en cas d'utilisation sur des serveurs Mini-Jeux ``
 
-# MISE A JOUR
+# 🟢 MISE A JOUR
 
 Le plugin sera mis a jour régiulièrement voici ce qu'il y aura pour la prochaine version:
 
