@@ -43,7 +43,7 @@ public class DeathRunnable extends BukkitRunnable {
     }
 
     public static ArrayList<Player> respawnedList = new ArrayList<>();
-
+    public static String language = Main.INSTANCE.getConfig().getString("language");
 
     private void respawn(Player player) {
 
@@ -65,7 +65,11 @@ public class DeathRunnable extends BukkitRunnable {
 
             player.setFoodLevel(20);
         }
-        player.sendMessage(Main.getPrefix() + "§7Vous pouvez changer de kit via §e§l/kits");
+        if(language.equalsIgnoreCase("fr")) {
+            player.sendMessage(Main.getPrefix() + "§7Vous pouvez changer de kit via §e§l/kits");
+        }else{
+            player.sendMessage(Main.getPrefix() + "§7To change kits type §e§l/kits");
+        }
         respawnedList.add(player);
         Bukkit.getScheduler().runTaskLater(Main.INSTANCE, new Runnable() {
             @Override

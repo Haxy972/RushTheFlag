@@ -34,7 +34,7 @@ public class CommandTeam implements CommandExecutor {
             }
         }
 
-        if(cmd.getName().equalsIgnoreCase("defaults")){
+        if(cmd.getName().equalsIgnoreCase("kits")){
             if(player.getGameMode().equals(GameMode.SURVIVAL)){
 
                 boolean inzone = false;

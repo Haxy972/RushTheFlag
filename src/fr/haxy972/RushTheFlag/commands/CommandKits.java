@@ -550,18 +550,6 @@ public class CommandKits implements CommandExecutor {
         }
 
 
-//        try{
-//            if (!file.exists()) {
-//                file.createNewFile();
-//
-//                InputStream defaultConfig = new FileInputStream(new File(Main.INSTANCE.getDataFolder() + File.separator + "Archer" + ".yml"));
-//                YamlConfiguration yaml = YamlConfiguration.loadConfiguration(defaultConfig);
-//                yaml.setDefaults(yaml);
-//                yaml.save(file);
-//            }
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
     }
 
 
