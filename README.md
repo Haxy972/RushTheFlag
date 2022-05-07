@@ -6,6 +6,12 @@ Les messages sont entièrement customisables, 1 langage est disponible actuellem
 
 Ce GitHub permet le développement de ce plugin.
 
+# 🦜 Suggestions / Bugs
+
+Vous pouvez partagez vos idées, bugs ou questions par apport au plugin dans [Issue Page](https://github.com/Haxy972/RushTheFlag/issues)
+Ces demandes sont traités quand je suis disponible il se peut que je ne les voient pas tout de suite
+Cela m'aidera a développer le plugin.
+
 # 👇 Installer
 
 La dernière version du plugin se trouve dans [Release Page](https://github.com/Haxy972/RushTheFlag/releases) , cela vous permet de voir les nouveautés également.
