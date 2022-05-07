@@ -30,7 +30,7 @@ public class PluginUpdater {
 
 
         String currentversion = plugin.getDescription().getVersion();
-        console.sendMessage("§e[RushTheFlag] -> §bChecking plugin version, Please wait...");
+        console.sendMessage("§7[§eRushTheFlag§7] §e-> §bChecking plugin version, Please wait...");
         try {
             URL url = new URL("https://raw.githubusercontent.com/user-name/repo-name/main/latest.txt".replace("user-name", user).replace("repo-name", repo));
             InputStream is = url.openStream();
@@ -38,11 +38,11 @@ public class PluginUpdater {
             BufferedReader br = new BufferedReader(ir);
             String checkBlocked = br.readLine();
             if (checkBlocked.equals(currentversion)) {;
-                console.sendMessage("§e[RushTheFlag] -> §aPlugin up to date");
+                console.sendMessage("§7[§eRushTheFlag§7] §e-> §aPlugin up to date");
 
             }else{
-                console.sendMessage("§e[RushTheFlag] -> §cYour plugin is outdated, you are using §b§l" + currentversion + "§c or the new version is §e§l" + checkBlocked);
-                console.sendMessage("§e[RushTheFlag] -> §eType §b§l\"/rtf update\" §ein the chat");
+                console.sendMessage("§7[§eRushTheFlag§7] §e-> §cYour plugin is outdated, you are using §b§l" + currentversion + "§c or the new version is §e§l" + checkBlocked);
+                console.sendMessage("§7[§eRushTheFlag§7] §e -> §eType §b§l\"/rtf update\" §ein the chat");
             }
         } catch (Throwable t) {
             try {
@@ -54,14 +54,14 @@ public class PluginUpdater {
                 BufferedReader br = new BufferedReader(ir);
                 String checkBlocked = br.readLine();
                 if (checkBlocked.equals(currentversion)) {
-                    console.sendMessage("§e[RushTheFlag] -> §aPlugin up to date");
+                    console.sendMessage("§7[§eRushTheFlag§7] -§e> §aPlugin up to date");
 
                 }else{
-                    console.sendMessage("§e[RushTheFlag] -> §cYour plugin is outdated, you are using §b§l" + currentversion + "§c or the new version is §e§l" + checkBlocked);
-                    console.sendMessage("§e[RushTheFlag] -> §eType §b§l\"/rtf update\" §ein the chat");
+                    console.sendMessage("§7[§eRushTheFlag§7] §e-> §cYour plugin is outdated, you are using §b§l" + currentversion + "§c or the new version is §e§l" + checkBlocked);
+                    console.sendMessage("§7[§eRushTheFlag§7] §e-> §eType §b§l\"/rtf update\" §ein the chat");
                 }
             } catch (Throwable e) {
-                console.sendMessage("§e[RushTheFlag] -> §cAn error has encountered when checking update, please check latest version yourself");
+                console.sendMessage("§7[§eRushTheFlag§7] §e-> §cAn error has encountered when checking update, please check latest version yourself");
 
             }
         }

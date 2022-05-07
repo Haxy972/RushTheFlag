@@ -2,6 +2,7 @@ package fr.haxy972.RushTheFlag.utils;
 
 import fr.haxy972.RushTheFlag.Main;
 import org.bukkit.Bukkit;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -18,6 +19,8 @@ public class MessageYaml {
     public static void checkYaml() {
         File file;
         String language;
+        ConsoleCommandSender console = Main.INSTANCE.getServer().getConsoleSender();
+        console.sendMessage("§7[§eRushTheFlag§7] §e-> §bLoading languages");
         if(Main.INSTANCE.getConfig().getString("language").equalsIgnoreCase("FR")) {
             file = new File("plugins/RushTheFlag/messages-fr.yml");
             language = "fr";
@@ -37,16 +40,11 @@ public class MessageYaml {
 
 
 
-
-
-
                 //yaml.set("messages.nether.new-day-nether", "");
                 if(language == "en") {
                     file.createNewFile();
-                    if(file.isFile()){
-                        Bukkit.broadcastMessage("created yes");
-                    }
-                    Bukkit.broadcastMessage(Main.getPrefix() + "§aLanguage selected: §e§lEN");
+
+                    console.sendMessage(Main.getPrefix() + "§aLanguage selected: §e§lEN");
                     yaml.set("join.broadcast-message", "&7[&a+&7] &7{player}");
                     yaml.set("join.message-player", "&7Type &e&l/join&7 to join the game");
                     yaml.set("blocks.cant-place", "&cYou can't place block here ");
@@ -87,7 +85,7 @@ public class MessageYaml {
 
                 if(language == "fr") {
                     file.createNewFile();
-                    Bukkit.broadcastMessage(Main.getPrefix() + "§aLanguage selected: §e§lFR");
+                    console.sendMessage(Main.getPrefix() + "§aLanguage selected: §e§lFR");
                     yaml.set("join.broadcast-message", "&7[&a+&7] &7{player}");
                     yaml.set("join.message-player", "&7Tapez &e&l/join&7 pour rejoindre la partie");
                     yaml.set("blocks.cant-place", "&cVous ne pouvez pas poser de blocs ici");
@@ -123,7 +121,6 @@ public class MessageYaml {
                     System.out.println("DEBUG: messages-fr.yml: recreated");
                 }
             }
-            Bukkit.broadcastMessage(file.getParentFile().getName());
             Bukkit.getScheduler().runTaskLater(Main.INSTANCE, new Runnable() {
                 @Override
                 public void run() {

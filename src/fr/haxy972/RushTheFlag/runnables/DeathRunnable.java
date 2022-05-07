@@ -84,9 +84,17 @@ public class DeathRunnable extends BukkitRunnable {
 
     private String getSeconds ( int timer){
         if (timer == 1) {
-            return "seconde";
+            if(language.equalsIgnoreCase("fr")) {
+                return "seconde";
+            }else{
+                return "second";
+            }
         } else {
-            return "secondes";
+            if(language.equalsIgnoreCase("fr")) {
+                return "secondes";
+            }else{
+                return "seconds";
+            }
         }
 
     }

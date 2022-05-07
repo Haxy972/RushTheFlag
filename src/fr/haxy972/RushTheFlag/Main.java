@@ -9,6 +9,7 @@ import fr.haxy972.RushTheFlag.scoreboard.ScoreboardManager;
 import fr.haxy972.RushTheFlag.utils.MessageYaml;
 import fr.haxy972.RushTheFlag.utils.PluginUpdater;
 import org.bukkit.*;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -79,11 +80,13 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         this.INSTANCE = this;
+        ConsoleCommandSender console = getServer().getConsoleSender();
+        console.sendMessage("§7[§eRushTheFlag§7] §e-> §bLoading config file..");
         saveDefaultConfig();
         MessageYaml.checkYaml();
         CommandKits.createKitFolder();
         PluginUpdater.check(this, "Haxy972", "RushTheFlag");
-        CommandKits.createDefaultKit();
+
 
         GameStatut.setStatut(GameStatut.INLOBBY);
         new ListenerManager(INSTANCE).registerEvent();

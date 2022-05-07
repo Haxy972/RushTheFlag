@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -341,10 +342,18 @@ public class CommandKits implements CommandExecutor {
     }
 
     public static void createKitFolder(){
+        ConsoleCommandSender console = Main.INSTANCE.getServer().getConsoleSender();
+        console.sendMessage("§7[§eRushTheFlag§7] §e-> §bLoading kits");
         File file = new File("plugins/RushTheFlag/kits/");
         try {
             if(!file.isDirectory()){
                 file.mkdir();
+                CommandKits.createDefaultKit();
+            }else{
+                if(file.listFiles().length == 0){
+                    CommandKits.createDefaultKit();
+                }
+
             }
 
 
