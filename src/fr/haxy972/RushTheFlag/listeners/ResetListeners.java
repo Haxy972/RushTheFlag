@@ -35,6 +35,10 @@ public class ResetListeners implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
+        if(event.getBlock().getType() == Material.WOOL ||event.getBlock().getType() == Material.SANDSTONE){
+            return;
+        }
+
         if (!event.isCancelled()) {
 
             if (!blocksDestroyedMaterial.containsKey(event.getBlock().getLocation())) {

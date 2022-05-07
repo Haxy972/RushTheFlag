@@ -4,11 +4,13 @@ import fr.haxy972.RushTheFlag.Main;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -17,10 +19,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
-
 import java.io.*;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,7 +44,7 @@ public class CommandKits implements CommandExecutor {
                 ItemMeta im = it.getItemMeta();
                 ArrayList<String> lore = (ArrayList) yaml.getStringList("display-item.lore");
                 int i = 0;
-                for(String lores : lore){
+                for (String lores : lore) {
 
                     lore.set(i, lores.replace("&", "§"));
                     i++;
@@ -60,14 +63,14 @@ public class CommandKits implements CommandExecutor {
             if (test == 0) {
                 Bukkit.broadcastMessage(Main.getPrefix() + "§cUne erreur est survenue lors du chargement du kit: §e§l" + kitName);
             }
-            test ++;
+            test++;
 
 
         }
         return null;
     }
 
-    public static void getKitContent(Player player, String kitName){
+    public static void getKitContent(Player player, String kitName) {
         File file = new File("plugins/RushTheFlag/kits/" + kitName + ".yml");
         try {
             if (file.isFile()) {
@@ -76,7 +79,7 @@ public class CommandKits implements CommandExecutor {
                 //ARMURES
                 ItemStack[] armor = player.getInventory().getArmorContents();
 
-                if(yaml.contains("items.armor.helmet")){
+                if (yaml.contains("items.armor.helmet")) {
                     ItemStack helmet = new ItemStack(Material.getMaterial(yaml.getString("items.armor.helmet.type")), yaml.getInt("items.armor.helmet.amount"));
                     armor[3] = helmet;
                     if (yaml.contains("items.armor.helmet.color")) {
@@ -87,10 +90,10 @@ public class CommandKits implements CommandExecutor {
                         meta.setColor(Color.fromRGB(R, G, B));
                         armor[3].setItemMeta(meta);
                     }
-                    if (yaml.contains("items.armor.helmet.enchants")){
+                    if (yaml.contains("items.armor.helmet.enchants")) {
                         for (String enchant : yaml.getKeys(true)) {
 
-                            if(enchant.contains("enchants") && enchant.contains("armor") && enchant.contains("helmet.enchants.")){
+                            if (enchant.contains("enchants") && enchant.contains("armor") && enchant.contains("helmet.enchants.")) {
                                 String enchantName = enchant.replace("items.armor.helmet.enchants", "").replace(".", "");
                                 Integer enchantLevel = yaml.getInt("items.armor.helmet.enchants." + enchantName);
                                 armor[3].addEnchantment(Enchantment.getByName(enchantName), enchantLevel);
@@ -98,10 +101,10 @@ public class CommandKits implements CommandExecutor {
                             }
                         }
                     }
-                }else{
+                } else {
                     armor[3] = new ItemStack(Material.AIR);
                 }
-                if(yaml.contains("items.armor.chestplate")){
+                if (yaml.contains("items.armor.chestplate")) {
                     ItemStack chestplate = new ItemStack(Material.getMaterial(yaml.getString("items.armor.chestplate.type")), yaml.getInt("items.armor.chestplate.amount"));
                     armor[2] = chestplate;
                     if (yaml.contains("items.armor.chestplate.color")) {
@@ -112,10 +115,10 @@ public class CommandKits implements CommandExecutor {
                         meta.setColor(Color.fromRGB(R, G, B));
                         armor[2].setItemMeta(meta);
                     }
-                    if (yaml.contains("items.armor.chestplate.enchants")){
+                    if (yaml.contains("items.armor.chestplate.enchants")) {
                         for (String enchant : yaml.getKeys(true)) {
 
-                            if(enchant.contains("enchants") && enchant.contains("armor") && enchant.contains("chestplate.enchants.")){
+                            if (enchant.contains("enchants") && enchant.contains("armor") && enchant.contains("chestplate.enchants.")) {
                                 String enchantName = enchant.replace("items.armor.chestplate.enchants", "").replace(".", "");
                                 Integer enchantLevel = yaml.getInt("items.armor.chestplate.enchants." + enchantName);
                                 armor[2].addEnchantment(Enchantment.getByName(enchantName), enchantLevel);
@@ -125,10 +128,10 @@ public class CommandKits implements CommandExecutor {
                     }
 
 
-                }else{
+                } else {
                     armor[2] = new ItemStack(Material.AIR);
                 }
-                if(yaml.contains("items.armor.leggings")){
+                if (yaml.contains("items.armor.leggings")) {
                     ItemStack leggings = new ItemStack(Material.getMaterial(yaml.getString("items.armor.leggings.type")), yaml.getInt("items.armor.leggings.amount"));
                     armor[1] = leggings;
                     if (yaml.contains("items.armor.leggings.color")) {
@@ -139,10 +142,10 @@ public class CommandKits implements CommandExecutor {
                         meta.setColor(Color.fromRGB(R, G, B));
                         armor[1].setItemMeta(meta);
                     }
-                    if (yaml.contains("items.armor.leggings.enchants")){
+                    if (yaml.contains("items.armor.leggings.enchants")) {
                         for (String enchant : yaml.getKeys(true)) {
 
-                            if(enchant.contains("enchants") && enchant.contains("armor") && enchant.contains("leggings.enchants.")){
+                            if (enchant.contains("enchants") && enchant.contains("armor") && enchant.contains("leggings.enchants.")) {
                                 String enchantName = enchant.replace("items.armor.leggings.enchants", "").replace(".", "");
                                 Integer enchantLevel = yaml.getInt("items.armor.leggings.enchants." + enchantName);
                                 armor[1].addEnchantment(Enchantment.getByName(enchantName), enchantLevel);
@@ -152,10 +155,10 @@ public class CommandKits implements CommandExecutor {
                     }
 
 
-                }else{
+                } else {
                     armor[1] = new ItemStack(Material.AIR);
                 }
-                if(yaml.contains("items.armor.boots")){
+                if (yaml.contains("items.armor.boots")) {
                     ItemStack boots = new ItemStack(Material.getMaterial(yaml.getString("items.armor.boots.type")), yaml.getInt("items.armor.boots.amount"));
                     armor[0] = boots;
                     if (yaml.contains("items.armor.boots.color")) {
@@ -167,10 +170,10 @@ public class CommandKits implements CommandExecutor {
                         armor[0].setItemMeta(meta);
 
                     }
-                    if (yaml.contains("items.armor.boots.enchants")){
+                    if (yaml.contains("items.armor.boots.enchants")) {
                         for (String enchant : yaml.getKeys(true)) {
 
-                            if(enchant.contains("enchants") && enchant.contains("armor") && enchant.contains("boots.enchants.")){
+                            if (enchant.contains("enchants") && enchant.contains("armor") && enchant.contains("boots.enchants.")) {
                                 String enchantName = enchant.replace("items.armor.boots.enchants", "").replace(".", "");
                                 Integer enchantLevel = yaml.getInt("items.armor.boots.enchants." + enchantName);
                                 armor[0].addEnchantment(Enchantment.getByName(enchantName), enchantLevel);
@@ -179,7 +182,7 @@ public class CommandKits implements CommandExecutor {
                         }
                     }
 
-                }else{
+                } else {
                     armor[0] = new ItemStack(Material.AIR);
                 }
 
@@ -188,13 +191,12 @@ public class CommandKits implements CommandExecutor {
 
                 for (String count : yaml.getKeys(true)) {
 
-                    for(int i = 0; i < 36; i++){
+                    for (int i = 0; i < 36; i++) {
 
 
+                        if (count.equals("items." + i)) {
 
-                        if(count.equals("items." + i)){
-
-                            if(!yaml.getString(count).equalsIgnoreCase("null")) {
+                            if (!yaml.getString(count).equalsIgnoreCase("null")) {
 
 
                                 ItemStack item = new ItemStack(Material.getMaterial(yaml.getString("items." + i + ".type")), yaml.getInt("items." + i + ".amount"));
@@ -226,16 +228,13 @@ public class CommandKits implements CommandExecutor {
 
 
                                 player.getInventory().setItem(i, item);
-                            }else{
+                            } else {
                                 player.getInventory().setItem(i, new ItemStack(Material.AIR));
                             }
                         }
                     }
 
                 }
-
-
-
 
 
             }
@@ -246,6 +245,72 @@ public class CommandKits implements CommandExecutor {
         }
     }
 
+    public static void createKitFolder() {
+        ConsoleCommandSender console = Main.INSTANCE.getServer().getConsoleSender();
+        console.sendMessage("§7[§eRushTheFlag§7] §e-> §bLoading kits");
+        File file = new File("plugins/RushTheFlag/kits/");
+        try {
+            if (!file.isDirectory()) {
+                file.mkdir();
+                CommandKits.createDefaultKit();
+            } else {
+                if (file.listFiles().length == 0) {
+                    CommandKits.createDefaultKit();
+                }
+
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
+    public static void copy(URL in, File out) throws IOException {
+        InputStream is = in.openStream();
+        OutputStream os = new FileOutputStream(out);
+        byte[] buffer = new byte[4096];
+        int len;
+        while ((len = is.read(buffer)) != -1) {
+            os.write(buffer, 0, len);
+        }
+        os.close();
+        is.close();
+    }
+
+    public static void createDefaultKit() {
+
+        if (!Main.INSTANCE.getConfig().getBoolean("default-kit")) {
+            return;
+        }
+
+
+        File guerrier = new File("plugins/RushTheFlag/kits/Guerrier.yml");
+        File archer = new File("plugins/RushTheFlag/kits/Archer.yml");
+        try {
+            URL inputUrl = Main.INSTANCE.getClass().getResource("/defaults/Archer.yml");
+            File dest = archer;
+            FileUtils.copyURLToFile(inputUrl, dest);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            URL inputUrl = Main.INSTANCE.getClass().getResource("/defaults/Guerrier.yml");
+            File dest = guerrier;
+            FileUtils.copyURLToFile(inputUrl, dest);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    private static String language = Main.INSTANCE.getConfig().getString("language");
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 
@@ -253,12 +318,12 @@ public class CommandKits implements CommandExecutor {
             return false;
         }
         Player player = (Player) sender;
-        if (cmd.getName().equalsIgnoreCase("rushtheflag") ||cmd.getName().equalsIgnoreCase("rtf")) {
+        if (cmd.getName().equalsIgnoreCase("rushtheflag") || cmd.getName().equalsIgnoreCase("rtf")) {
             if (args.length > 0) {
                 if (args.length >= 1) {
 
-                    if (args[0].equalsIgnoreCase("defaults")) {
-                        if(args.length >= 2) {
+                    if (args[0].equalsIgnoreCase("kits")) {
+                        if (args.length >= 2) {
                             if (args[1].equalsIgnoreCase("add")) {
                                 if (args.length == 3) {
                                     for (int i = 0; i < 9; i++) {
@@ -290,34 +355,118 @@ public class CommandKits implements CommandExecutor {
                             } else if (args[1].equalsIgnoreCase("list")) {
                                 File show = new File("plugins/RushTheFlag/kits/");
                                 try {
-                                    if(show.isDirectory()) {
+                                    if (show.isDirectory()) {
                                         player.sendMessage(Main.getPrefix() + "§7Affichage de la liste des kits:");
-                                        for(File file : show.listFiles()){
+                                        for (File file : show.listFiles()) {
                                             player.sendMessage("§e- " + file.getName().replace(".yml", ""));
                                         }
                                     }
 
-                                }catch(Exception e){
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                            }else{
+                            } else {
                                 player.sendMessage(Main.getPrefix() + "§c/rtf §ekits §7<add/remove/list>");
                             }
                         } else {
-                        player.sendMessage(Main.getPrefix() + "§c/rtf §ekits §7<add/remove/list>");
-                    }
+                            player.sendMessage(Main.getPrefix() + "§c/rtf §ekits §7<add/remove/list>");
+                        }
 
-                    } else {
-                        player.sendMessage(Main.getPrefix() + "§c/rtf <kits>");
-                    }
+                    }else if(args[0].equalsIgnoreCase("setspawn")) {
+                        if(args.length > 1){
+                            if(args[1].equalsIgnoreCase("nexusblue")){
+                                File file = new File("/plugins/RushTheFlag/config.yml");
+                                FileConfiguration config = Main.INSTANCE.getConfig();
+                                Location loc = player.getLocation();
+                                DecimalFormat df = new DecimalFormat("0.5");
+                                DecimalFormat df2 = new DecimalFormat("0");
 
+                                // X
+                                String xstr = String.valueOf(loc.getX());
+                                String xnum = df.format(loc.getX());
+                                xnum = xnum.replace(",", ".");
+                                double x = Double.parseDouble(xnum);
+
+                                Bukkit.broadcastMessage("" +x);
+
+                                //Y
+                                String ystr = String.valueOf(loc.getY());
+                                String ynum = df2.format(loc.getY());
+                                ynum = ynum.replace(",", ".");
+                                double y = Double.parseDouble(ynum) -1;
+
+                                Bukkit.broadcastMessage("" +y);
+
+
+                                // Z
+                                String zstr = String.valueOf(loc.getZ());
+                                String znum = df.format(loc.getZ());
+                                znum = znum.replace(",", ".");
+                                double z = Double.parseDouble(znum);
+
+                                Bukkit.broadcastMessage("" +z);
+
+
+                                config.set("game.nexusBlue.x", x);
+                                config.set("game.nexusBlue.y", y);
+                                config.set("game.nexusBlue.z", z);
+                                Main.INSTANCE.saveDefaultConfig();
+                                Main.INSTANCE.saveConfig();
+
+
+                            }
+                        }else{
+                            player.sendMessage(Main.getPrefix() + "§c/rtf §esetspawns §7<red/blue/bluenexus/rednexus/join>");
+                        }
+                    }else if(args[0].equalsIgnoreCase("setprefix")) {
+                        if(args.length >= 2){
+                            File file = new File("/plugins/RushTheFlag/config.yml");
+                            FileConfiguration config = Main.INSTANCE.getConfig();
+
+                            if(args.length > 2){
+                                StringBuilder sb = new StringBuilder();
+                                for(String part : args){
+                                    if(part != args[0]) {
+                                        sb.append(part + " ");
+                                    }
+                                }
+                                if(language.equalsIgnoreCase("fr")){
+                                    player.sendMessage(Main.getPrefix() + "§7Vous avez changer le prefix, le nouveau prefix est: §e§l" + sb.toString().replace("&", "§"));
+                                }else {
+                                    player.sendMessage(Main.getPrefix() + "§7You have change the prefix, now it's: §e§l" + sb.toString().replace("&", "§"));
+                                }
+                                config.set("prefix", sb.toString().replace("&", "§"));
+                            }else{
+                                if(language.equalsIgnoreCase("fr")){
+                                    player.sendMessage(Main.getPrefix() + "§7Vous avez changer le prefix, le nouveau prefix est: §e§l" + args[1].replace("&", "§"));
+                                }else {
+                                    player.sendMessage(Main.getPrefix() + "§7You have change the prefix, now it's: §e§l" + args[1].replace("&", "§"));
+                                }
+                                config.set("prefix", args[1]);
+                            }
+
+
+
+                            try {
+                                config.save(file);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }else{
+                            player.sendMessage(Main.getPrefix() + "§c/rtf §esetprefix §7<prefix>");
+                        }
+                    } else{
+                        player.sendMessage(Main.getPrefix() + "§c/rtf <kits/setspawns/setprefix>");
+
+                    }
 
 
                 } else {
-                    player.sendMessage(Main.getPrefix() + "§c/rtf <kits>");
+                    player.sendMessage(Main.getPrefix() + "§c/rtf <kits/setspawn/setprefix>");
                 }
             } else {
-                player.sendMessage(Main.getPrefix() + "§c/rtf <kits>");
+                player.sendMessage(Main.getPrefix() + "§c/rtf <kits/setspawn/setprefix>");
             }
         }
 
@@ -328,43 +477,18 @@ public class CommandKits implements CommandExecutor {
     private void deleteKit(Player player, String name) {
         File delete = new File("plugins/RushTheFlag/kits/" + name + ".yml");
         try {
-            if(delete.isFile()){
+            if (delete.isFile()) {
                 delete.delete();
                 player.sendMessage(Main.getPrefix() + "§aVous avez supprimé le kit: §e" + name);
-            }else{
+            } else {
                 player.sendMessage(Main.getPrefix() + "§cCe kit n'existe pas");
             }
 
 
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public static void createKitFolder(){
-        ConsoleCommandSender console = Main.INSTANCE.getServer().getConsoleSender();
-        console.sendMessage("§7[§eRushTheFlag§7] §e-> §bLoading kits");
-        File file = new File("plugins/RushTheFlag/kits/");
-        try {
-            if(!file.isDirectory()){
-                file.mkdir();
-                CommandKits.createDefaultKit();
-            }else{
-                if(file.listFiles().length == 0){
-                    CommandKits.createDefaultKit();
-                }
-
-            }
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
-
         }
-
     }
-
 
     private void createKit(Player player) {
         File folder = new File("plugins/RushTheFlag/kits/");
@@ -388,15 +512,13 @@ public class CommandKits implements CommandExecutor {
                 yaml.set("display-item.lore", lores);
 
 
-
-
                 ItemStack[] armor = player.getInventory().getArmorContents();
                 if (armor[3].getType() != Material.AIR) {
                     yaml.set("items.armor.helmet.type", armor[3].getType().toString());
                     yaml.set("items.armor.helmet.amount", armor[3].getAmount());
 
 
-                    if(armor[3].getItemMeta() instanceof LeatherArmorMeta) {
+                    if (armor[3].getItemMeta() instanceof LeatherArmorMeta) {
                         LeatherArmorMeta meta = (LeatherArmorMeta) armor[3].getItemMeta();
                         if (meta.getColor() != null) {
                             yaml.set("items.armor.helmet.color.R", meta.getColor().getRed());
@@ -415,7 +537,7 @@ public class CommandKits implements CommandExecutor {
                 if (armor[2].getType() != Material.AIR) {
                     yaml.set("items.armor.chestplate.type", armor[2].getType().toString());
                     yaml.set("items.armor.chestplate.amount", armor[2].getAmount());
-                    if(armor[2].getItemMeta() instanceof LeatherArmorMeta) {
+                    if (armor[2].getItemMeta() instanceof LeatherArmorMeta) {
                         LeatherArmorMeta meta = (LeatherArmorMeta) armor[2].getItemMeta();
                         if (meta.getColor() != null) {
                             yaml.set("items.armor.chestplate.color.R", meta.getColor().getRed());
@@ -435,7 +557,7 @@ public class CommandKits implements CommandExecutor {
                 if (armor[1].getType() != Material.AIR) {
                     yaml.set("items.armor.leggings.type", armor[1].getType().toString());
                     yaml.set("items.armor.leggings.amount", armor[1].getAmount());
-                    if(armor[1].getItemMeta() instanceof LeatherArmorMeta) {
+                    if (armor[1].getItemMeta() instanceof LeatherArmorMeta) {
                         LeatherArmorMeta meta = (LeatherArmorMeta) armor[1].getItemMeta();
                         if (meta.getColor() != null) {
                             yaml.set("items.armor.leggings.color.R", meta.getColor().getRed());
@@ -454,7 +576,7 @@ public class CommandKits implements CommandExecutor {
                 if (armor[0].getType() != Material.AIR) {
                     yaml.set("items.armor.boots.type", armor[0].getType().toString());
                     yaml.set("items.armor.boots.amount", armor[0].getAmount());
-                    if(armor[0].getItemMeta() instanceof LeatherArmorMeta) {
+                    if (armor[0].getItemMeta() instanceof LeatherArmorMeta) {
                         LeatherArmorMeta meta = (LeatherArmorMeta) armor[0].getItemMeta();
                         if (meta.getColor() != null) {
                             yaml.set("items.armor.boots.color.R", meta.getColor().getRed());
@@ -484,9 +606,9 @@ public class CommandKits implements CommandExecutor {
                             yaml.set("items." + i + ".data", it.getData().getData());
                         }
 
-                        if(it.getItemMeta() instanceof LeatherArmorMeta){
+                        if (it.getItemMeta() instanceof LeatherArmorMeta) {
                             LeatherArmorMeta armorMeta = (LeatherArmorMeta) it.getItemMeta();
-                            if(armorMeta.getColor() != null){
+                            if (armorMeta.getColor() != null) {
                                 yaml.set("items." + i + ".color.R", armorMeta.getColor().getRed());
                                 yaml.set("items." + i + ".color.G", armorMeta.getColor().getGreen());
                                 yaml.set("items." + i + ".color.B", armorMeta.getColor().getBlue());
@@ -516,51 +638,6 @@ public class CommandKits implements CommandExecutor {
         }
 
     }
-
-    public static void copy(URL in, File out) throws IOException {
-        InputStream is = in.openStream();
-        OutputStream os = new FileOutputStream(out);
-        byte[] buffer = new byte[4096];
-        int len;
-        while ((len = is.read(buffer)) != -1) {
-            os.write(buffer, 0, len);
-        }
-        os.close();
-        is.close();
-    }
-    public static void createDefaultKit(){
-
-        if(!Main.INSTANCE.getConfig().getBoolean("default-kit")){
-            return;
-        }
-
-
-
-        File guerrier = new File("plugins/RushTheFlag/kits/Guerrier.yml");
-        File archer = new File("plugins/RushTheFlag/kits/Archer.yml");
-        try {
-            URL inputUrl = Main.INSTANCE.getClass().getResource("/defaults/Archer.yml");
-            File dest = archer;
-            FileUtils.copyURLToFile(inputUrl, dest);
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-        try {
-            URL inputUrl = Main.INSTANCE.getClass().getResource("/defaults/Guerrier.yml");
-            File dest = guerrier;
-            FileUtils.copyURLToFile(inputUrl, dest);
-
-
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-
-    }
-
 
 
 }
