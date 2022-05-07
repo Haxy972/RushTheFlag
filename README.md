@@ -16,7 +16,7 @@ Cela m'aidera a développer le plugin.
 
 La dernière version du plugin se trouve dans [Release Page](https://github.com/Haxy972/RushTheFlag/releases) , cela vous permet de voir les nouveautés également.
 
-# ABOUT / PLUS
+# ➕ ABOUT / PLUS
 
 Ce plugin a été développer par Haxy972, les contributions sont autorisés, le projet est open source.
 ``Veuillez tout de même a me mentionné en cas d'utilisation sur des serveurs Mini-Jeux ``
