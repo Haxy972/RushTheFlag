@@ -11,6 +11,7 @@ package fr.haxy972.RushTheFlag.utils;
 import fr.haxy972.RushTheFlag.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -24,60 +25,44 @@ public class PluginUpdater {
     private static String prefix = Main.INSTANCE.getConfig().getString("prefix").replace("&", "§");
 
     public static void check(JavaPlugin plugin, String user, String repo) {
+
+        ConsoleCommandSender console = Main.INSTANCE.getServer().getConsoleSender();
+
+
         String currentversion = plugin.getDescription().getVersion();
-        Bukkit.getLogger().info("[RushTheFlag] --> Verification du paiement...");
+        console.sendMessage("§e[RushTheFlag] -> §bChecking plugin version, Please wait...");
         try {
-            URL url = new URL("https://raw.githubusercontent.com/user-name/repo-name/main/blocked.txt".replace("user-name", user).replace("repo-name", repo));
+            URL url = new URL("https://raw.githubusercontent.com/user-name/repo-name/main/latest.txt".replace("user-name", user).replace("repo-name", repo));
             InputStream is = url.openStream();
             InputStreamReader ir = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(ir);
             String checkBlocked = br.readLine();
-            if (checkBlocked.equals("true")) {
-                Bukkit.getLogger().info("Version: bloque");
-                Bukkit.broadcastMessage(prefix + "§c§lPlugin verouille");
-                Bukkit.broadcastMessage(prefix + "§cVous devez payer le plugin");
-                Bukkit.broadcastMessage(prefix + "§7Si vous voulez que le plugin refonctionne, veuillez payer");
-                for(Player players : Bukkit.getOnlinePlayers()){
-                    players.playSound(players.getLocation(), Sound.NOTE_PLING, 2,2);
-                }
+            if (checkBlocked.equals(currentversion)) {;
+                console.sendMessage("§e[RushTheFlag] -> §aPlugin up to date");
 
-                Main.blocked = true;
             }else{
-                Bukkit.getLogger().info("[RushTheFlag] --> Paiement effectue.");
+                console.sendMessage("§e[RushTheFlag] -> §cYour plugin is outdated, you are using §b§l" + currentversion + "§c or the new version is §e§l" + checkBlocked);
+                console.sendMessage("§e[RushTheFlag] -> §eType §b§l\"/rtf update\" §ein the chat");
             }
         } catch (Throwable t) {
             try {
-                Bukkit.getLogger().info("[RushTheFlag] --> Erreur lors de la verification, nouvelle tentative");
                 URL url = new URL(Objects.requireNonNull(
-                        Objects.requireNonNull("https://cdn.jsdelivr.net/gh/user-name/repo-name/blocked.txt")
+                        Objects.requireNonNull("https://cdn.jsdelivr.net/gh/user-name/repo-name/latest.txt")
                                 .replace("user-name", user).replace("repo-name", repo)));
                 InputStream is = url.openStream();
                 InputStreamReader ir = new InputStreamReader(is);
                 BufferedReader br = new BufferedReader(ir);
                 String checkBlocked = br.readLine();
-                if (checkBlocked.equals("true")) {
-                    Bukkit.getLogger().info("Version: bloque");
-                    Bukkit.broadcastMessage(prefix + "§c§lPlugin verouille");
-                    Bukkit.broadcastMessage(prefix + "§cVous devez payer le plugin");
-                    Bukkit.broadcastMessage(prefix + "§7Si vous voulez que le plugin refonctionne, veuillez payer");
-                    for(Player players : Bukkit.getOnlinePlayers()){
-                        players.playSound(players.getLocation(), Sound.NOTE_PLING, 2,2);
-                    }
+                if (checkBlocked.equals(currentversion)) {
+                    console.sendMessage("§e[RushTheFlag] -> §aPlugin up to date");
 
-                    Main.blocked = true;
                 }else{
-                    Bukkit.getLogger().info("[RushTheFlag] --> Paiement effectue.");
+                    console.sendMessage("§e[RushTheFlag] -> §cYour plugin is outdated, you are using §b§l" + currentversion + "§c or the new version is §e§l" + checkBlocked);
+                    console.sendMessage("§e[RushTheFlag] -> §eType §b§l\"/rtf update\" §ein the chat");
                 }
             } catch (Throwable e) {
-                Bukkit.getLogger().info("[RushTheFlag] --> Erreur lors de la verification, veuillez contacter l'auteur du programme");
-                Bukkit.broadcastMessage(prefix + "§c§lPlugin verouille");
-                Bukkit.broadcastMessage(prefix + "§7Une erreur est survenue lors de la verification du paiement");
-                Bukkit.broadcastMessage(prefix + "§7Le plugin est donc §c§lbloque §7jusqu'a nouvel ordre");
-                for(Player players : Bukkit.getOnlinePlayers()){
-                    players.playSound(players.getLocation(), Sound.NOTE_PLING, 2,2);
-                }
+                console.sendMessage("§e[RushTheFlag] -> §cAn error has encountered when checking update, please check latest version yourself");
 
-                Main.blocked = true;
             }
         }
     }

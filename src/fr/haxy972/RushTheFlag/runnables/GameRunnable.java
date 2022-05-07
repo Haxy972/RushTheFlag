@@ -159,6 +159,7 @@ public class GameRunnable extends BukkitRunnable {
 
     }
 
+    private static String language = Main.INSTANCE.getConfig().getString("language");
     private void checkWools() {
         if(GameListener.hasRedWool == null){
             Location loc = Main.getNexusRouge();
@@ -166,13 +167,21 @@ public class GameRunnable extends BukkitRunnable {
             loc.getBlock().setData((byte) 14);
             for(Player players : Bukkit.getOnlinePlayers()){
                 if(ScoreboardManager.scoreboardGame.containsKey(players))
-                    ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRouge§7: §a§l✔");
+                    if(language.equalsIgnoreCase("fr")) {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRouge§7: §a§l✔");
+                    }else{
+                        ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRed§7: §a§l✔");
+                    }
             }
 
         }else{
             for(Player players : Bukkit.getOnlinePlayers()){
                 if(ScoreboardManager.scoreboardGame.containsKey(players))
-                    ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRouge§7: §c§lX");
+                    if(language.equalsIgnoreCase("fr")) {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRouge§7: §c§lX");
+                    }else{
+                        ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRed§7: §c§lX");
+                    }
             }
         }
         if(GameListener.hasBlueWool == null){
@@ -181,12 +190,21 @@ public class GameRunnable extends BukkitRunnable {
             loc.getBlock().setData((byte) 11);
             for(Player players : Bukkit.getOnlinePlayers()){
                 if(ScoreboardManager.scoreboardGame.containsKey(players))
-                    ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lBleu§7: §a§l✔");;
+                    if(language.equalsIgnoreCase("fr")) {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lBleu§7: §a§l✔");
+
+                    }else{
+                        ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lBlue§7: §a§l✔");
+                    }
             }
         }else{
             for(Player players : Bukkit.getOnlinePlayers()){
                 if(ScoreboardManager.scoreboardGame.containsKey(players))
-                    ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lBleu§7: §c§lX");
+                    if(language.equalsIgnoreCase("fr")) {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lBleu§7: §c§lX");
+                    }else{
+                        ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lBlue§7: §c§lX");
+                    }
             }
         }
     }

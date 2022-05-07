@@ -4,14 +4,11 @@ import fr.haxy972.RushTheFlag.GameStatut;
 import fr.haxy972.RushTheFlag.Main;
 import fr.haxy972.RushTheFlag.team.TeamSelect;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class CommandTeam implements CommandExecutor {
     @Override
@@ -37,7 +34,7 @@ public class CommandTeam implements CommandExecutor {
             }
         }
 
-        if(cmd.getName().equalsIgnoreCase("kits")){
+        if(cmd.getName().equalsIgnoreCase("defaults")){
             if(player.getGameMode().equals(GameMode.SURVIVAL)){
 
                 boolean inzone = false;

@@ -1,7 +1,7 @@
 package fr.haxy972.RushTheFlag.commands;
 
-import fr.haxy972.RushTheFlag.GameStatut;
 import fr.haxy972.RushTheFlag.Main;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -17,7 +17,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 
-import java.io.File;
+import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -255,7 +256,7 @@ public class CommandKits implements CommandExecutor {
             if (args.length > 0) {
                 if (args.length >= 1) {
 
-                    if (args[0].equalsIgnoreCase("kits")) {
+                    if (args[0].equalsIgnoreCase("defaults")) {
                         if(args.length >= 2) {
                             if (args[1].equalsIgnoreCase("add")) {
                                 if (args.length == 3) {
@@ -506,4 +507,63 @@ public class CommandKits implements CommandExecutor {
         }
 
     }
+
+    public static void copy(URL in, File out) throws IOException {
+        InputStream is = in.openStream();
+        OutputStream os = new FileOutputStream(out);
+        byte[] buffer = new byte[4096];
+        int len;
+        while ((len = is.read(buffer)) != -1) {
+            os.write(buffer, 0, len);
+        }
+        os.close();
+        is.close();
+    }
+    public static void createDefaultKit(){
+
+        if(!Main.INSTANCE.getConfig().getBoolean("default-kit")){
+            return;
+        }
+
+
+
+        File guerrier = new File("plugins/RushTheFlag/kits/Guerrier.yml");
+        File archer = new File("plugins/RushTheFlag/kits/Archer.yml");
+        try {
+            URL inputUrl = Main.INSTANCE.getClass().getResource("/defaults/Archer.yml");
+            File dest = archer;
+            FileUtils.copyURLToFile(inputUrl, dest);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            URL inputUrl = Main.INSTANCE.getClass().getResource("/defaults/Guerrier.yml");
+            File dest = guerrier;
+            FileUtils.copyURLToFile(inputUrl, dest);
+
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+//        try{
+//            if (!file.exists()) {
+//                file.createNewFile();
+//
+//                InputStream defaultConfig = new FileInputStream(new File(Main.INSTANCE.getDataFolder() + File.separator + "Archer" + ".yml"));
+//                YamlConfiguration yaml = YamlConfiguration.loadConfiguration(defaultConfig);
+//                yaml.setDefaults(yaml);
+//                yaml.save(file);
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+    }
+
+
+
 }

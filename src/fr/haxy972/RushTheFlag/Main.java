@@ -5,7 +5,6 @@ import fr.haxy972.RushTheFlag.commands.CommandTeam;
 import fr.haxy972.RushTheFlag.listeners.ListenerManager;
 import fr.haxy972.RushTheFlag.listeners.ResetListeners;
 import fr.haxy972.RushTheFlag.runnables.GameRunnable;
-import fr.haxy972.RushTheFlag.runnables.ScoreboardRunnable;
 import fr.haxy972.RushTheFlag.scoreboard.ScoreboardManager;
 import fr.haxy972.RushTheFlag.utils.MessageYaml;
 import fr.haxy972.RushTheFlag.utils.PluginUpdater;
@@ -83,23 +82,17 @@ public class Main extends JavaPlugin {
         saveDefaultConfig();
         MessageYaml.checkYaml();
         CommandKits.createKitFolder();
-        PluginUpdater.check(this, "Haxy972", "MyPluginBlocker");
+        PluginUpdater.check(this, "Haxy972", "RushTheFlag");
+        CommandKits.createDefaultKit();
 
+        GameStatut.setStatut(GameStatut.INLOBBY);
+        new ListenerManager(INSTANCE).registerEvent();
+        getCommand("join").setExecutor(new CommandTeam());
+        getCommand("kits").setExecutor(new CommandTeam());
+        getCommand("rushtheflag").setExecutor(new CommandKits());
 
-        if (!blocked) {
-
-
-
-
-            GameStatut.setStatut(GameStatut.INLOBBY);
-            new ListenerManager(INSTANCE).registerEvent();
-            getCommand("join").setExecutor(new CommandTeam());
-            getCommand("kits").setExecutor(new CommandTeam());
-            getCommand("rushtheflag").setExecutor(new CommandKits());
-
-            for (Player players : Bukkit.getOnlinePlayers()) {
-                serverReloaded(players);
-            }
+        for (Player players : Bukkit.getOnlinePlayers()) {
+            serverReloaded(players);
         }
 
 
@@ -110,8 +103,7 @@ public class Main extends JavaPlugin {
             player.sendMessage(" ");
         }
         player.getInventory().clear();
-        player.sendMessage(Main.getPrefix() + "§6Le serveur a été reload");
-        player.sendMessage(MessageYaml.getValue("join.message-player").replace("&", "§").replace("{player}", player.getName()));
+        player.sendMessage(Main.getPrefix() + MessageYaml.getValue("join.message-player").replace("&", "§").replace("{player}", player.getName()));
         player.setGameMode(GameMode.SPECTATOR);
         player.teleport(Main.getJoinSpawn());
         ItemStack[] armor = player.getInventory().getArmorContents();
@@ -122,7 +114,7 @@ public class Main extends JavaPlugin {
         player.setFoodLevel(20);
         player.setHealth(20);
         player.closeInventory();
-        if(!Main.INSTANCE.getConfig().getString("game.team.tab-name-default").equalsIgnoreCase("none")) {
+        if (!Main.INSTANCE.getConfig().getString("game.team.tab-name-default").equalsIgnoreCase("none")) {
             player.setPlayerListName(Main.INSTANCE.getConfig().getString("game.team.tab-name-default").replace("&", "§").replace("{player}", player.getName()));
         }
 

@@ -1,25 +1,9 @@
-
-#        ╘╗_۩_╔╛                                               ╘╗_۩_╔╛
-#         ]█▓[                  Nom: Haxy                       ]█▓[
-#         ]█▓[                Discord: Haxy#3002                ]█▓[
-#         ]█▓[            Plugin Made by Haxy972                ]█▓[
-#         ]█▓[                                                  ]█▓[
-#         ]█▓[           Enjoy this beautiful plugin            ]█▓[
-#         ]█▓[                                                  ]█▓[
-#         ]█▓[                                                  ]█▓[
-#  ╘╗____╔╝█▓╚╗____╔╛                                    ╘╗____╔╝█▓╚╗____╔╛
-#
-# Made 30/04/22
-# Price 20€
-# For Selenia Server
-
-
 # ------------------------------------ | PLUGIN SETTINGS | ------------------------------------#
 #              The plugin settings section is to modify visual settings                        #
 #----------------------------------------------------------------------------------------------#
 
 prefix: "&b&lRush&f&lThe&b&lFlag&8> "
-
+language: "EN"
 # The red team has 1 player in more, it's very useful for test
 # If you are solo go to the blue team to test
 debug: false
@@ -115,6 +99,16 @@ kits:
 
 # The player will be dead if his y-coordinate is under this value
 altitude-min: 0
+
+
+# Active default kit, they are generated every reload if they are deleted
+default-kit: true
+
+
+scoreboard-ip: "&bplay.warlend.fr"
+# 0: Normal text
+# 1: The text will flash every 0.5 seconds for 5 seconds and then pause for 3 seconds
+scoreboard-animation: 1
 
 
 

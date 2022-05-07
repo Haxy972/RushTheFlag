@@ -41,7 +41,9 @@ public class OnPlayerJoin implements Listener {
         }
 
         Bukkit.broadcastMessage(MessageYaml.getValue("join.broadcast-message").replace("&", "§").replace("{player}", player.getName()));
-        player.sendMessage(MessageYaml.getValue("join.message-player").replace("&", "§").replace("{player}", player.getName()));
+
+        player.sendMessage(Main.getPrefix() + MessageYaml.getValue("join.message-player").replace("&", "§").replace("{player}", player.getName()));
+
         player.setGameMode(GameMode.SPECTATOR);
         player.teleport(Main.getJoinSpawn());
     }

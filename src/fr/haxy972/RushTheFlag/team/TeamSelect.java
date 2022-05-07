@@ -32,18 +32,31 @@ public class TeamSelect implements Listener {
     public static ArrayList<Player> teamRouge = new ArrayList<>();
     public static ArrayList<Player> teamBleu = new ArrayList<>();
 
-
+    private static String language = Main.INSTANCE.getConfig().getString("language").toLowerCase();
 
     public static void openTeamSelectInventory(Player player) {
-        Inventory inventory = Bukkit.createInventory(player, 9, "§8Equipes§8§l»");
+        Inventory inventory;
+        if(language.equalsIgnoreCase("fr")) {
+            inventory = Bukkit.createInventory(player, 9, "§8Equipes§8§l»");
+        }else{
+            inventory = Bukkit.createInventory(player, 9, "§8Teams§8§l»");
+        }
 
         //laine rouge
         ItemStack it = new ItemStack(Material.WOOL, 1, (byte)14);
         ItemMeta im = it.getItemMeta();
-        im.setDisplayName("§c§lRouge");
+        if(language.equalsIgnoreCase("fr")) {
+            im.setDisplayName("§c§lRouge");
+        }else{
+            im.setDisplayName("§c§lRed");
+        }
 
         ArrayList<String> lore = new ArrayList<String>();
-        lore.add("§7Joueurs§8» §e" + teamRouge.size());
+        if(language.equalsIgnoreCase("fr")) {
+            lore.add("§7Joueurs§8» §e" + teamRouge.size());
+        }else{
+            lore.add("§7Players§8» §e" + teamRouge.size());
+        }
         im.setLore(lore);
         it.setItemMeta(im);
         inventory.setItem(3, it);
@@ -51,9 +64,17 @@ public class TeamSelect implements Listener {
         //laine bleu
         it = new ItemStack(Material.WOOL, 1, (byte)11);
         im = it.getItemMeta();
-        im.setDisplayName("§9§lBleu");
+        if(language.equalsIgnoreCase("fr")) {
+            im.setDisplayName("§9§lBleu");
+        }else{
+            im.setDisplayName("§9§lBlue");
+        }
         lore = new ArrayList<String>();
-        lore.add("§7Joueurs§8» §e" + teamBleu.size());
+        if(language.equalsIgnoreCase("fr")) {
+            lore.add("§7Joueurs§8» §e" + teamRouge.size());
+        }else{
+            lore.add("§7Players§8» §e" + teamRouge.size());
+        }
         im.setLore(lore);
         it.setItemMeta(im);
 
@@ -75,12 +96,14 @@ public class TeamSelect implements Listener {
         if (item == null) {
             return;
         }
-        if(inventory.getName().equalsIgnoreCase("§8Equipes§8§l»"))
+        if(inventory.getName().equalsIgnoreCase("§8Equipes§8§l»") ||inventory.getName().equalsIgnoreCase("§8Teams§8§l»"))
             event.setCancelled(true);
             int margeteam = Main.INSTANCE.getConfig().getInt("game.team.count-tolerance");
             if (item.getType().equals(Material.WOOL)) {
+                String name = item.getItemMeta().getDisplayName();
 
-                if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lRouge")){
+
+                if (name.equalsIgnoreCase("§c§lRouge") ||name.equalsIgnoreCase("§c§lRed")){
                     if(!teamRouge.contains(player) && !teamBleu.contains(player)) {
                         if(teamRouge.size() <= teamBleu.size() + margeteam) {
                             player.closeInventory();
@@ -93,10 +116,15 @@ public class TeamSelect implements Listener {
                             player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.too-much-2").replace("&", "§"));
                         }
                     }else if(teamBleu.contains(player)) {
-
                         teamBleu.remove(player);
-                        player.sendMessage(Main.getPrefix() + "§cERREUR ACTION IMPOSSIBLE");
-                        player.kickPlayer(Main.getPrefix() + "§cErreur Système");
+                        if(language.equalsIgnoreCase("fr")) {
+
+                            player.sendMessage(Main.getPrefix() + "§cERREUR ACTION IMPOSSIBLE");
+                            player.kickPlayer(Main.getPrefix() + "§cErreur Système");
+                        }else{
+                            player.sendMessage(Main.getPrefix() + "§cERROR IMPOSSIBLE ACTION");
+                            player.kickPlayer(Main.getPrefix() + "§cSystem Error");
+                        }
 
                     }else{
                         player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.already").replace("&", "§"));
@@ -104,7 +132,7 @@ public class TeamSelect implements Listener {
                 }
 
 
-                if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§9§lBleu")) {
+                if(name.equalsIgnoreCase("§9§lBleu") ||name.equalsIgnoreCase("§9§lBlue")) {
                     if(!teamBleu.contains(player) && !teamRouge.contains(player)) {
 
                         if(teamBleu.size() <= teamRouge.size() + margeteam) {
@@ -120,8 +148,15 @@ public class TeamSelect implements Listener {
                         }
                     }else if(teamRouge.contains(player)){
                         teamRouge.remove(player);
-                        player.sendMessage(Main.getPrefix() + "§cERREUR ACTION IMPOSSIBLE");
-                        player.kickPlayer(Main.getPrefix() + "§cErreur Système");
+
+                        if(language.equalsIgnoreCase("fr")) {
+
+                            player.sendMessage(Main.getPrefix() + "§cERREUR ACTION IMPOSSIBLE");
+                            player.kickPlayer(Main.getPrefix() + "§cErreur Système");
+                        }else{
+                            player.sendMessage(Main.getPrefix() + "§cERROR IMPOSSIBLE ACTION");
+                            player.kickPlayer(Main.getPrefix() + "§cSystem Error");
+                        }
 
                     }else{
                         player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.already").replace("&", "§"));
@@ -137,13 +172,21 @@ public class TeamSelect implements Listener {
             player.teleport(Main.getSpawnRouge());
             player.setGameMode(GameMode.SURVIVAL);
             if(ScoreboardManager.scoreboardGame.containsKey(player)){
-                ScoreboardManager.scoreboardGame.get(player).setLine(7, "§fEquipe: §c§lRouge");
+                if(language.equalsIgnoreCase("fr")) {
+                    ScoreboardManager.scoreboardGame.get(player).setLine(7, "§fEquipe: §c§lRouge");
+                }else{
+                    ScoreboardManager.scoreboardGame.get(player).setLine(7, "§fTeam: §c§lRed");
+                }
             }
         }else if(team.equalsIgnoreCase("bleu")){
             player.teleport(Main.getSpawnBleu());
             player.setGameMode(GameMode.SURVIVAL);
             if(ScoreboardManager.scoreboardGame.containsKey(player)){
-                ScoreboardManager.scoreboardGame.get(player).setLine(7, "§fEquipe: §9§lBleu");
+                if(language.equalsIgnoreCase("fr")) {
+                    ScoreboardManager.scoreboardGame.get(player).setLine(7, "§fEquipe: §9§lBleu");
+                }else{
+                    ScoreboardManager.scoreboardGame.get(player).setLine(7, "§fTeam: §9§lBlue");
+                }
             }
 
 
@@ -203,12 +246,21 @@ public class TeamSelect implements Listener {
         if(!havefile){
             ItemStack item = new ItemStack(Material.BARRIER);
             ItemMeta im = item.getItemMeta();
-            im.setDisplayName("§cAuncun");
-            ArrayList<String> lore = new ArrayList<>();
-            lore.add("§7Vérifiez la configuration du plugin");
-            lore.add("§ePour en ajouter: §c/rtf kits add <nom>");
-            im.setLore(lore);
-            item.setItemMeta(im);
+            if(language.equalsIgnoreCase("fr")) {
+                im.setDisplayName("§cAuncun");
+                ArrayList<String> lore = new ArrayList<>();
+                lore.add("§7Vérifiez la configuration du plugin");
+                lore.add("§ePour en ajouter: §c/rtf kits add <nom>");
+                im.setLore(lore);
+                item.setItemMeta(im);
+            }else{
+                im.setDisplayName("§cNone");
+                ArrayList<String> lore = new ArrayList<>();
+                lore.add("§7Check the plugin configuration");
+                lore.add("§eTo add kits: §c/rtf kits add <nom>");
+                im.setLore(lore);
+                item.setItemMeta(im);
+            }
             kitInventory.setItem(0, item);
         }
 
@@ -418,8 +470,13 @@ public class TeamSelect implements Listener {
             }
             if(!havefile){
                 hasKit.remove(player);
-                player.sendMessage(Main.getPrefix() + "§cVeuillez modifier la configuration du plugin");
-                player.sendMessage(Main.getPrefix() + "§eAucun kit enregistré");
+                if(language.equalsIgnoreCase("fr")) {
+                    player.sendMessage(Main.getPrefix() + "§cVeuillez modifier la configuration du plugin");
+                    player.sendMessage(Main.getPrefix() + "§eAucun kit enregistré");
+                } else{
+                    player.sendMessage(Main.getPrefix() + "§cPlease modify the plugin configuration");
+                    player.sendMessage(Main.getPrefix() + "§eNo kit registred");
+                }
                 player.playSound(player.getLocation(), Sound.NOTE_PLING, 2,2);
             }
         }
