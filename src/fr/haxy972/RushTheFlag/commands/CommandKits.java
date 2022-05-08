@@ -555,11 +555,15 @@ public class CommandKits implements CommandExecutor {
                                 double x = loc.getX();
                                 double y = loc.getY();
                                 double z = loc.getZ();
+                                double yaw = loc.getYaw();
+                                double pitch = loc.getPitch();
 
 
                                 config.set("game.spawnJoin.x", x);
                                 config.set("game.spawnJoin.y", y);
                                 config.set("game.spawnJoin.z", z);
+                                config.set("game.spawnJoin.yaw", yaw);
+                                config.set("game.spawnJoin.pitch", pitch);
                                 Main.INSTANCE.saveDefaultConfig();
                                 Main.INSTANCE.saveConfig();
                                 player.sendMessage(Main.getPrefix() + "§e§lSPAWNJOIN §8>" + "§b§lX:§e" + x + "§c, §b§lY:§e" + y + "§c, §b§lZ:§e" + z);
