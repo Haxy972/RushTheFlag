@@ -22,36 +22,36 @@ game:
   # Join is also the death teleportation
 
   spawnJoin:
-    x: -623.175
-    y: 108
-    z: -116.946
-    yaw: -89
-    pitch: 43
+    x: 0
+    y: 0
+    z: 0
+    yaw: 0
+    pitch: 0
   # Coordinates of spawn and nexus requires decimal (0.500)*
   #
   # IMPORTANT: Y value doesn't require 0.500 don't write ! Keep integer value
   #
   spawnBlue:
-    x: -599.500
-    y: 70
-    z: -167.500
-    yaw: 114
-    pitch: -3
+    x: 0
+    y: 0
+    z: 0
+    yaw: 0
+    pitch: 0
   spawnRed:
-    x: -601.500
-    y: 70
-    z: -59.500
-    yaw: -60
-    pitch: -4
+    x: 0
+    y: 0
+    z: 0
+    yaw: 0
+    pitch: 0
   # Nexus doesn't contain pitch and yaw
   nexusBlue:
-    x: -600.500
-    y: 71
-    z: -160.500
+    x: 0
+    y: 0
+    z: 0
   nexusRed:
-    x: -600.500
-    y: 71
-    z: -66.500
+    x: 0
+    y: 0
+    z: 0
   death-timer: 5
 
   team:

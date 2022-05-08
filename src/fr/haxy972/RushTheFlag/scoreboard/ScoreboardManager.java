@@ -25,7 +25,7 @@ public class ScoreboardManager {
     }
 
     public void loadScoreboard() {
-        scoreboard.setObjectiveName(Main.getPrefix().replace("§8»", "").replace(">", ""));
+        scoreboard.setObjectiveName("    §b§lRush§f§lThe§b§lFlag    ");
         scoreboard.create();
         if(language.equalsIgnoreCase("fr")) {
             ((ScoreboardSign) scoreboardGame.get(player)).setLine(9, "§d");

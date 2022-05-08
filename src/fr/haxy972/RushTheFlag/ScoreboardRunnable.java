@@ -120,7 +120,6 @@ public class ScoreboardRunnable extends BukkitRunnable {
 
 
 
-                    Bukkit.broadcastMessage(WrittingAnimationSeq + " " + timer);
 
 
 
@@ -133,7 +132,6 @@ public class ScoreboardRunnable extends BukkitRunnable {
                     for(int i = 0; i < 64; i += 2){
                         listTimer.add(i);
                     }
-                    Bukkit.broadcastMessage(listTimer.toString());
                     if(listTimer.contains(timer)){
                         if(counterAnimationSeq != charCounter || counterAnimationSeq < charCounter){
 

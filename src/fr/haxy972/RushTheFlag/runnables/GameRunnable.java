@@ -169,7 +169,9 @@ public class GameRunnable extends BukkitRunnable {
                 if(ScoreboardManager.scoreboardGame.containsKey(players))
                     if(language.equalsIgnoreCase("fr")) {
                         ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRouge§7: §a§l✔");
-                    }else{
+                    }if(language.equalsIgnoreCase("es")) {
+                    ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRojo§7: §a§l✔");
+                }   else{
                         ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRed§7: §a§l✔");
                     }
             }
@@ -179,6 +181,8 @@ public class GameRunnable extends BukkitRunnable {
                 if(ScoreboardManager.scoreboardGame.containsKey(players))
                     if(language.equalsIgnoreCase("fr")) {
                         ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRouge§7: §c§lX");
+                    }else if(language.equalsIgnoreCase("es")) {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRojo§7: §c§lX");
                     }else{
                         ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRed§7: §c§lX");
                     }
@@ -193,6 +197,9 @@ public class GameRunnable extends BukkitRunnable {
                     if(language.equalsIgnoreCase("fr")) {
                         ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lBleu§7: §a§l✔");
 
+                    }else if(language.equalsIgnoreCase("es")) {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lAzul§7: §a§l✔");
+
                     }else{
                         ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lBlue§7: §a§l✔");
                     }
@@ -202,7 +209,10 @@ public class GameRunnable extends BukkitRunnable {
                 if(ScoreboardManager.scoreboardGame.containsKey(players))
                     if(language.equalsIgnoreCase("fr")) {
                         ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lBleu§7: §c§lX");
-                    }else{
+                    }else if(language.equalsIgnoreCase("es")) {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lAzul§7: §c§lX");
+
+                    }else {
                         ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lBlue§7: §c§lX");
                     }
             }

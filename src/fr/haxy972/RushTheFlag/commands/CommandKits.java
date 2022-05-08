@@ -1,6 +1,7 @@
 package fr.haxy972.RushTheFlag.commands;
 
 import fr.haxy972.RushTheFlag.Main;
+import fr.haxy972.RushTheFlag.team.TeamSelect;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
 import org.bukkit.command.Command;
@@ -322,7 +323,8 @@ public class CommandKits implements CommandExecutor {
         }
         Player player = (Player) sender;
         if (cmd.getName().equalsIgnoreCase("rushtheflag") || cmd.getName().equalsIgnoreCase("rtf")) {
-
+            player.sendMessage(TeamSelect.teamBleu.toString());
+            player.sendMessage(TeamSelect.teamRouge.toString());
             if(!player.hasPermission("RushTheFlag.*") && !player.isOp()){
                 player.sendMessage(Main.getPrefix() + "§cYou doesn't have permission to execute this command");
                 return true;
