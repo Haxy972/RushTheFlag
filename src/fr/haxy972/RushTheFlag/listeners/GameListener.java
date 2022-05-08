@@ -630,7 +630,14 @@ public class GameListener implements Listener {
 
         if(Main.INSTANCE.getConfig().getBoolean("blocks.infinite-sandstone")){
             if(event.getBlock().getType().equals(Material.SANDSTONE)) {
-                event.getBlock().getDrops().clear();
+
+                Bukkit.getScheduler().runTaskLater(Main.INSTANCE, new Runnable() {
+                    @Override
+                    public void run() {
+                        event.getBlock().setType(Material.AIR);
+                    }
+                }, 1);
+
             }
         }
 
