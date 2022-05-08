@@ -105,7 +105,7 @@ altitude-min: 0
 default-kit: true
 
 
-scoreboard-ip: "&bMade by Haxy972"
+scoreboard-ip: "  &bMade by Haxy972"
 # 0: Normal text
 # 1: The text will flash every 0.5 seconds for 5 seconds and then pause for 3 seconds
 scoreboard-animation: 1
