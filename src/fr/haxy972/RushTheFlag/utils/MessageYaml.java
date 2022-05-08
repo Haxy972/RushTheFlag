@@ -105,7 +105,7 @@ public class MessageYaml {
                     yaml.set("team.chat-red", "&c&lRouge &c{player}&8» &7");
                     yaml.set("team.chat-default", "&7{player}&8» &7");
                     yaml.set("team.join", "&7Vous avez rejoint l'équipe {team}");
-                    yaml.set("team.too-much-1", "&cIl n'y a pas assez de joueur dans l'autre équipe");
+                    yaml.set("team.too-much-1", "&cIl n'y a pas assez de joueurs dans l'autre équipe");
                     yaml.set("team.too-much-2", "&eChangez de camp ou attendez :/");
                     yaml.set("team.already", "&cVous êtes deja dans cette équipe");
                     yaml.set("team.player-back", "&e{player}&a a ramené la laine {wool-color}&a à sa base");

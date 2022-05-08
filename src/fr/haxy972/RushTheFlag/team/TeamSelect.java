@@ -49,6 +49,7 @@ public class TeamSelect implements Listener {
         ItemMeta im = it.getItemMeta();
         if(language.equalsIgnoreCase("fr")) {
             im.setDisplayName("§c§lRouge");
+
         }else if(language.equalsIgnoreCase("es")){
             im.setDisplayName("§c§lRojo");
         }else{
@@ -72,6 +73,7 @@ public class TeamSelect implements Listener {
         im = it.getItemMeta();
         if(language.equalsIgnoreCase("fr")) {
             im.setDisplayName("§9§lBleu");
+
         }else if(language.equalsIgnoreCase("es")){
             im.setDisplayName("§9§lAzul");
         }else{
@@ -79,11 +81,11 @@ public class TeamSelect implements Listener {
         }
         lore = new ArrayList<String>();
         if(language.equalsIgnoreCase("fr")) {
-            lore.add("§7Joueurs§8» §e" + teamRouge.size());
+            lore.add("§7Joueurs§8» §e" + teamBleu.size());
         }else if(language.equalsIgnoreCase("es")){
-            lore.add("§7Jugadores§8» §e" + teamRouge.size());
+            lore.add("§7Jugadores§8» §e" + teamBleu.size());
         }else{
-            lore.add("§7Players§8» §e" + teamRouge.size());
+            lore.add("§7Players§8» §e" + teamBleu.size());
         }
         im.setLore(lore);
         it.setItemMeta(im);
@@ -128,6 +130,7 @@ public class TeamSelect implements Listener {
                         }else{
                             player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.too-much-1").replace("&", "§"));
                             player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.too-much-2").replace("&", "§"));
+                            player.closeInventory();
                         }
                     }else if(teamBleu.contains(player)) {
                         teamBleu.remove(player);
@@ -161,6 +164,7 @@ public class TeamSelect implements Listener {
                         }else{
                             player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.too-much-1").replace("&", "§"));
                             player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.too-much-2").replace("&", "§"));
+                            player.closeInventory();
                         }
                     }else if(teamRouge.contains(player)){
                         teamRouge.remove(player);

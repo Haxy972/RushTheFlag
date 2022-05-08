@@ -166,14 +166,16 @@ public class GameRunnable extends BukkitRunnable {
             loc.getBlock().setType(Material.WOOL);
             loc.getBlock().setData((byte) 14);
             for(Player players : Bukkit.getOnlinePlayers()){
-                if(ScoreboardManager.scoreboardGame.containsKey(players))
-                    if(language.equalsIgnoreCase("fr")) {
+                if(ScoreboardManager.scoreboardGame.containsKey(players)) {
+                    if (language.equalsIgnoreCase("fr")) {
                         ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRouge§7: §a§l✔");
-                    }if(language.equalsIgnoreCase("es")) {
-                    ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRojo§7: §a§l✔");
-                }   else{
+                    }
+                    if (language.equalsIgnoreCase("es")) {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRojo§7: §a§l✔");
+                    } else {
                         ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRed§7: §a§l✔");
                     }
+                }
             }
 
         }else{
