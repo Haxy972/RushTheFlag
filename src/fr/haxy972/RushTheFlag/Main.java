@@ -19,6 +19,99 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin {
     public static Main INSTANCE;
     public static boolean blocked = false;
+    private static String language;
+    public static void checkAllSpawn(){
+        boolean have = false;
+        if(Main.INSTANCE.getConfig().getDouble("game.spawnJoin.x") == 0
+                && Main.INSTANCE.getConfig().getDouble("game.spawnJoin.y") == 0
+                && Main.INSTANCE.getConfig().getDouble("game.spawnJoin.z") == 0
+                && Main.INSTANCE.getConfig().getInt("game.spawnJoin.pitch") == 0
+                && Main.INSTANCE.getConfig().getInt("game.spawnJoin.yaw") == 0){
+
+
+                if(language.equalsIgnoreCase("fr")){
+                    Bukkit.broadcastMessage(Main.getPrefix() + "§cLe spawn de Connexion n'est pas défini !");
+                }else if (language.equalsIgnoreCase("es")){
+                    Bukkit.broadcastMessage(Main.getPrefix() + "§cEl spawn de Conexión no está definido");
+                }else{
+                    Bukkit.broadcastMessage(Main.getPrefix() + "§cJoin Spawn isn't set in the config !");
+                }
+
+                have = true;
+        }
+        if(Main.INSTANCE.getConfig().getDouble("game.spawnBlue.x") == 0
+                && Main.INSTANCE.getConfig().getDouble("game.spawnBlue.y") == 0
+                && Main.INSTANCE.getConfig().getDouble("game.spawnBlue.z") == 0
+                && Main.INSTANCE.getConfig().getInt("game.spawnBlue.pitch") == 0
+                && Main.INSTANCE.getConfig().getInt("game.spawnBlue.yaw") == 0){
+
+            if(language.equalsIgnoreCase("fr")){
+                Bukkit.broadcastMessage(Main.getPrefix() + "§cLe spawn de l'équipe Bleu n'est pas défini");
+            }else if (language.equalsIgnoreCase("es")){
+                Bukkit.broadcastMessage(Main.getPrefix() + "§cEl Spawn de el equipo Azul no se establece en la configuración !");
+            }else{
+                Bukkit.broadcastMessage(Main.getPrefix() + "§cBlue Spawn isn't set in the config !");
+            }
+            have = true;
+
+        }
+        if(Main.INSTANCE.getConfig().getDouble("game.spawnRed.x") == 0
+                && Main.INSTANCE.getConfig().getDouble("game.spawnRed.y") == 0
+                && Main.INSTANCE.getConfig().getDouble("game.spawnRed.z") == 0
+                && Main.INSTANCE.getConfig().getInt("game.spawnRed.pitch") == 0
+                && Main.INSTANCE.getConfig().getInt("game.spawnRed.yaw") == 0){
+
+
+            if(language.equalsIgnoreCase("fr")){
+                Bukkit.broadcastMessage(Main.getPrefix() + "§cLe spawn de l'équipe Rouge n'est pas défini");
+            }else if (language.equalsIgnoreCase("es")){
+                Bukkit.broadcastMessage(Main.getPrefix() + "§El Spawn de el equipo Rojo no se establece en la configuración !");
+            }else{
+                Bukkit.broadcastMessage(Main.getPrefix() + "§cRed Spawn isn't set in the config !");
+            }
+            have = true;
+        }
+        if(Main.INSTANCE.getConfig().getDouble("game.nexusBlue.x") == 0
+                && Main.INSTANCE.getConfig().getDouble("game.nexusBlue.y") == 0
+                && Main.INSTANCE.getConfig().getDouble("game.nexusBlue.z") == 0){
+
+            if(language.equalsIgnoreCase("fr")){
+                Bukkit.broadcastMessage(Main.getPrefix() + "§cLe nexus de l'équipe Bleu n'est pas défini !");
+            }else if (language.equalsIgnoreCase("es")){
+                Bukkit.broadcastMessage(Main.getPrefix() + "§c¡El nexo del equipo Azul no está definido!");
+            }else{
+                Bukkit.broadcastMessage(Main.getPrefix() + "§cBlue Nexus isn't set in the config !");
+            }
+
+            have = true;
+        }
+        if(Main.INSTANCE.getConfig().getDouble("game.nexusRed.x") == 0
+                && Main.INSTANCE.getConfig().getDouble("game.nexusRed.y") == 0
+                && Main.INSTANCE.getConfig().getDouble("game.nexusRed.z") == 0){
+
+
+            if(language.equalsIgnoreCase("fr")){
+                Bukkit.broadcastMessage(Main.getPrefix() + "§cLe nexus de l'équipe Rouge n'est pas défini !");
+            }else if (language.equalsIgnoreCase("es")){
+                Bukkit.broadcastMessage(Main.getPrefix() + "§c¡El nexo del equipo Rojo no está definido!");
+            }else{
+                Bukkit.broadcastMessage(Main.getPrefix() + "§cRed Nexus isn't set in the config !");
+            }
+            have = true;
+        }
+        if(have == true){
+            if(language.equalsIgnoreCase("fr")){
+                Bukkit.broadcastMessage(Main.getPrefix() + "§7Tapez §e\"/rtf setspawns\"§7 pour mettre les spawns");
+            }else if (language.equalsIgnoreCase("es")){
+                Bukkit.broadcastMessage(Main.getPrefix() + "§7Escriba §e\"/rtf setspawns\"§7 para establice los spawns");
+            }else{
+                Bukkit.broadcastMessage(Main.getPrefix() + "§7Type §e\"/rtf setspawns\"§7 to set spawns");
+            }
+
+        }
+
+    }
+
 
     public static String getPrefix() {
 
@@ -86,6 +179,7 @@ public class Main extends JavaPlugin {
         MessageYaml.checkYaml();
         CommandKits.createKitFolder();
         PluginUpdater.check(this, "Haxy972", "RushTheFlag");
+        language = Main.INSTANCE.getConfig().getString("language");
 
 
         GameStatut.setStatut(GameStatut.INLOBBY);
@@ -97,6 +191,7 @@ public class Main extends JavaPlugin {
         for (Player players : Bukkit.getOnlinePlayers()) {
             serverReloaded(players);
         }
+        checkAllSpawn();
 
 
     }

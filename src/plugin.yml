@@ -12,4 +12,5 @@ commands:
   rushtheflag:
     description: Gérer les kits
     aliases: rtf
-    permision: RushTheFlag.*
+    permision: RushTheFlag.allperm
+#    permission-message: "§b§lR§f§lT§b§lF§8§8» §cYou doesn't have permission to execute this command"

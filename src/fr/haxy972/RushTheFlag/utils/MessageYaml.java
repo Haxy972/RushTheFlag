@@ -27,6 +27,9 @@ public class MessageYaml {
         }else if(Main.INSTANCE.getConfig().getString("language").equalsIgnoreCase("EN")) {
             file = new File("plugins/RushTheFlag/messages-en.yml");
             language = "en";
+        }else if(Main.INSTANCE.getConfig().getString("language").equalsIgnoreCase("es")) {
+            file = new File("plugins/RushTheFlag/messages-es.yml");
+            language = "es";
         }else{
             Bukkit.broadcastMessage(Main.getPrefix() + "§cLanguage in the config isn't set correctly");
             return;
@@ -71,7 +74,7 @@ public class MessageYaml {
                     yaml.set("team.win-title", "&a&lVictory");
                     yaml.set("team.defeat-title", "&c&lDefeat");
                     yaml.set("team.end-default-title", "&c&lEND");
-                    yaml.set("team.win-subtitle", "&9&lBleu &7won the game");
+                    yaml.set("team.win-subtitle", "{team} &7won the game");
                     yaml.set("team.restart", "&cThe game will restart in &e&l30 seconds");
                     yaml.set("kits.choose-kit", "&aPlease choose a kit");
                     yaml.set("kits.chosen-kit", "&7You have chosen: {kit}");
@@ -112,13 +115,51 @@ public class MessageYaml {
                     yaml.set("team.win-title", "&a&lVictoire");
                     yaml.set("team.defeat-title", "&c&lDéfaite");
                     yaml.set("team.end-default-title", "&c&lFIN");
-                    yaml.set("team.win-subtitle", "&7L'équipe &9&lBleu &7gagne la partie");
+                    yaml.set("team.win-subtitle", "&7L'équipe {team} &7gagne la partie");
                     yaml.set("team.restart", "&cLa partie va redémarrer dans &e&l30 secondes");
                     yaml.set("kits.choose-kit", "&aVeuillez choisir un kit");
                     yaml.set("kits.chosen-kit", "&7Vous avez choisi le kit: {kit}");
                     yaml.set("kits.please-choose", "&cVous n'avez pas choisi de kit");
                     yaml.save(file);
-                    System.out.println("DEBUG: messages-fr.yml: recreated");
+                    System.out.println("DEBUG: messages-fr.yml: recréé");
+                }
+
+                if(language == "es") {
+                    file.createNewFile();
+                    console.sendMessage(Main.getPrefix() + "§aLanguage selected: §e§lES");
+                    yaml.set("join.broadcast-message", "&7[&a+&7] &7{player}");
+                    yaml.set("join.message-player", "&7Escriba &e&l/join&7 para unirse al juego");
+                    yaml.set("blocks.cant-place", "&cUsted no puede poner bloques aquí");
+                    yaml.set("blocks.own-wool", "&cNo puedes romper tu propia lana");
+                    yaml.set("blocks.cant-place-wool", "&cNo se puede colocar este bloque");
+                    yaml.set("death.title", "&c&lMuerto");
+                    yaml.set("death.subtitle", "&7Usted va a aparecer pronto");
+                    yaml.set("death.timer", "&eAparecer en {secondes} {unite}");
+                    yaml.set("death.end", "&eReaparición en curso");
+
+                    yaml.set("team.no-one", "&cNo hay nadie en el equipo contrario, acción imposible");
+                    yaml.set("team.take-wool", "&e&l{player}&a a recuperar la lana {wool-color}");
+                    yaml.set("team.chat-blue", "&9&lAzul &9{player}&8» &7");
+                    yaml.set("team.chat-red", "&c&lRojo &c{player}&8» &7");
+                    yaml.set("team.chat-default", "&7{player}&8» &7");
+                    yaml.set("team.join", "&7Te has unido al equipo {team}");
+                    yaml.set("team.too-much-1", "&cNo hay suficientes jugadores en el otro equipo");
+                    yaml.set("team.too-much-2", "&eCambia de bando o espera :/");
+                    yaml.set("team.already", "&cYa estás en este equipo");
+                    yaml.set("team.player-back", "&e{player}&a trajo la lana {wool-color}&a en su base");
+                    yaml.set("team.lost-wool", "&e{player}&c perdió la lana {wool-color}");
+                    yaml.set("team.win", "&7El equipe {team} &7gana el juego");
+                    yaml.set("team.same-team", "&cNo puedes atacar a tus aliados");
+                    yaml.set("team.win-title", "&a&lVictoria");
+                    yaml.set("team.defeat-title", "&c&lDerrota");
+                    yaml.set("team.end-default-title", "&c&lFIN");
+                    yaml.set("team.win-subtitle", "&7El equipe {team} &7gana el juego");
+                    yaml.set("team.restart", "&El juego se reiniciará en &e&l30 segundos");
+                    yaml.set("kits.choose-kit", "&aPor favor, elija un kit");
+                    yaml.set("kits.chosen-kit", "&7Usted ha elegido el kit: {kit}");
+                    yaml.set("kits.please-choose", "&cUsted no ha elegido un kit");
+                    yaml.save(file);
+                    System.out.println("DEBUG: messages-fr.yml: recreado");
                 }
             }
             Bukkit.getScheduler().runTaskLater(Main.INSTANCE, new Runnable() {
@@ -158,6 +199,9 @@ public class MessageYaml {
         }else if(Main.INSTANCE.getConfig().getString("language").equalsIgnoreCase("EN")) {
             file = new File("plugins/RushTheFlag/messages-en.yml");
             language = "en";
+        }else if(Main.INSTANCE.getConfig().getString("language").equalsIgnoreCase("ES")) {
+            file = new File("plugins/RushTheFlag/messages-es.yml");
+            language = "es";
         }else{
             Bukkit.broadcastMessage(Main.getPrefix() + "§cLanguage in the config isn't set correctly");
         }

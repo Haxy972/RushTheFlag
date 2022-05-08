@@ -38,6 +38,18 @@ public class ScoreboardManager {
             ((ScoreboardSign) scoreboardGame.get(player)).setLine(2, "§fKit: §e§lAucun");
             ((ScoreboardSign) scoreboardGame.get(player)).setLine(1, "§d");
             ((ScoreboardSign) scoreboardGame.get(player)).setLine(0, "   §f" + scoreboardFooter);
+        }else if(language.equalsIgnoreCase("es")) {
+            ((ScoreboardSign) scoreboardGame.get(player)).setLine(9, "§d");
+            ((ScoreboardSign) scoreboardGame.get(player)).setLine(8, "§fApodo: §b§l" + player.getName());
+            ((ScoreboardSign) scoreboardGame.get(player)).setLine(7, "§fEquipo: §7§lNinguna");
+            ((ScoreboardSign) scoreboardGame.get(player)).setLine(6, "§2");
+            ((ScoreboardSign) scoreboardGame.get(player)).setLine(5, "§c§lRojo§7: §a§l✔");
+            ((ScoreboardSign) scoreboardGame.get(player)).setLine(4, "§9§lAzul§7: §a§l✔");
+            ((ScoreboardSign) scoreboardGame.get(player)).setLine(3, "§a");
+            ((ScoreboardSign) scoreboardGame.get(player)).setLine(2, "§fKit: §e§lNinguna");
+            ((ScoreboardSign) scoreboardGame.get(player)).setLine(1, "§d");
+            ((ScoreboardSign) scoreboardGame.get(player)).setLine(0, "   §f" + scoreboardFooter);
+
         }else{
             ((ScoreboardSign) scoreboardGame.get(player)).setLine(9, "§d");
             ((ScoreboardSign) scoreboardGame.get(player)).setLine(8, "§fName: §b§l" + player.getName());

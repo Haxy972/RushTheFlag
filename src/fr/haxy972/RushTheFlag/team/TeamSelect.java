@@ -38,7 +38,9 @@ public class TeamSelect implements Listener {
         Inventory inventory;
         if(language.equalsIgnoreCase("fr")) {
             inventory = Bukkit.createInventory(player, 9, "§8Equipes§8§l»");
-        }else{
+        }else if(language.equalsIgnoreCase("es")) {
+            inventory = Bukkit.createInventory(player, 9, "§8Equipos§8§l»");
+        }else {
             inventory = Bukkit.createInventory(player, 9, "§8Teams§8§l»");
         }
 
@@ -47,6 +49,8 @@ public class TeamSelect implements Listener {
         ItemMeta im = it.getItemMeta();
         if(language.equalsIgnoreCase("fr")) {
             im.setDisplayName("§c§lRouge");
+        }else if(language.equalsIgnoreCase("es")){
+            im.setDisplayName("§c§lRojo");
         }else{
             im.setDisplayName("§c§lRed");
         }
@@ -54,6 +58,8 @@ public class TeamSelect implements Listener {
         ArrayList<String> lore = new ArrayList<String>();
         if(language.equalsIgnoreCase("fr")) {
             lore.add("§7Joueurs§8» §e" + teamRouge.size());
+        }else if(language.equalsIgnoreCase("es")){
+            lore.add("§7Jugadores§8» §e" + teamRouge.size());
         }else{
             lore.add("§7Players§8» §e" + teamRouge.size());
         }
@@ -66,12 +72,16 @@ public class TeamSelect implements Listener {
         im = it.getItemMeta();
         if(language.equalsIgnoreCase("fr")) {
             im.setDisplayName("§9§lBleu");
+        }else if(language.equalsIgnoreCase("es")){
+            im.setDisplayName("§9§lAzul");
         }else{
             im.setDisplayName("§9§lBlue");
         }
         lore = new ArrayList<String>();
         if(language.equalsIgnoreCase("fr")) {
             lore.add("§7Joueurs§8» §e" + teamRouge.size());
+        }else if(language.equalsIgnoreCase("es")){
+            lore.add("§7Jugadores§8» §e" + teamRouge.size());
         }else{
             lore.add("§7Players§8» §e" + teamRouge.size());
         }
@@ -96,14 +106,18 @@ public class TeamSelect implements Listener {
         if (item == null) {
             return;
         }
-        if(inventory.getName().equalsIgnoreCase("§8Equipes§8§l»") ||inventory.getName().equalsIgnoreCase("§8Teams§8§l»"))
+        if(inventory.getName().equalsIgnoreCase("§8Equipes§8§l»")
+                ||inventory.getName().equalsIgnoreCase("§8Teams§8§l»")
+                || inventory.getName().equalsIgnoreCase("§8Equipos§8§l»"))
             event.setCancelled(true);
             int margeteam = Main.INSTANCE.getConfig().getInt("game.team.count-tolerance");
             if (item.getType().equals(Material.WOOL)) {
                 String name = item.getItemMeta().getDisplayName();
 
 
-                if (name.equalsIgnoreCase("§c§lRouge") ||name.equalsIgnoreCase("§c§lRed")){
+                if (name.equalsIgnoreCase("§c§lRouge")
+                        ||name.equalsIgnoreCase("§c§lRed")
+                        || name.equalsIgnoreCase("§c§lRojo")){
                     if(!teamRouge.contains(player) && !teamBleu.contains(player)) {
                         if(teamRouge.size() <= teamBleu.size() + margeteam) {
                             player.closeInventory();
@@ -132,7 +146,9 @@ public class TeamSelect implements Listener {
                 }
 
 
-                if(name.equalsIgnoreCase("§9§lBleu") ||name.equalsIgnoreCase("§9§lBlue")) {
+                if(name.equalsIgnoreCase("§9§lBleu")
+                        ||name.equalsIgnoreCase("§9§lBlue")
+                        || name.equalsIgnoreCase("§9§lAzul")) {
                     if(!teamBleu.contains(player) && !teamRouge.contains(player)) {
 
                         if(teamBleu.size() <= teamRouge.size() + margeteam) {
@@ -153,6 +169,9 @@ public class TeamSelect implements Listener {
 
                             player.sendMessage(Main.getPrefix() + "§cERREUR ACTION IMPOSSIBLE");
                             player.kickPlayer(Main.getPrefix() + "§cErreur Système");
+                        }else if(language.equalsIgnoreCase("es")){
+                            player.sendMessage(Main.getPrefix() + "§cERROR ACCIÓN IMPOSIBLE");
+                            player.kickPlayer(Main.getPrefix() + "§cError del Sistema");
                         }else{
                             player.sendMessage(Main.getPrefix() + "§cERROR IMPOSSIBLE ACTION");
                             player.kickPlayer(Main.getPrefix() + "§cSystem Error");
@@ -174,6 +193,8 @@ public class TeamSelect implements Listener {
             if(ScoreboardManager.scoreboardGame.containsKey(player)){
                 if(language.equalsIgnoreCase("fr")) {
                     ScoreboardManager.scoreboardGame.get(player).setLine(7, "§fEquipe: §c§lRouge");
+                }else if(language.equalsIgnoreCase("es")){
+                    ScoreboardManager.scoreboardGame.get(player).setLine(7, "§fEquipo: §c§lRojo");
                 }else{
                     ScoreboardManager.scoreboardGame.get(player).setLine(7, "§fTeam: §c§lRed");
                 }
@@ -184,6 +205,8 @@ public class TeamSelect implements Listener {
             if(ScoreboardManager.scoreboardGame.containsKey(player)){
                 if(language.equalsIgnoreCase("fr")) {
                     ScoreboardManager.scoreboardGame.get(player).setLine(7, "§fEquipe: §9§lBleu");
+                }else if(language.equalsIgnoreCase("es")){
+                    ScoreboardManager.scoreboardGame.get(player).setLine(7, "§fEquipo: §9§lAzul");
                 }else{
                     ScoreboardManager.scoreboardGame.get(player).setLine(7, "§fTeam: §9§lBlue");
                 }

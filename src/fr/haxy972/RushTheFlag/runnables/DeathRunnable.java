@@ -2,6 +2,7 @@ package fr.haxy972.RushTheFlag.runnables;
 
 import fr.haxy972.RushTheFlag.GameStatut;
 import fr.haxy972.RushTheFlag.Main;
+import fr.haxy972.RushTheFlag.scoreboard.ScoreboardManager;
 import fr.haxy972.RushTheFlag.team.TeamSelect;
 import fr.haxy972.RushTheFlag.utils.MessageYaml;
 import fr.haxy972.RushTheFlag.utils.TitleManager;
@@ -67,6 +68,8 @@ public class DeathRunnable extends BukkitRunnable {
         }
         if(language.equalsIgnoreCase("fr")) {
             player.sendMessage(Main.getPrefix() + "§7Vous pouvez changer de kit via §e§l/kits");
+        }else if(language.equalsIgnoreCase("es")){
+            player.sendMessage(Main.getPrefix() + "§7Puede cambiar el kit a través de §e§l/kits");
         }else{
             player.sendMessage(Main.getPrefix() + "§7To change kits type §e§l/kits");
         }
@@ -88,6 +91,12 @@ public class DeathRunnable extends BukkitRunnable {
                 return "seconde";
             }else{
                 return "second";
+            }
+        }else if(language.equalsIgnoreCase("es")){
+            if(language.equalsIgnoreCase("fr")) {
+                return "secundos";
+            }else{
+                return "segondo";
             }
         } else {
             if(language.equalsIgnoreCase("fr")) {
