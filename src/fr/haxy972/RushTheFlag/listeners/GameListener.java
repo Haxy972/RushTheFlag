@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -60,7 +61,7 @@ public class GameListener implements Listener {
 
 
     }
-
+    private static Map<Player, Player> attackedBy = new HashMap<>();
 
     @EventHandler
     public void onDamageByEntity(EntityDamageByEntityEvent event) {
@@ -79,15 +80,20 @@ public class GameListener implements Listener {
 
                 if (DeathRunnable.respawnedList.contains(player)) {
                     event.setCancelled(true);
-                    attacker.sendMessage(Main.getPrefix() + "§cCe joueur vient de respawn");
+                    attacker.sendMessage(Main.getPrefix() + MessageYaml.getValue("death.anti-spawn-kill").replace("&", "§"));
                     return;
                 }
                 if (DeathRunnable.respawnedList.contains(attacker)) {
                     event.setCancelled(true);
-                    player.sendMessage(Main.getPrefix() + "§cVous venez de respawn attendez avant d'attaquer");
+                    attacker.sendMessage(Main.getPrefix() + MessageYaml.getValue("death.calm-down").replace("&", "§"));
                     return;
                 }
 
+                if(!attackedBy.containsKey(player))
+                    attackedBy.put(player, attacker);
+                else{
+                    attackedBy.replace(player, attacker);
+                }
 
                 if (TeamSelect.teamRouge.contains(player)) {
                     if (TeamSelect.teamRouge.contains(attacker)) {
@@ -102,6 +108,15 @@ public class GameListener implements Listener {
                         return;
                     }
                 }
+                Bukkit.getScheduler().runTaskLater(Main.INSTANCE, new Runnable() {
+                    @Override
+                    public void run() {
+                        if(attackedBy.containsKey(player) && attackedBy.get(player).equals(attacker)){
+                            attackedBy.remove(player);
+                        }
+                    }
+                }, 5*20);
+
             }
 
 
@@ -118,15 +133,19 @@ public class GameListener implements Listener {
 
             if (DeathRunnable.respawnedList.contains(player)) {
                 event.setCancelled(true);
-                attacker.sendMessage(Main.getPrefix() + "§cCe joueur vient de respawn");
+                attacker.sendMessage(Main.getPrefix() + MessageYaml.getValue("death.anti-spawn-kill").replace("&", "§"));
                 return;
             }
             if (DeathRunnable.respawnedList.contains(attacker)) {
                 event.setCancelled(true);
-                player.sendMessage(Main.getPrefix() + "§cVous venez de respawn attendez avant d'attaquer");
+                attacker.sendMessage(Main.getPrefix() + MessageYaml.getValue("death.calm-down").replace("&", "§"));
                 return;
             }
-
+            if(!attackedBy.containsKey(player))
+                attackedBy.put(player, attacker);
+            else{
+                attackedBy.replace(player, attacker);
+            }
 
             if (TeamSelect.teamRouge.contains(player)) {
                 if (TeamSelect.teamRouge.contains(attacker)) {
@@ -139,6 +158,14 @@ public class GameListener implements Listener {
                     attacker.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.same-team").replace("&", "§"));
                 }
             }
+            Bukkit.getScheduler().runTaskLater(Main.INSTANCE, new Runnable() {
+                @Override
+                public void run() {
+                    if(attackedBy.containsKey(player) && attackedBy.get(player).equals(attacker)){
+                        attackedBy.remove(player);
+                    }
+                }
+            }, 5*20);
 
         }
 
@@ -167,10 +194,24 @@ public class GameListener implements Listener {
         Player attacker = event.getEntity().getKiller();
 
         for(Player players : Bukkit.getOnlinePlayers()){
-            TitleManager.sendActionBar(players, "§e§l" + player.getName() + " §ea été tué par §b§l" + attacker.getName());
+            if(language.equalsIgnoreCase("fr")){
+                TitleManager.sendActionBar(players, "§e§l" + player.getName() + " §ea été tué par §b§l" + attacker.getName());
+            }else if(language.equalsIgnoreCase("es")){
+                TitleManager.sendActionBar(players, "§e§l" + player.getName() + " §efue asesinado por §b§l" + attacker.getName());
+            }else{
+                TitleManager.sendActionBar(players, "§e§l" + player.getName() + " §e was killed by §b§l" + attacker.getName());
+            }
+
         }
 
-        TitleManager.sendActionBar(player, "§eVous avez tué §b§l" + player.getName());
+        if(language.equalsIgnoreCase("fr")){
+            TitleManager.sendActionBar(player, "§eVous avez tué §b§l" + player.getName());
+        }else if(language.equalsIgnoreCase("es")){
+            TitleManager.sendActionBar(player, "§eMataste a §b§l" + player.getName());
+        }else{
+            TitleManager.sendActionBar(player, "§eYou killed §b§l" + player.getName());
+        }
+
         attacker.playSound(attacker.getLocation(), Sound.LEVEL_UP, 1f, 1f);
 
 
@@ -193,7 +234,41 @@ public class GameListener implements Listener {
 
     public void onDeath(Player player) {
         for(Player players : Bukkit.getOnlinePlayers()){
-            TitleManager.sendActionBar(players, "§e§l" + player.getName() + " est mort du vide");
+            if(!attackedBy.containsKey(player)) {
+                if(language.equalsIgnoreCase("fr")){
+                    TitleManager.sendActionBar(players, "§e" + player.getName() + " est tombé dans le vide");
+                }else if(language.equalsIgnoreCase("fr")){
+                    TitleManager.sendActionBar(players, "§e" + player.getName() + " cayó en el vacío");
+                }else {
+                    TitleManager.sendActionBar(players, "§e" + player.getName() + " fell into the void");
+                }
+
+            }else{
+
+                if(language.equalsIgnoreCase("fr")){
+                    TitleManager.sendActionBar(players, "§e" + player.getName() + " a été poussé dans le vide par §b§l" + attackedBy.get(player).getName());
+                }else if(language.equalsIgnoreCase("es")){
+                    TitleManager.sendActionBar(players, "§e" + player.getName() + " fue empujado al vacío por §b§l" + attackedBy.get(player).getName());
+                }else{
+                    TitleManager.sendActionBar(players, "§e" + player.getName() + " was pushed into the void by §b§l" + attackedBy.get(player).getName());
+                }
+
+
+
+
+
+                if(attackedBy.get(player).getName().equalsIgnoreCase(players.getName())){
+                    if(language.equalsIgnoreCase("fr")){
+                        TitleManager.sendActionBar(attackedBy.get(player), "§eVous avez tué §b§l" + player.getName());
+                    }else if(language.equalsIgnoreCase("es")){
+                        TitleManager.sendActionBar(attackedBy.get(player), "§eMataste a §b§l" + player.getName());
+                    }else{
+                        TitleManager.sendActionBar(attackedBy.get(player), "§eYou killed §b§l" + player.getName());
+                    }
+                }
+            }
+
+
         }
 
         player.setGameMode(GameMode.SPECTATOR);
@@ -215,8 +290,15 @@ public class GameListener implements Listener {
             ItemStack[] armored = hasBlueArmor;
             player.getInventory().setArmorContents(hasBlueArmor);
 
-            Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.lost-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§9§lBleu"));
-            hasBlueWool = null;
+            if(language.equalsIgnoreCase("fr")){
+                Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.lost-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§9§lBleu"));
+
+            }else if(language.equalsIgnoreCase("es")){
+                Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.lost-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§9§lAzul"));
+
+            }else{
+                Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.lost-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§9§lBlue"));
+            }            hasBlueWool = null;
             hasBlueArmor = null;
             hasBlueWoolInventory = null;
         }
@@ -228,14 +310,45 @@ public class GameListener implements Listener {
             ItemStack[] armored = hasRedArmor;
             player.getInventory().setArmorContents(hasRedArmor);
 
-            Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.lost-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§c§lRouge"));
+            if(language.equalsIgnoreCase("fr")){
+                Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.lost-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§c§lRouge"));
+
+            }else if(language.equalsIgnoreCase("es")){
+                Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.lost-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§c§lRojo"));
+
+            }else{
+                Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.lost-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§c§lRed"));
+            }
             hasRedWool = null;
             hasRedArmor = null;
             hasRedWoolInventory = null;
         }
 
     }
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event){
 
+        if(event.getWhoClicked().getGameMode() == GameMode.SURVIVAL) {
+
+            if (event.getCurrentItem().getType().equals(Material.LEATHER_HELMET)
+                        || event.getCurrentItem().getType().equals(Material.LEATHER_CHESTPLATE)
+                        || event.getCurrentItem().getType().equals(Material.LEATHER_LEGGINGS)
+                        || event.getCurrentItem().getType().equals(Material.LEATHER_BOOTS)) {
+
+                    event.setCancelled(true);
+
+                }
+
+        }else {
+            return;
+        }
+
+    }
+
+
+
+
+    public static String language = Main.INSTANCE.getConfig().getString("language");
     @EventHandler
     public void onFlagPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
@@ -346,8 +459,13 @@ public class GameListener implements Listener {
                     hasRedWoolInventory = player.getInventory().getContents();
                     hasRedWool = player;
                     player.getInventory().clear();
-
-                    Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.take-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§c§lRouge"));
+                    if(language.equalsIgnoreCase("fr")){
+                        Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.take-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§c§lRouge"));
+                    }else if(language.equalsIgnoreCase("es")){
+                        Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.take-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§c§lRojo"));
+                    }else{
+                        Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.take-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§c§lRed"));
+                    }
                     ItemStack[] armor = player.getInventory().getArmorContents();
 
 
@@ -403,8 +521,13 @@ public class GameListener implements Listener {
                     hasBlueWoolInventory = player.getInventory().getContents();
                     hasBlueWool = player;
                     player.getInventory().clear();
-                    Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.take-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§9§lBleu"));
-
+                    if(language.equalsIgnoreCase("fr")){
+                        Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.take-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§9§lBleu"));
+                    }else if(language.equalsIgnoreCase("es")){
+                        Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.take-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§9§lAzul"));
+                    }else{
+                        Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.take-wool").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§9§lBlue"));
+                    }
 
                     for (int i = 0; i < 9; i++) {
                         player.getInventory().setItem(i, new ItemStack(Material.WOOL, 1, (short) 0, (byte) 11));
@@ -503,6 +626,15 @@ public class GameListener implements Listener {
         int margeX = Main.INSTANCE.getConfig().getInt("regions.base.x");
         int margeY = Main.INSTANCE.getConfig().getInt("regions.base.y");
         int margeZ = Main.INSTANCE.getConfig().getInt("regions.base.z");
+
+
+        if(Main.INSTANCE.getConfig().getBoolean("blocks.infinite-sandstone")){
+            if(event.getBlock().getType().equals(Material.SANDSTONE)) {
+                event.getBlock().getDrops().clear();
+            }
+        }
+
+
 
         for (int x = -margeX; x <= margeX; x++) {
             for (int y = -margeY; y <= margeY; y++) {

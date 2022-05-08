@@ -57,6 +57,8 @@ public class MessageYaml {
                     yaml.set("death.subtitle", "&7You will be reappear soon");
                     yaml.set("death.timer", "&eReappearing in {secondes} {unite}");
                     yaml.set("death.end", "&eRespawning...");
+                    yaml.set("death.anti-spawn-kill", "§cThis player just reappeared");
+                    yaml.set("death.calm-down", "§cYou just reappeared wait before attacking");
 
                     yaml.set("team.no-one", "&cThere is no one on the opposing team, action impossible");
                     yaml.set("team.take-wool", "&e&l{player}&a has take {wool-color} &awool");
@@ -98,6 +100,8 @@ public class MessageYaml {
                     yaml.set("death.subtitle", "&7Vous allez bientot réapparaître");
                     yaml.set("death.timer", "&eRéapparition dans {secondes} {unite}");
                     yaml.set("death.end", "&eRéapparition en cours");
+                    yaml.set("death.anti-spawn-kill", "§cCe joueur vient de respawn");
+                    yaml.set("death.calm-down", "§cVous venez de respawn attendez avant d'attaquer");
 
                     yaml.set("team.no-one", "&cIl n'y a personne dans l'équipe adverse, action impossible");
                     yaml.set("team.take-wool", "&e&l{player}&a a recupere la laine {wool-color}");
@@ -136,6 +140,8 @@ public class MessageYaml {
                     yaml.set("death.subtitle", "&7Usted va a aparecer pronto");
                     yaml.set("death.timer", "&eAparecer en {secondes} {unite}");
                     yaml.set("death.end", "&eReaparición en curso");
+                    yaml.set("death.anti-spawn-kill", "§cEste jugador acaba de aparecer");
+                    yaml.set("death.calm-down", "§cAcaba de reaparecer espere antes de atacar");
 
                     yaml.set("team.no-one", "&cNo hay nadie en el equipo contrario, acción imposible");
                     yaml.set("team.take-wool", "&e&l{player}&a a recuperar la lana {wool-color}");
