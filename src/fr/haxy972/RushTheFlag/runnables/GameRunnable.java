@@ -222,7 +222,7 @@ public class GameRunnable extends BukkitRunnable {
                     if (language.equalsIgnoreCase("fr")) {
                         ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRouge§7: §a§l✔");
                     }
-                    if (language.equalsIgnoreCase("es")) {
+                    else if (language.equalsIgnoreCase("es")) {
                         ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRojo§7: §a§l✔");
                     } else {
                         ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRed§7: §a§l✔");

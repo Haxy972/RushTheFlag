@@ -123,7 +123,14 @@ public class TeamSelect implements Listener {
                     if(!teamRouge.contains(player) && !teamBleu.contains(player)) {
                         if(teamRouge.size() <= teamBleu.size() + margeteam) {
                             player.closeInventory();
-                            player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.join").replace("&", "§").replace("{team}", "§c§lRouge"));
+
+                            if(language.equalsIgnoreCase("fr")) {
+                                player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.join").replace("&", "§").replace("{team}", "§c§lRouge"));
+                            }else if (language.equalsIgnoreCase("es")){
+                                player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.join").replace("&", "§").replace("{team}", "§c§lRojo"));
+                            }else{
+                                player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.join").replace("&", "§").replace("{team}", "§c§lRed"));
+                            }
                             player.setPlayerListName(Main.INSTANCE.getConfig().getString("game.team.tab-name-red").replace("&", "§").replace("{player}", player.getName()));
                             teamRouge.add(player);
                             joinTeam(player, "rouge");
@@ -156,7 +163,13 @@ public class TeamSelect implements Listener {
 
                         if(teamBleu.size() <= teamRouge.size() + margeteam) {
                             player.closeInventory();
-                            player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.join").replace("&", "§").replace("{team}", "§9§lBleu"));
+                            if(language.equalsIgnoreCase("fr")) {
+                                player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.join").replace("&", "§").replace("{team}", "§9§lBleu"));
+                            }else if (language.equalsIgnoreCase("es")){
+                                player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.join").replace("&", "§").replace("{team}", "§9§lAzul"));
+                            }else{
+                                player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.join").replace("&", "§").replace("{team}", "§9§lBlue"));
+                            }
                             player.setPlayerListName(Main.INSTANCE.getConfig().getString("game.team.tab-name-blue").replace("&", "§").replace("{player}", player.getName()));
 
                             teamBleu.add(player);
