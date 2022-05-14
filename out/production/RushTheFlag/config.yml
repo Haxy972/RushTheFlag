@@ -118,6 +118,7 @@ default-kit: true
 scoreboard-ip: "  &bMade by Haxy972"
 # 0: Normal text
 # 1: The text will flash every 0.5 seconds for 5 seconds and then pause for 3 seconds
+# 2: The text will be written letter by letter.
 scoreboard-animation: 1
 
 
