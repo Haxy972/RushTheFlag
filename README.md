@@ -55,22 +55,9 @@ This plugin was developed by Haxy972, contributions are allowed, the project is 
 
 **FRANCAIS**
 
-Le plugin sera mis a jour régiulièrement voici ce qu'il y aura pour la prochaine version:
-
-  - Possibilité d'arrêter le jeu au nombre de points par équipe désiré
-  - Ajout de 3 langues: Anglais, Espagnol et Allemand
-  - Ajout des kits par défauts
-  - Vous pourrez mettre l'ip de votre serveur en bas du scoreboard
-  - Ajout de l'animation ip-scoreboard "Ecriture"
-  - Ajout de l'animation ip-scoreboard "Clignote"
+La dernière version du plugin vient de sortir vous serrez mis au courant en cas de prochaines nouveautés ici même !
 
 **ENGLISH**
 
-The plugin will be updated regularly here is what will be for the next version:
+The latest version of the plugin has just been released you will be updated in case of future novelties right here!
 
-  - Ability to stop play at desired points per team
-  - Addition of 3 languages: ``English, Spanish and German``
-  - Add default kits
-  - You can put the ip of your server at the bottom of the scoreboard
-  - Addition of the "Writing" ``ip-scoreboard animation``
-  - Addition of the "Blinking" ``ip-scoreboard animation``
