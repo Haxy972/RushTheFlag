@@ -6,10 +6,10 @@ website: https://github.com/Haxy972/RushTheFlag
 load: POSTWORLD
 commands:
   join:
-    description: Choisir une équipe
+    description: Choose your team
   kits:
-    description: permet de choisir son kit
+    description: Select your kit
   rushtheflag:
-    description: Gérer les kits
+    description: Manage kits, spawns and others...
     aliases: rtf
-    permision: RushTheFlag.allperm
+    permision: RushTheFlag.command
