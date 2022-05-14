@@ -1,5 +1,5 @@
 name: RushTheFlag
-version: 1.0
+version: 1.1
 author: Haxy972
 main: fr.haxy972.RushTheFlag.Main
 website: https://github.com/Haxy972/RushTheFlag
@@ -13,4 +13,3 @@ commands:
     description: Gérer les kits
     aliases: rtf
     permision: RushTheFlag.allperm
-#    permission-message: "§b§lR§f§lT§b§lF§8§8» §cYou doesn't have permission to execute this command"
