@@ -75,6 +75,20 @@ public class PluginUpdater {
     public static String language = Main.INSTANCE.getConfig().getString("language");
     public static void updateVersion(Player player){
 
+        if(uptodate){
+            if(language.equalsIgnoreCase("fr")){
+                player.sendMessage(Main.getPrefix() + "§cVous possedez la derniere version du plugin");
+            }else if (language.equalsIgnoreCase("es")){
+                player.sendMessage(Main.getPrefix() + "§cUsted tiene la última versión del plugin");
+            }else{
+                player.sendMessage(Main.getPrefix() + "§cYou have the latest version of the plugin");
+            }
+            return;
+        }
+
+
+
+
         File file = new File("/plugins/RushTheFlag/");
         try{
 
