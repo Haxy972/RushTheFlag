@@ -1,7 +1,5 @@
-# ------------------------------------ | PLUGIN SETTINGS | ------------------------------------#
-#              The plugin settings section is to modify visual settings                        #
-#----------------------------------------------------------------------------------------------#
-
+# Made by Haxy972
+# https://github.com/Haxy972/RushTheFlag <--- to see the config file explanations, good game !
 prefix: "&b&lRush&f&lThe&b&lFlag&8> "
 language: "EN"
 # The red team has 1 player in more, it's very useful for test

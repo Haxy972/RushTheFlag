@@ -187,7 +187,6 @@ public class Main extends JavaPlugin {
         getCommand("join").setExecutor(new CommandTeam());
         getCommand("kits").setExecutor(new CommandTeam());
         getCommand("rushtheflag").setExecutor(new CommandKits());
-
         for (Player players : Bukkit.getOnlinePlayers()) {
             serverReloaded(players);
         }

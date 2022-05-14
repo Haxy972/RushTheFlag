@@ -2,6 +2,7 @@ package fr.haxy972.RushTheFlag.commands;
 
 import fr.haxy972.RushTheFlag.Main;
 import fr.haxy972.RushTheFlag.team.TeamSelect;
+import fr.haxy972.RushTheFlag.utils.PluginUpdater;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
 import org.bukkit.command.Command;
@@ -368,11 +369,11 @@ public class CommandKits implements CommandExecutor {
                                 File show = new File("plugins/RushTheFlag/kits/");
                                 try {
                                     if (show.isDirectory()) {
-                                        if(language.equalsIgnoreCase("fr")) {
+                                        if (language.equalsIgnoreCase("fr")) {
                                             player.sendMessage(Main.getPrefix() + "§7Affichage de la liste des kits:");
-                                        }else if(language.equalsIgnoreCase("es")){
+                                        } else if (language.equalsIgnoreCase("es")) {
                                             player.sendMessage(Main.getPrefix() + "§7Visualización de la lista de kits:");
-                                        }else{
+                                        } else {
                                             player.sendMessage(Main.getPrefix() + "§7List of kits:");
                                         }
                                         for (File file : show.listFiles()) {
@@ -390,9 +391,9 @@ public class CommandKits implements CommandExecutor {
                             player.sendMessage(Main.getPrefix() + "§c/rtf §ekits §7<add/remove/list>");
                         }
 
-                    }else if(args[0].equalsIgnoreCase("setspawn") || args[0].equalsIgnoreCase("spawns") ||args[0].equalsIgnoreCase("setspawns")) {
-                        if(args.length > 1){
-                            if(args[1].equalsIgnoreCase("nexusblue")){
+                    } else if (args[0].equalsIgnoreCase("setspawn") || args[0].equalsIgnoreCase("spawns") || args[0].equalsIgnoreCase("setspawns")) {
+                        if (args.length > 1) {
+                            if (args[1].equalsIgnoreCase("nexusblue")) {
                                 File file = new File("/plugins/RushTheFlag/config.yml");
                                 FileConfiguration config = Main.INSTANCE.getConfig();
                                 Location loc = player.getLocation();
@@ -410,8 +411,7 @@ public class CommandKits implements CommandExecutor {
                                 String ystr = String.valueOf(loc.getY());
                                 String ynum = df2.format(loc.getY());
                                 ynum = ynum.replace(",", ".");
-                                double y = Double.parseDouble(ynum) -1;
-
+                                double y = Double.parseDouble(ynum) - 1;
 
 
                                 // Z
@@ -421,7 +421,6 @@ public class CommandKits implements CommandExecutor {
                                 double z = Double.parseDouble(znum);
 
 
-
                                 config.set("game.nexusBlue.x", x);
                                 config.set("game.nexusBlue.y", y);
                                 config.set("game.nexusBlue.z", z);
@@ -429,7 +428,7 @@ public class CommandKits implements CommandExecutor {
                                 Main.INSTANCE.saveConfig();
                                 player.sendMessage(Main.getPrefix() + "§9§lNEXUSBLUE §8>" + "§b§lX:§e" + x + "§c, §b§lY:§e" + y + "§c, §b§lZ:§e" + z);
 
-                            }else if(args[1].equalsIgnoreCase("nexusred")){
+                            } else if (args[1].equalsIgnoreCase("nexusred")) {
                                 File file = new File("/plugins/RushTheFlag/config.yml");
                                 FileConfiguration config = Main.INSTANCE.getConfig();
                                 try {
@@ -454,8 +453,7 @@ public class CommandKits implements CommandExecutor {
                                 String ystr = String.valueOf(loc.getY());
                                 String ynum = df2.format(loc.getY());
                                 ynum = ynum.replace(",", ".");
-                                double y = Double.parseDouble(ynum) -1;
-
+                                double y = Double.parseDouble(ynum) - 1;
 
 
                                 // Z
@@ -463,7 +461,6 @@ public class CommandKits implements CommandExecutor {
                                 String znum = df.format(loc.getZ());
                                 znum = znum.replace(",", ".");
                                 double z = Double.parseDouble(znum);
-
 
 
                                 config.set("game.nexusRed.x", x);
@@ -474,7 +471,7 @@ public class CommandKits implements CommandExecutor {
 
                                 player.sendMessage(Main.getPrefix() + "§c§lNEXUSRED §8>" + "§b§lX:§e" + x + "§c, §b§lY:§e" + y + "§c, §b§lZ:§e" + z);
 
-                            }else if(args[1].equalsIgnoreCase("red")){
+                            } else if (args[1].equalsIgnoreCase("red")) {
                                 File file = new File("/plugins/RushTheFlag/config.yml");
                                 FileConfiguration config = Main.INSTANCE.getConfig();
                                 Location loc = player.getLocation();
@@ -493,7 +490,6 @@ public class CommandKits implements CommandExecutor {
                                 String ynum = df2.format(loc.getY());
                                 ynum = ynum.replace(",", ".");
                                 double y = Double.parseDouble(ynum);
-
 
 
                                 // Z
@@ -515,7 +511,7 @@ public class CommandKits implements CommandExecutor {
                                 Main.INSTANCE.saveConfig();
                                 player.sendMessage(Main.getPrefix() + "§c§lSPAWNRED §8>" + "§b§lX:§e" + x + "§c, §b§lY:§e" + y + "§c, §b§lZ:§e" + z + "§c, §b§lYAW:§e" + yaw + "§c, §b§lPITCH:§e" + pitch);
 
-                            }else if(args[1].equalsIgnoreCase("blue")){
+                            } else if (args[1].equalsIgnoreCase("blue")) {
                                 File file = new File("/plugins/RushTheFlag/config.yml");
                                 FileConfiguration config = Main.INSTANCE.getConfig();
                                 Location loc = player.getLocation();
@@ -534,7 +530,6 @@ public class CommandKits implements CommandExecutor {
                                 String ynum = df2.format(loc.getY());
                                 ynum = ynum.replace(",", ".");
                                 double y = Double.parseDouble(ynum);
-
 
 
                                 // Z
@@ -556,7 +551,7 @@ public class CommandKits implements CommandExecutor {
                                 Main.INSTANCE.saveConfig();
                                 player.sendMessage(Main.getPrefix() + "§9§lSPAWNBLUE §8>" + "§b§lX:§e" + x + "§c, §b§lY:§e" + y + "§c, §b§lZ:§e" + z + "§c, §b§lYAW:§e" + yaw + "§c, §b§lPITCH:§e" + pitch);
 
-                            }else if(args[1].equalsIgnoreCase("join")){
+                            } else if (args[1].equalsIgnoreCase("join")) {
                                 File file = new File("/plugins/RushTheFlag/config.yml");
                                 FileConfiguration config = Main.INSTANCE.getConfig();
                                 Location loc = player.getLocation();
@@ -577,43 +572,43 @@ public class CommandKits implements CommandExecutor {
                                 Main.INSTANCE.saveConfig();
                                 player.sendMessage(Main.getPrefix() + "§e§lSPAWNJOIN §8>" + "§b§lX:§e" + x + "§c, §b§lY:§e" + y + "§c, §b§lZ:§e" + z);
 
-                            }else{
+                            } else {
                                 player.sendMessage(Main.getPrefix() + "§c/rtf §esetspawns §7<red/blue/nexusblue/nexusred/join>");
                             }
-                        }else{
+                        } else {
                             player.sendMessage(Main.getPrefix() + "§c/rtf §esetspawns §7<red/blue/nexusblue/nexusred/join>");
                         }
-                    }else if(args[0].equalsIgnoreCase("setprefix")) {
-                        if(args.length >= 2){
+                    } else if (args[0].equalsIgnoreCase("setprefix")) {
+                        if (args.length >= 2) {
                             File file = new File("/plugins/RushTheFlag/config.yml");
                             FileConfiguration config = Main.INSTANCE.getConfig();
 
-                            if(args.length > 2){
+                            if (args.length > 2) {
                                 StringBuilder sb = new StringBuilder();
-                                for(String part : args){
-                                    if(part != args[0]) {
+                                for (String part : args) {
+                                    if (part != args[0]) {
                                         sb.append(part + " ");
                                     }
                                 }
-                                if(language.equalsIgnoreCase("fr")){
+                                if (language.equalsIgnoreCase("fr")) {
                                     player.sendMessage(Main.getPrefix() + "§7Vous avez changer le prefix, le nouveau prefix est: §e§l" + sb.toString().replace("&", "§"));
-                                }else if(language.equalsIgnoreCase("es")) {
-                                    player.sendMessage(Main.getPrefix() + "§7Has cambiado el prefijo, el nuevo prefijo es: §e§l" + sb.toString().replace("&", "§"));;
-                                }else {
+                                } else if (language.equalsIgnoreCase("es")) {
+                                    player.sendMessage(Main.getPrefix() + "§7Has cambiado el prefijo, el nuevo prefijo es: §e§l" + sb.toString().replace("&", "§"));
+                                    ;
+                                } else {
                                     player.sendMessage(Main.getPrefix() + "§7You have change the prefix, now it's: §e§l" + sb.toString().replace("&", "§"));
                                 }
                                 config.set("prefix", sb.toString().replace("&", "§"));
-                            }else{
-                                if(language.equalsIgnoreCase("fr")){
+                            } else {
+                                if (language.equalsIgnoreCase("fr")) {
                                     player.sendMessage(Main.getPrefix() + "§7Vous avez changer le prefix, le nouveau prefix est: §e§l" + args[1].replace("&", "§"));
-                                }else if(language.equalsIgnoreCase("es")) {
+                                } else if (language.equalsIgnoreCase("es")) {
                                     player.sendMessage(Main.getPrefix() + "§7Has cambiado el prefijo, el nuevo prefijo es: §e§l" + args[1].replace("&", "§"));
-                                }else {
+                                } else {
                                     player.sendMessage(Main.getPrefix() + "§7You have change the prefix, now it's: §e§l" + args[1].replace("&", "§"));
                                 }
                                 config.set("prefix", args[1]);
                             }
-
 
 
                             try {
@@ -622,19 +617,18 @@ public class CommandKits implements CommandExecutor {
                                 e.printStackTrace();
                             }
 
-                        }else{
+                        } else {
                             player.sendMessage(Main.getPrefix() + "§c/rtf §esetprefix §7<prefix>");
                         }
-                    } else{
-                        player.sendMessage(Main.getPrefix() + "§c/rtf <kits/setspawns/setprefix>");
+                    } else if(args[0].equalsIgnoreCase("update")){
+                        PluginUpdater.updateVersion(player);
+                    } else {
+                        player.sendMessage(Main.getPrefix() + "§c/rtf <kits/setspawn/setprefix/update>");
 
                     }
 
-
-                }else if(args[0].equalsIgnoreCase("help")){
-                    player.sendMessage(Main.getPrefix() + "§c/rtf <kits/setspawn/setprefix>");
-                }else {
-                    player.sendMessage(Main.getPrefix() + "§c/rtf <kits/setspawn/setprefix>");
+                } else {
+                    player.sendMessage(Main.getPrefix() + "§c/rtf <kits/setspawn/setprefix/update>");
                 }
             } else {
                 if(language.equalsIgnoreCase("fr")) {
