@@ -191,7 +191,13 @@ public class Main extends JavaPlugin {
         for (Player players : Bukkit.getOnlinePlayers()) {
             serverReloaded(players);
         }
-        checkAllSpawn();
+        Bukkit.getScheduler().runTaskLater(this, new Runnable() {
+            @Override
+            public void run() {
+                checkAllSpawn();
+            }
+        },20);
+
 
 
     }
@@ -215,7 +221,9 @@ public class Main extends JavaPlugin {
         if (!Main.INSTANCE.getConfig().getString("game.team.tab-name-default").equalsIgnoreCase("none")) {
             player.setPlayerListName(Main.INSTANCE.getConfig().getString("game.team.tab-name-default").replace("&", "§").replace("{player}", player.getName()));
         }
-
+        if(Main.INSTANCE.getConfig().getBoolean("nametag.default-group-enabled") && Main.INSTANCE.getConfig().getBoolean("nametag.enabled")){
+            Main.INSTANCE.getServer().dispatchCommand(getServer().getConsoleSender(), Main.INSTANCE.getConfig().getString("nametag.default-group-onjoin").replace("{player}", player.getName()).replace("/", ""));
+        }
 
         player.getInventory().setArmorContents(armor);
         new ScoreboardRunnable().runTaskTimer(this, 0, 1);
@@ -235,6 +243,9 @@ public class Main extends JavaPlugin {
             @Override
             public void run() {
                 new ScoreboardManager(player).loadScoreboard();
+                if (Main.INSTANCE.getConfig().getBoolean("nametag.default-group-enabled") && Main.INSTANCE.getConfig().getBoolean("nametag.enabled")) {
+                    Main.INSTANCE.getServer().dispatchCommand(getServer().getConsoleSender(), Main.INSTANCE.getConfig().getString("nametag.default-group-onjoin").replace("{player}", player.getName()).replace("/", ""));
+                }
             }
         }, 20);
     }

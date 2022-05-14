@@ -43,7 +43,9 @@ public class OnPlayerJoin implements Listener {
         Bukkit.broadcastMessage(MessageYaml.getValue("join.broadcast-message").replace("&", "§").replace("{player}", player.getName()));
 
         player.sendMessage(Main.getPrefix() + MessageYaml.getValue("join.message-player").replace("&", "§").replace("{player}", player.getName()));
-
+        if(Main.INSTANCE.getConfig().getBoolean("nametag.default-group-enabled") && Main.INSTANCE.getConfig().getBoolean("nametag.enabled")){
+            Main.INSTANCE.getServer().dispatchCommand(Main.INSTANCE.getServer().getConsoleSender(), Main.INSTANCE.getConfig().getString("nametag.default-group-onjoin").replace("{player}", player.getName()).replace("/", ""));
+        }
         player.setGameMode(GameMode.SPECTATOR);
         player.teleport(Main.getJoinSpawn());
     }

@@ -8,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -431,6 +432,13 @@ public class CommandKits implements CommandExecutor {
                             }else if(args[1].equalsIgnoreCase("nexusred")){
                                 File file = new File("/plugins/RushTheFlag/config.yml");
                                 FileConfiguration config = Main.INSTANCE.getConfig();
+                                try {
+                                    config.load(file);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+
                                 Location loc = player.getLocation();
                                 DecimalFormat df = new DecimalFormat("0.5");
                                 DecimalFormat df2 = new DecimalFormat("0");
@@ -461,8 +469,9 @@ public class CommandKits implements CommandExecutor {
                                 config.set("game.nexusRed.x", x);
                                 config.set("game.nexusRed.y", y);
                                 config.set("game.nexusRed.z", z);
-                                Main.INSTANCE.saveDefaultConfig();
+
                                 Main.INSTANCE.saveConfig();
+
                                 player.sendMessage(Main.getPrefix() + "§c§lNEXUSRED §8>" + "§b§lX:§e" + x + "§c, §b§lY:§e" + y + "§c, §b§lZ:§e" + z);
 
                             }else if(args[1].equalsIgnoreCase("red")){

@@ -100,6 +100,18 @@ kits:
 # The player will be dead if his y-coordinate is under this value
 altitude-min: 0
 
+# This option is useful if you are using Permission like GroupManager, PermissionEx
+# It can also be useful to add nametag to player with NameTagEdit
+nametag:
+  enabled: true
+  command-group-red: "/manuadd {player} red"
+  command-group-blue: "/manuadd {player} blue"
+
+  # This parameter is to set default group name
+  default-group-enabled: true
+  # Here default is the group name
+  default-group-onjoin: "/manuadd {player} default"
+
 
 # Active default kit, they are generated every reload if they are deleted
 default-kit: true

@@ -105,12 +105,10 @@ public class TeamSelect implements Listener {
         Inventory inventory = event.getInventory();
 
 
-        if (item == null) {
-            return;
-        }
+
         if(inventory.getName().equalsIgnoreCase("§8Equipes§8§l»")
                 ||inventory.getName().equalsIgnoreCase("§8Teams§8§l»")
-                || inventory.getName().equalsIgnoreCase("§8Equipos§8§l»"))
+                || inventory.getName().equalsIgnoreCase("§8Equipos§8§l»")) {
             event.setCancelled(true);
             int margeteam = Main.INSTANCE.getConfig().getInt("game.team.count-tolerance");
             if (item.getType().equals(Material.WOOL)) {
@@ -118,88 +116,94 @@ public class TeamSelect implements Listener {
 
 
                 if (name.equalsIgnoreCase("§c§lRouge")
-                        ||name.equalsIgnoreCase("§c§lRed")
-                        || name.equalsIgnoreCase("§c§lRojo")){
-                    if(!teamRouge.contains(player) && !teamBleu.contains(player)) {
-                        if(teamRouge.size() <= teamBleu.size() + margeteam) {
+                        || name.equalsIgnoreCase("§c§lRed")
+                        || name.equalsIgnoreCase("§c§lRojo")) {
+                    if (!teamRouge.contains(player) && !teamBleu.contains(player)) {
+                        if (teamRouge.size() <= teamBleu.size() + margeteam) {
                             player.closeInventory();
 
-                            if(language.equalsIgnoreCase("fr")) {
+                            if (language.equalsIgnoreCase("fr")) {
                                 player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.join").replace("&", "§").replace("{team}", "§c§lRouge"));
-                            }else if (language.equalsIgnoreCase("es")){
+                            } else if (language.equalsIgnoreCase("es")) {
                                 player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.join").replace("&", "§").replace("{team}", "§c§lRojo"));
-                            }else{
+                            } else {
                                 player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.join").replace("&", "§").replace("{team}", "§c§lRed"));
                             }
                             player.setPlayerListName(Main.INSTANCE.getConfig().getString("game.team.tab-name-red").replace("&", "§").replace("{player}", player.getName()));
+                            if (Main.INSTANCE.getConfig().getBoolean("nametag.enabled")) {
+                                Main.INSTANCE.getServer().dispatchCommand(Main.INSTANCE.getServer().getConsoleSender(), Main.INSTANCE.getConfig().getString("nametag.command-group-red").replace("{player}", player.getName()).replace("/", ""));
+                            }
                             teamRouge.add(player);
                             joinTeam(player, "rouge");
-                        }else{
+                        } else {
                             player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.too-much-1").replace("&", "§"));
                             player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.too-much-2").replace("&", "§"));
                             player.closeInventory();
                         }
-                    }else if(teamBleu.contains(player)) {
+                    } else if (teamBleu.contains(player)) {
                         teamBleu.remove(player);
-                        if(language.equalsIgnoreCase("fr")) {
+                        if (language.equalsIgnoreCase("fr")) {
 
                             player.sendMessage(Main.getPrefix() + "§cERREUR ACTION IMPOSSIBLE");
                             player.kickPlayer(Main.getPrefix() + "§cErreur Système");
-                        }else{
+                        } else {
                             player.sendMessage(Main.getPrefix() + "§cERROR IMPOSSIBLE ACTION");
                             player.kickPlayer(Main.getPrefix() + "§cSystem Error");
                         }
 
-                    }else{
+                    } else {
                         player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.already").replace("&", "§"));
                     }
                 }
 
 
-                if(name.equalsIgnoreCase("§9§lBleu")
-                        ||name.equalsIgnoreCase("§9§lBlue")
+                if (name.equalsIgnoreCase("§9§lBleu")
+                        || name.equalsIgnoreCase("§9§lBlue")
                         || name.equalsIgnoreCase("§9§lAzul")) {
-                    if(!teamBleu.contains(player) && !teamRouge.contains(player)) {
+                    if (!teamBleu.contains(player) && !teamRouge.contains(player)) {
 
-                        if(teamBleu.size() <= teamRouge.size() + margeteam) {
+                        if (teamBleu.size() <= teamRouge.size() + margeteam) {
                             player.closeInventory();
-                            if(language.equalsIgnoreCase("fr")) {
+                            if (language.equalsIgnoreCase("fr")) {
                                 player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.join").replace("&", "§").replace("{team}", "§9§lBleu"));
-                            }else if (language.equalsIgnoreCase("es")){
+                            } else if (language.equalsIgnoreCase("es")) {
                                 player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.join").replace("&", "§").replace("{team}", "§9§lAzul"));
-                            }else{
+                            } else {
                                 player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.join").replace("&", "§").replace("{team}", "§9§lBlue"));
                             }
                             player.setPlayerListName(Main.INSTANCE.getConfig().getString("game.team.tab-name-blue").replace("&", "§").replace("{player}", player.getName()));
-
+                            if (Main.INSTANCE.getConfig().getBoolean("nametag.enabled")) {
+                                Main.INSTANCE.getServer().dispatchCommand(Main.INSTANCE.getServer().getConsoleSender(), Main.INSTANCE.getConfig().getString("nametag.command-group-blue").replace("{player}", player.getName()).replace("/", ""));
+                            }
                             teamBleu.add(player);
                             joinTeam(player, "bleu");
-                        }else{
+                        } else {
                             player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.too-much-1").replace("&", "§"));
                             player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.too-much-2").replace("&", "§"));
                             player.closeInventory();
                         }
-                    }else if(teamRouge.contains(player)){
+                    } else if (teamRouge.contains(player)) {
                         teamRouge.remove(player);
 
-                        if(language.equalsIgnoreCase("fr")) {
+                        if (language.equalsIgnoreCase("fr")) {
 
                             player.sendMessage(Main.getPrefix() + "§cERREUR ACTION IMPOSSIBLE");
                             player.kickPlayer(Main.getPrefix() + "§cErreur Système");
-                        }else if(language.equalsIgnoreCase("es")){
+                        } else if (language.equalsIgnoreCase("es")) {
                             player.sendMessage(Main.getPrefix() + "§cERROR ACCIÓN IMPOSIBLE");
                             player.kickPlayer(Main.getPrefix() + "§cError del Sistema");
-                        }else{
+                        } else {
                             player.sendMessage(Main.getPrefix() + "§cERROR IMPOSSIBLE ACTION");
                             player.kickPlayer(Main.getPrefix() + "§cSystem Error");
                         }
 
-                    }else{
+                    } else {
                         player.sendMessage(Main.getPrefix() + MessageYaml.getValue("team.already").replace("&", "§"));
                     }
 
                 }
             }
+        }
 
     }
 
@@ -314,10 +318,14 @@ public class TeamSelect implements Listener {
         Inventory inventory = event.getInventory();
 
 
-        if (item == null) {
-            return;
-        }
+
+
+        if(item.getType() == Material.AIR){return;}
         if (inventory.getName().equalsIgnoreCase("§b§lKits")){
+            if(!player.getGameMode().equals(GameMode.SURVIVAL)){
+                player.closeInventory();
+            }
+
             event.setCancelled(true);
             player.getInventory().clear();
 
