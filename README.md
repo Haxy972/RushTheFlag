@@ -61,3 +61,6 @@ La dernière version du plugin vient de sortir vous serrez mis au courant en cas
 
 The latest version of the plugin has just been released you will be updated in case of future novelties right here!
 
+
+
+# TO SEE THE CONFIG FILE EXPLANATION GO TO: [SpigotMC](https://www.spigotmc.org/resources/rushtheflag-custom-kits-spawns-new-version-1-1.101993/)
