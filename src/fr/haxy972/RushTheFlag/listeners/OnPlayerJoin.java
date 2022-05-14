@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -40,9 +41,20 @@ public class OnPlayerJoin implements Listener {
         }
 
         Bukkit.broadcastMessage(MessageYaml.getValue("join.broadcast-message").replace("&", "§").replace("{player}", player.getName()));
-        player.sendMessage(MessageYaml.getValue("join.message-player").replace("&", "§").replace("{player}", player.getName()));
+
+        player.sendMessage(Main.getPrefix() + MessageYaml.getValue("join.message-player").replace("&", "§").replace("{player}", player.getName()));
+        if(Main.INSTANCE.getConfig().getBoolean("nametag.default-group-enabled") && Main.INSTANCE.getConfig().getBoolean("nametag.enabled")){
+            Main.INSTANCE.getServer().dispatchCommand(Main.INSTANCE.getServer().getConsoleSender(), Main.INSTANCE.getConfig().getString("nametag.default-group-onjoin").replace("{player}", player.getName()).replace("/", ""));
+        }
         player.setGameMode(GameMode.SPECTATOR);
         player.teleport(Main.getJoinSpawn());
+    }
+
+    @EventHandler
+    public void onDisconnect(PlayerQuitEvent event){
+        Player player = event.getPlayer();
+        Bukkit.broadcastMessage(MessageYaml.getValue("join.broadcast-message").replace("&", "§").replace("{player}", player.getName()).replace("+", "§c-"));
+        event.setQuitMessage("");
     }
 
 

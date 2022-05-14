@@ -22,7 +22,7 @@ public class GameRunnable extends BukkitRunnable {
 
 
 
-
+        Main.getWorld().setTime(1000);
         if(!GameStatut.isStatut(GameStatut.END)){
             checkGameStatut();
             checkWools();
@@ -54,22 +54,49 @@ public class GameRunnable extends BukkitRunnable {
                 if(TeamSelect.teamRouge.contains(player) && GameListener.hasBlueWool == player){
                     alreadyWin = true;
                     GameStatut.setStatut(GameStatut.END);
-                    Bukkit.broadcastMessage(Main.getPrefix() + "§e" + MessageYaml.getValue("team.player-back").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§9§lBleu"));
-                    Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.win").replace("&", "§").replace("{team}", "§c§lRouge"));
+                    if(language.equalsIgnoreCase("fr")) {
+                        Bukkit.broadcastMessage(Main.getPrefix() + "§e" + MessageYaml.getValue("team.player-back").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§9§lBleu"));
+                        Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.win").replace("&", "§").replace("{team}", "§c§lRouge"));
+                    }else if (language.equalsIgnoreCase("es")){
+                        Bukkit.broadcastMessage(Main.getPrefix() + "§e" + MessageYaml.getValue("team.player-back").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§9§lAzul"));
+                        Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.win").replace("&", "§").replace("{team}", "§c§lRojo"));
+                    }else{
+                        Bukkit.broadcastMessage(Main.getPrefix() + "§e" + MessageYaml.getValue("team.player-back").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§9§lBlue"));
+                        Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.win").replace("&", "§").replace("{team}", "§c§lRed"));
 
+                    }
 
                     for(Player players : Bukkit.getOnlinePlayers()){
                         players.getInventory().clear();
                         players.playSound(players.getLocation(), Sound.WITHER_DEATH, 1f, 1f);
                         if(TeamSelect.teamRouge.contains(player)){
-                            TitleManager.sendTitle(players, MessageYaml.getValue("team.win-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§c§lRouge"), 3 * 20);
+                            if(language.equalsIgnoreCase("fr")) {
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.win-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§c§lRouge"), 3 * 20);
+                            }else if(language.equalsIgnoreCase("es")){
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.win-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§9§lRojo"), 3 * 20);
+                            }else{
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.win-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§9§lRed"), 3 * 20);
+                            }
                         }else if (TeamSelect.teamBleu.contains(player)){
-                            TitleManager.sendTitle(players, MessageYaml.getValue("team.defeat-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§c§lRouge"), 3 * 20);
+                            if(language.equalsIgnoreCase("fr")) {
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.defeat-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§c§lRouge"), 3 * 20);
+                            }else if(language.equalsIgnoreCase("es")){
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.defeat-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§c§lRojo"), 3 * 20);
+                            }else{
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.defeat-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§c§lRed"), 3 * 20);
+                            }
                         }else{
-                            TitleManager.sendTitle(players, MessageYaml.getValue("team.end-default-title").replace("&", "§"), MessageYaml.getValue("team.end-default-subtitle").replace("&", "§").replace("{team}", "§c§lRouge"), 3 * 20);
+                            if(language.equalsIgnoreCase("fr")){
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.end-default-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§c§lRouge"), 3 * 20);
+                            }else if(language.equalsIgnoreCase("es")){
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.end-default-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§c§lRojo"), 3 * 20);
+                            }else {
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.end-default-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§c§lRed"), 3 * 20);
+                            }
                         }
-                        Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.restart").replace("&", "§"));
+
                     }
+                    Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.restart").replace("&", "§"));
 
                     Bukkit.getScheduler().runTaskLater(Main.INSTANCE, new Runnable() {
                         @Override
@@ -100,22 +127,49 @@ public class GameRunnable extends BukkitRunnable {
                 if (TeamSelect.teamBleu.contains(player) && GameListener.hasRedWool == player) {
                     alreadyWin = true;
                     GameStatut.setStatut(GameStatut.END);
-                    Bukkit.broadcastMessage(Main.getPrefix() + "§e" + MessageYaml.getValue("team.player-back").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§c§lRouge"));
-                    Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.win").replace("&", "§").replace("{team}", "§9§lBleu"));
+                    if(language.equalsIgnoreCase("fr")) {
+                        Bukkit.broadcastMessage(Main.getPrefix() + "§e" + MessageYaml.getValue("team.player-back").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§c§lRouge"));
+                        Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.win").replace("&", "§").replace("{team}", "§9§lBleu"));
+                    }else if (language.equalsIgnoreCase("es")){
+                        Bukkit.broadcastMessage(Main.getPrefix() + "§e" + MessageYaml.getValue("team.player-back").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§c§lRojo"));
+                        Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.win").replace("&", "§").replace("{team}", "§9§lAzul"));
+                    }else{
+                        Bukkit.broadcastMessage(Main.getPrefix() + "§e" + MessageYaml.getValue("team.player-back").replace("&", "§").replace("{player}", player.getName()).replace("{wool-color}", "§c§lRed"));
+                        Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.win").replace("&", "§").replace("{team}", "§9§lBlue"));
 
+                    }
 
                     for (Player players : Bukkit.getOnlinePlayers()) {
                         players.getInventory().clear();
                         players.playSound(players.getLocation(), Sound.WITHER_DEATH, 1f, 1f);
                         if (TeamSelect.teamBleu.contains(player)) {
-                            TitleManager.sendTitle(players, MessageYaml.getValue("team.win-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§9§lBleu"), 3 * 20);
+                            if(language.equalsIgnoreCase("fr")) {
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.win-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§9§lBleu"), 3 * 20);
+                            }else if(language.equalsIgnoreCase("es")){
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.win-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§9§lAzul"), 3 * 20);
+                            }else{
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.win-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§9§lBlue"), 3 * 20);
+                            }
                         } else if (TeamSelect.teamRouge.contains(player)) {
-                            TitleManager.sendTitle(players, MessageYaml.getValue("team.defeat-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§9§lBleu"), 3 * 20);
+                            if(language.equalsIgnoreCase("fr")) {
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.defeat-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§9§lBleu"), 3 * 20);
+                            }else if(language.equalsIgnoreCase("es")){
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.defeat-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§9§lAzul"), 3 * 20);
+                            }else{
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.defeat-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§9§lBlue"), 3 * 20);
+                            }
                         } else {
-                            TitleManager.sendTitle(players, MessageYaml.getValue("team.end-default-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§9§lBleu"), 3 * 20);
+                            if(language.equalsIgnoreCase("fr")){
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.end-default-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§9§lBleu"), 3 * 20);
+                            }else if(language.equalsIgnoreCase("es")){
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.end-default-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§9§lAzul"), 3 * 20);
+                            }else {
+                                TitleManager.sendTitle(players, MessageYaml.getValue("team.end-default-title").replace("&", "§"), MessageYaml.getValue("team.win-subtitle").replace("&", "§").replace("{team}", "§9§lBlue"), 3 * 20);
+                            }
                         }
-                        Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.restart").replace("&", "§"));
+
                     }
+                    Bukkit.broadcastMessage(Main.getPrefix() + MessageYaml.getValue("team.restart").replace("&", "§"));
 
                     Bukkit.getScheduler().runTaskLater(Main.INSTANCE, new Runnable() {
                         @Override
@@ -157,20 +211,35 @@ public class GameRunnable extends BukkitRunnable {
 
     }
 
+    private static String language = Main.INSTANCE.getConfig().getString("language");
     private void checkWools() {
         if(GameListener.hasRedWool == null){
             Location loc = Main.getNexusRouge();
             loc.getBlock().setType(Material.WOOL);
             loc.getBlock().setData((byte) 14);
             for(Player players : Bukkit.getOnlinePlayers()){
-                if(ScoreboardManager.scoreboardGame.containsKey(players))
-                    ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRouge§7: §a§l✔");
+                if(ScoreboardManager.scoreboardGame.containsKey(players)) {
+                    if (language.equalsIgnoreCase("fr")) {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRouge§7: §a§l✔");
+                    }
+                    else if (language.equalsIgnoreCase("es")) {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRojo§7: §a§l✔");
+                    } else {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRed§7: §a§l✔");
+                    }
+                }
             }
 
         }else{
             for(Player players : Bukkit.getOnlinePlayers()){
                 if(ScoreboardManager.scoreboardGame.containsKey(players))
-                    ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRouge§7: §c§lX");
+                    if(language.equalsIgnoreCase("fr")) {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRouge§7: §c§lX");
+                    }else if(language.equalsIgnoreCase("es")) {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRojo§7: §c§lX");
+                    }else{
+                        ScoreboardManager.scoreboardGame.get(players).setLine(5, "§c§lRed§7: §c§lX");
+                    }
             }
         }
         if(GameListener.hasBlueWool == null){
@@ -179,12 +248,27 @@ public class GameRunnable extends BukkitRunnable {
             loc.getBlock().setData((byte) 11);
             for(Player players : Bukkit.getOnlinePlayers()){
                 if(ScoreboardManager.scoreboardGame.containsKey(players))
-                    ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lBleu§7: §a§l✔");;
+                    if(language.equalsIgnoreCase("fr")) {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lBleu§7: §a§l✔");
+
+                    }else if(language.equalsIgnoreCase("es")) {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lAzul§7: §a§l✔");
+
+                    }else{
+                        ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lBlue§7: §a§l✔");
+                    }
             }
         }else{
             for(Player players : Bukkit.getOnlinePlayers()){
                 if(ScoreboardManager.scoreboardGame.containsKey(players))
-                    ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lBleu§7: §c§lX");
+                    if(language.equalsIgnoreCase("fr")) {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lBleu§7: §c§lX");
+                    }else if(language.equalsIgnoreCase("es")) {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lAzul§7: §c§lX");
+
+                    }else {
+                        ScoreboardManager.scoreboardGame.get(players).setLine(4, "§9§lBlue§7: §c§lX");
+                    }
             }
         }
     }
