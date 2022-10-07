@@ -15,7 +15,7 @@ public class onJoinListener implements Listener {
         Player player = event.getPlayer();
         GameManager gameManager = new GameManager(player);
         // Envoie du message de join
-        Bukkit.broadcastMessage("§e" + player.getName() + "§7 à rejoint la partie");
+        event.setJoinMessage("§e" + player.getName() + "§7 à rejoint la partie");
         player.sendMessage("§7Vous pouvez rejoindre la partie en cliquant sur la plume");
         player.setHealth(20);
         player.setFoodLevel(20);

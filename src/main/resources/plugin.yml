@@ -1,0 +1,6 @@
+name: RushTheFlag
+version: 1.2-SNAPSHOT
+author: Haxy972
+main: fr.haxy972.RushTheFlag.Main
+description: Plugin de RushTheFlag 1.9.4
+load: POSTWORLD
