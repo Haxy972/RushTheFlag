@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Haxy's Output">
+    <output-path>$PROJECT_DIR$/out/artifacts/Haxy_s_Output</output-path>
+    <root id="archive" name="RushTheFlag.jar">
+      <element id="module-output" name="RushTheFlag" />
+    </root>
+  </artifact>
+</component>

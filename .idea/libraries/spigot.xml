@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="spigot">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Desktop/Minecraft/D01_I/spigot.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Développement/Minecraft/RTF/PluginDependencies/spigot.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/Desktop/Minecraft/D01_I/spigot.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Développement/Minecraft/RTF/PluginDependencies/spigot.jar!/" />
     </SOURCES>
   </library>
 </component>
