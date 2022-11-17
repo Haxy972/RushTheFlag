@@ -7,13 +7,13 @@ import java.util.ArrayList;
 public class GameManager {
 
     private final Player player;
-    private static ArrayList<Player> playersList = new ArrayList<>();
+    private static final ArrayList<Player> playersList = new ArrayList<>();
 
     public GameManager(Player player){
         this.player = player;
     }
 
-    public void addPlayerToGame(){playersList.add(player);}
+    public void addPlayerToGame() {playersList.add(player);}
 
     public void removePlayerFromGame(){playersList.remove(player);}
 

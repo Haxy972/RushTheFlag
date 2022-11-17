@@ -11,6 +11,6 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         INSTANCE = this;
         new ListenersManager(this).registerListeners();
-        //new CommandsManager(this).registerListeners();
+        new CommandsManager(this).registerCommands();
     }
 }

@@ -8,7 +8,8 @@ public class CommandsManager {
         this.plugin = main;
     }
 
-//    public void registerCommands(){
-//        plugin.getCommand("").setExecutor(new );
-//    }
+    public void registerCommands(){
+        plugin.getCommand("rejoindre").setExecutor(new JoinCommand());
+    }
+
 }
