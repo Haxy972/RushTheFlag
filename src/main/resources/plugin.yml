@@ -5,6 +5,6 @@ main: fr.haxy972.RushTheFlag.Main
 description: Plugin de RushTheFlag 1.9.4
 load: POSTWORLD
 commands:
-  rejoindre:
-    aliases: join
+  join:
+    aliases: rejoindre, play
     description: This commands is used to join the game

@@ -1,5 +1,6 @@
 package fr.haxy972.RushTheFlag.Managers;
 
+import fr.haxy972.RushTheFlag.Commands.JoinCommand;
 import fr.haxy972.RushTheFlag.Main;
 
 public class CommandsManager {
@@ -9,7 +10,7 @@ public class CommandsManager {
     }
 
     public void registerCommands(){
-        plugin.getCommand("rejoindre").setExecutor(new JoinCommand());
+        plugin.getCommand("join").setExecutor(new JoinCommand());
     }
 
 }
