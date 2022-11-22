@@ -8,3 +8,6 @@ commands:
   join:
     aliases: rejoindre, play
     description: This commands is used to join the game
+  test:
+    aliases: debug
+    description: Test command
