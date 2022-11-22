@@ -16,17 +16,12 @@ public class onJoinListener implements Listener {
     public void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
         GameManager gameManager = new GameManager(player);
-
-
         // Sending join messages
         event.setJoinMessage("");
         Bukkit.broadcastMessage("§e" + player.getName() + "§7 à rejoint la partie");
         player.sendMessage("§7Vous pouvez rejoindre la partie en tapant §e\"/rejoindre\"");
-
-        // Reset of default attribut of player food lvl and health ....
         player.setHealth(20);player.setFoodLevel(20);player.setLevel(0);player.setExp(0);new GameInventoryManager(player).clear();
 
-        // Giving join item Spec mode
         Bukkit.getScheduler().runTaskLater(Main.INSTANCE, () -> player.setGameMode(GameMode.SPECTATOR), 2);
     }
 

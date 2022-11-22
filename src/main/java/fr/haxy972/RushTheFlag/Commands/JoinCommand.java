@@ -11,12 +11,17 @@ public class JoinCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String arg, String[] msg) {
 
+
+        /*
+        This command is to join the game with "/join" command
+        It opens an inventory where you can choose your team.
+        */
         if(!(sender instanceof Player))return false;
         Player player = (Player) sender;
         if(cmd.getName().equalsIgnoreCase("join") || cmd.getName().equalsIgnoreCase("play")){
             GameManager gameManager = new GameManager(player);
             if(!gameManager.getPlayerInGameList().contains(player)){
-                
+                gameManager.openTeamSelector();
             }else{
                 new PluginMessage(player).Err("You have already join the game.");
             }
