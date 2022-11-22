@@ -13,8 +13,8 @@ public class JoinCommand implements CommandExecutor {
 
 
         /*
-        This command is to join the game with "/join" command
-        It opens an inventory where you can choose your team.
+        * This command is to join the game with "/join" command
+        * It opens an inventory where you can choose your team.
         */
         if(!(sender instanceof Player))return false;
         Player player = (Player) sender;
