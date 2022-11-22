@@ -14,7 +14,7 @@ public class Teams {
     Byte data_color;
     String color_code;
 
-    Integer maxCount = (new GameManager().getGameMaxPlayer()-3)/2;
+    public Integer maxCount = (new GameManager().getGameMaxPlayer()-3)/2;
 
     public String getName(){
         return teamName;

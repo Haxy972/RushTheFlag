@@ -9,9 +9,9 @@ public class SecondTeam extends Teams{
     private static final ArrayList<Player> playersList = new ArrayList<>();
 
     public SecondTeam(){
-        teamName = "Blue";
+        teamName = "Purple";
         team_list = playersList;
-        data_color = (byte)11;
-        color_code = "§9";
+        data_color = (byte)10;
+        color_code = "§5";
     }
 }

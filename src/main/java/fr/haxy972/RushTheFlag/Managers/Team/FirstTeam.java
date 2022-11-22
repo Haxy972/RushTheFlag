@@ -10,10 +10,10 @@ public class FirstTeam extends Teams{
     public static final ArrayList<Player> playersList = new ArrayList<>();
 
     public FirstTeam(){
-        teamName = "Red";
+        teamName = "Orange";
         team_list = playersList;
-        data_color = (byte)14;
-        color_code = "§c";
+        data_color = (byte)1;
+        color_code = "§6";
     }
 
 
