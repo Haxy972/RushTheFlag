@@ -1,5 +1,6 @@
 package fr.haxy972.RushTheFlag.Managers;
 
+import fr.haxy972.RushTheFlag.Menus.TeamSelector;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -21,6 +22,5 @@ public class GameManager {
 
     public ArrayList<Player> getPlayerInGameList(){return playersList;}
 
-
-
+    public void openTeamSelector() {new TeamSelector(player).open();}
 }
