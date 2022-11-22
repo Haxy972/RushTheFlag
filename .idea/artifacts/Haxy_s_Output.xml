@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="Haxy's Output">
+  <artifact type="jar" build-on-make="true" name="Haxy's Output">
     <output-path>$PROJECT_DIR$/../../Développement/Minecraft/RTF/RTF-Server/plugins</output-path>
     <root id="archive" name="RushTheFlag.jar">
       <element id="module-output" name="RushTheFlag" />
