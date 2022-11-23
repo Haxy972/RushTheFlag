@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class TeamSelector {
     Player player;
     GameManager gameManager = new GameManager();
-    Inventory inventory = Bukkit.createInventory(player, 9, "§eTeam Selector §8- §7" +  gameManager.getPlayerInGameCount() + "/" + gameManager.getGameMaxPlayer());
+    Inventory inventory = Bukkit.createInventory(player, 9, "           §eTeam Selector §8- §7" +  gameManager.getPlayerInGameCount() + "/" + gameManager.getGameMaxPlayer());
     public TeamSelector(Player player) {
         this.player = player;
         addItems();
@@ -26,6 +26,7 @@ public class TeamSelector {
     private void addItems() {
         Teams firstTeam = new FirstTeam();
         Teams secondTeam = new SecondTeam();
+        inventory.remove(Material.AIR);
 
         inventory.setItem(3,new ItemCreator(Material.WOOL, firstTeam.getDataColor()).setName(firstTeam.getColorCode() + firstTeam.getName() + " §8(§7" + firstTeam.getSize() +"§8/§7" + firstTeam.maxCount +"§8)").setArrayLore(getArrayLore(firstTeam)).done());
         inventory.setItem(5,new ItemCreator(Material.WOOL, secondTeam.getDataColor()).setName(secondTeam.getColorCode() + secondTeam.getName() +" §8(§7" + secondTeam.getSize() +"§8/§7" + secondTeam.maxCount +"§8)").setArrayLore(getArrayLore(secondTeam)).done());
@@ -33,10 +34,15 @@ public class TeamSelector {
 
     private ArrayList<String> getArrayLore(Teams team) {
         ArrayList<String> teamMenuLore = new ArrayList<>();
+        int playerCount = 0;
         for(Player players : team.getTeam_list()){
             teamMenuLore.add(" §8-§e " + players.getName());
+            playerCount ++;
         }
-        teamMenuLore.add("");teamMenuLore.add("§aClick to join");
+
+        if(playerCount > 0) {teamMenuLore.add("");}
+
+        teamMenuLore.add("§a§l>§f Click to join this team");
         return teamMenuLore;
     }
 

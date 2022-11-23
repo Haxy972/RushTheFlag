@@ -21,7 +21,8 @@ public class onJoinListener implements Listener {
         event.setJoinMessage("");
         Bukkit.broadcastMessage("§e" + player.getName() + "§7 has joined the game");
         player.sendMessage("§7You can join the game with §e\"/join\"");
-        player.setHealth(20);player.setFoodLevel(20);player.setLevel(0);player.setExp(0);new GameInventoryManager(player);
+        player.setHealth(20);player.setFoodLevel(20);player.setLevel(0);player.setExp(0);new GameInventoryManager(player).clear();
+        new GameInventoryManager(player).setSpectatorItems();
 
         // Switching to Adventure with Fly Mode and hiding from all players
         player.setGameMode(GameMode.ADVENTURE);
