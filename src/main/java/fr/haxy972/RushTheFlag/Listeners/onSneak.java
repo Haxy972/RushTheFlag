@@ -28,7 +28,7 @@ public class onSneak implements Listener {
                         new GameManager(player).setJoinAttributes();
                         sneakCount.remove(player);
                     }else{
-                        new PluginMessage(player).Err("Apparition impossible vous êtes dans un bloc");
+                        new PluginMessage(player).Err("Spawn impossible you are currently in a block");
                         sneakCount.remove(player);
                     }
                 }

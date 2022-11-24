@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class TeamSelector {
     Player player;
     GameManager gameManager = new GameManager();
-    Inventory inventory = Bukkit.createInventory(player, 9, "           §eTeam Selector §8- §7" +  gameManager.getPlayerInGameCount() + "/" + gameManager.getGameMaxPlayer());
+    Inventory inventory = Bukkit.createInventory(player, 9, "           §eTeam Selector §8- §7" +  gameManager.getPlayerInGameCount() + "/" + new Teams().maxCount * 2);
     public TeamSelector(Player player) {
         this.player = player;
         addItems();

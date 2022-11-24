@@ -1,7 +1,7 @@
 package fr.haxy972.RushTheFlag.Managers;
 
 import fr.haxy972.RushTheFlag.Listeners.onDropEvent;
-import fr.haxy972.RushTheFlag.Listeners.onInventoryClick;
+import fr.haxy972.RushTheFlag.Listeners.onInteractEvent;
 import fr.haxy972.RushTheFlag.Listeners.onJoinListener;
 import fr.haxy972.RushTheFlag.Listeners.onSneak;
 import fr.haxy972.RushTheFlag.Main;
@@ -19,7 +19,7 @@ public class ListenersManager {
     public void registerListeners(){
         pluginManager.registerEvents(new onJoinListener(), plugin);
         pluginManager.registerEvents(new onDropEvent(), plugin);
-        pluginManager.registerEvents(new onInventoryClick(), plugin);
+        pluginManager.registerEvents(new onInteractEvent(), plugin);
         pluginManager.registerEvents(new onSneak(), plugin);
 
     }
