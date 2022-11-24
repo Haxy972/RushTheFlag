@@ -54,7 +54,7 @@ public class Teams {
                 }
 
                 team_list.add(player);
-                player.sendMessage("§7You have joined the " + getColorCode() + getName() + " §7team");
+                new PluginMessage(player).Notif("§7You have joined the " + getColorCode() + getName() + " §7team");
             }else{
                 new PluginMessage(player).Err("This team is full, try to join later");
             }

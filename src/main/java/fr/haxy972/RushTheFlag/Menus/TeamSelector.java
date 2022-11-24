@@ -1,15 +1,18 @@
 package fr.haxy972.RushTheFlag.Menus;
 
+import fr.haxy972.RushTheFlag.Main;
 import fr.haxy972.RushTheFlag.Managers.GameManager;
 import fr.haxy972.RushTheFlag.Managers.SoundManager;
 import fr.haxy972.RushTheFlag.Managers.Team.FirstTeam;
 import fr.haxy972.RushTheFlag.Managers.Team.SecondTeam;
 import fr.haxy972.RushTheFlag.Managers.Team.Teams;
+import fr.haxy972.RushTheFlag.Runnables.TeamSelRunnable;
 import fr.haxy972.RushTheFlag.Utils.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
@@ -23,16 +26,14 @@ public class TeamSelector {
         addItems();
     }
 
-    private void addItems() {
+    public void addItems() {
         Teams firstTeam = new FirstTeam();
         Teams secondTeam = new SecondTeam();
-        inventory.remove(Material.AIR);
-
         inventory.setItem(3,new ItemCreator(Material.WOOL, firstTeam.getDataColor()).setName(firstTeam.getColorCode() + firstTeam.getName() + " §8(§7" + firstTeam.getSize() +"§8/§7" + firstTeam.maxCount +"§8)").setArrayLore(getArrayLore(firstTeam)).done());
         inventory.setItem(5,new ItemCreator(Material.WOOL, secondTeam.getDataColor()).setName(secondTeam.getColorCode() + secondTeam.getName() +" §8(§7" + secondTeam.getSize() +"§8/§7" + secondTeam.maxCount +"§8)").setArrayLore(getArrayLore(secondTeam)).done());
     }
 
-    private ArrayList<String> getArrayLore(Teams team) {
+    public ArrayList<String> getArrayLore(Teams team) {
         ArrayList<String> teamMenuLore = new ArrayList<>();
         int playerCount = 0;
         for(Player players : team.getTeam_list()){
@@ -46,9 +47,17 @@ public class TeamSelector {
         return teamMenuLore;
     }
 
+    public void refreshInventory(){
+        Teams firstTeam = new FirstTeam();
+        Teams secondTeam = new SecondTeam();
+        player.getOpenInventory().setItem(3,new ItemCreator(Material.WOOL, firstTeam.getDataColor()).setName(firstTeam.getColorCode() + firstTeam.getName() + " §8(§7" + firstTeam.getSize() +"§8/§7" + firstTeam.maxCount +"§8)").setArrayLore(new TeamSelector(player).getArrayLore(firstTeam)).done());
+        player.getOpenInventory().setItem(5,new ItemCreator(Material.WOOL, secondTeam.getDataColor()).setName(secondTeam.getColorCode() + secondTeam.getName() +" §8(§7" + secondTeam.getSize() +"§8/§7" + secondTeam.maxCount +"§8)").setArrayLore(new TeamSelector(player).getArrayLore(secondTeam)).done());
+    }
+
 
     public void open() {
         player.openInventory(inventory);
+        new TeamSelRunnable(player).runTaskTimer(Main.INSTANCE, 0, 2);
         new SoundManager(player).playerSucess();
     }
 }

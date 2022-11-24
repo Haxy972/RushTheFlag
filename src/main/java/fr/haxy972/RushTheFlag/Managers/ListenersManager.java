@@ -1,9 +1,6 @@
 package fr.haxy972.RushTheFlag.Managers;
 
-import fr.haxy972.RushTheFlag.Listeners.onDropEvent;
-import fr.haxy972.RushTheFlag.Listeners.onInteractEvent;
-import fr.haxy972.RushTheFlag.Listeners.onJoinListener;
-import fr.haxy972.RushTheFlag.Listeners.onSneak;
+import fr.haxy972.RushTheFlag.Listeners.*;
 import fr.haxy972.RushTheFlag.Main;
 import org.bukkit.plugin.PluginManager;
 
@@ -21,6 +18,7 @@ public class ListenersManager {
         pluginManager.registerEvents(new onDropEvent(), plugin);
         pluginManager.registerEvents(new onInteractEvent(), plugin);
         pluginManager.registerEvents(new onSneak(), plugin);
+        pluginManager.registerEvents(new onInventoryClick(), plugin);
 
     }
 }
