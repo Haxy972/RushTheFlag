@@ -14,7 +14,12 @@ public class PluginMessage {
         send();
     }
 
-    public void send(){
+    public void Notif(String text){
+        this.message = "§aNotification §8§l> §7" + text;
+        send();
+    }
+
+    private void send(){
         recipient.sendMessage(message);
     }
 

@@ -21,6 +21,7 @@ public class GameInventoryManager {
     }
 
     public void setSpectatorItems(){
+        clear();
         Inventory playerInventory = player.getInventory();
         playerInventory.setItem(0, new ItemCreator(Material.COMPASS).setName("§bTeleport to Player").setLores("§a§l> §fClick to teleport to other player").done());
         playerInventory.setItem(1, new ItemCreator(Material.REDSTONE_TORCH_ON).setName("§eJoin").setLores("§a§l> §fClick to teleport to join the game").done());
