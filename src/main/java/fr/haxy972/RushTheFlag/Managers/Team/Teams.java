@@ -50,9 +50,7 @@ public class Teams {
                 try {
                     Teams playerTeam = new Teams().getPlayerTeam(player);
                     playerTeam.team_list.remove(player);
-                } catch (Exception var5) {
-                    var5.printStackTrace();
-                }
+                } catch (Exception ignored) {}
 
                 team_list.add(player);
                 new PluginMessage(player).Notif("§7You have joined the " + getColorCode() + getName() + " §7team");
