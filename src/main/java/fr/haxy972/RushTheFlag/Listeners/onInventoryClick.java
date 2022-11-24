@@ -22,6 +22,7 @@ public class onInventoryClick implements Listener {
         Inventory inventory = event.getInventory();
 
         if(!gameManager.getPlayerInGameList().contains(player)){
+            player.closeInventory();
             event.setCancelled(true);
             if(inventory.getName().contains("Team Selector")){
                 if(item.getType().equals(Material.WOOL)){
