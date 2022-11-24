@@ -4,20 +4,18 @@ import fr.haxy972.RushTheFlag.Managers.GameManager;
 import fr.haxy972.RushTheFlag.Managers.SoundManager;
 import fr.haxy972.RushTheFlag.Managers.Team.FirstTeam;
 import fr.haxy972.RushTheFlag.Managers.Team.SecondTeam;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class onInventoryClick implements Listener {
+public class InventoryClickEvent implements Listener {
 
     @EventHandler
-    public void inventoryClick(InventoryClickEvent event){
+    public void inventoryClick(org.bukkit.event.inventory.InventoryClickEvent event){
         Player player = (Player) event.getWhoClicked();
         ItemStack item = event.getCurrentItem();
         GameManager gameManager = new GameManager();

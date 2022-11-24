@@ -1,16 +1,13 @@
 package fr.haxy972.RushTheFlag.Listeners;
 
-import fr.haxy972.RushTheFlag.Managers.GameInventoryManager;
 import fr.haxy972.RushTheFlag.Managers.GameManager;
-import fr.haxy972.RushTheFlag.Managers.Team.FirstTeam;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class onJoinListener implements Listener {
+public class JoinEvent implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event){

@@ -5,7 +5,6 @@ import fr.haxy972.RushTheFlag.Managers.GameManager;
 import fr.haxy972.RushTheFlag.Runnables.SneakRunnable;
 import fr.haxy972.RushTheFlag.Utils.PluginMessage;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,7 +12,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class onInteractEvent implements Listener {
+public class InteractEvent implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event){

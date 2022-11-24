@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 
 import java.util.HashMap;
 
-public class onSneak implements Listener {
+public class SneakEvent implements Listener {
     private static final HashMap<Player, Integer> sneakCount = new HashMap<>();
 
     @EventHandler
