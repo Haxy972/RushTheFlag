@@ -5,6 +5,7 @@ import fr.haxy972.RushTheFlag.Managers.GameManager;
 import fr.haxy972.RushTheFlag.Utils.PluginMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,7 +23,15 @@ public class onSneak implements Listener {
         if(!new GameManager().getPlayerInGameList().contains(player)) {
             if (player.getGameMode().equals(GameMode.SPECTATOR)) {
                 if(!sneakCount.containsKey(player)){sneakCount.put(player, 1);}else{sneakCount.replace(player,sneakCount.get(player) + 1);}
-                if(sneakCount.get(player) >= 3){new GameManager(player).setJoinAttributes();sneakCount.remove(player);}
+                if(sneakCount.get(player) >= 3){
+                    if(player.getLocation().getBlock().getType() == Material.AIR) {
+                        new GameManager(player).setJoinAttributes();
+                        sneakCount.remove(player);
+                    }else{
+                        new PluginMessage(player).Err("Apparition impossible vous êtes dans un bloc");
+                        sneakCount.remove(player);
+                    }
+                }
 
 
                 // This part of code is to make a delay
