@@ -6,20 +6,17 @@ public class PluginMessage {
 
 
     private final Player recipient;
-    private String message;
     public PluginMessage(Player player){this.recipient = player;}
 
     public void Err(String text){
-        this.message = "§cError §8§l> §7" + text;
-        send();
+        send("§cError §8§l> §7" + text);
     }
 
     public void Notif(String text){
-        this.message = "§aNotification §8§l> §7" + text;
-        send();
+        send("§aNotification §8§l> §7" + text);
     }
 
-    private void send(){
+    private void send(String message){
         recipient.sendMessage(message);
     }
 
