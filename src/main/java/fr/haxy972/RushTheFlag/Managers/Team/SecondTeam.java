@@ -1,12 +1,13 @@
 package fr.haxy972.RushTheFlag.Managers.Team;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
 public class SecondTeam extends Teams{
 
-    private static final ArrayList<Player> playersList = new ArrayList<>();
+    private static final ArrayList<OfflinePlayer> playersList = new ArrayList<>();
 
     public SecondTeam(){
         teamName = "Purple";

@@ -10,6 +10,7 @@ import fr.haxy972.RushTheFlag.Runnables.TeamSelRunnable;
 import fr.haxy972.RushTheFlag.Utils.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class TeamSelector {
     Player player;
     GameManager gameManager = new GameManager();
-    Inventory inventory = Bukkit.createInventory(player, 9, "           §eTeam Selector §8- §7" +  gameManager.getPlayerInGameCount() + "/" + new Teams().maxCount * 2);
+    Inventory inventory = Bukkit.createInventory(player, 9, "                 §eTeam Selector");
     public TeamSelector(Player player) {
         this.player = player;
         addItems();
@@ -36,7 +37,7 @@ public class TeamSelector {
     public ArrayList<String> getArrayLore(Teams team) {
         ArrayList<String> teamMenuLore = new ArrayList<>();
         int playerCount = 0;
-        for(Player players : team.getTeam_list()){
+        for(OfflinePlayer players : team.getTeam_list()){
             teamMenuLore.add(" §8-§e " + players.getName());
             playerCount ++;
         }

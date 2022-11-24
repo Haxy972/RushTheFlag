@@ -3,6 +3,7 @@ package fr.haxy972.RushTheFlag.Managers.Team;
 import fr.haxy972.RushTheFlag.Managers.GameManager;
 import fr.haxy972.RushTheFlag.Utils.PluginMessage;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 public class Teams {
 
     String teamName;
-    ArrayList<Player> team_list;
+    ArrayList<OfflinePlayer> team_list;
     Byte data_color;
     String color_code;
 
@@ -23,7 +24,7 @@ public class Teams {
     public Boolean isFull(){
         return maxCount == team_list.size();
     }
-    public ArrayList<Player> getTeam_list(){
+    public ArrayList<OfflinePlayer> getTeam_list(){
         return team_list;
     }
 
@@ -48,7 +49,7 @@ public class Teams {
                 **/
                 try {
                     Teams playerTeam = new Teams().getPlayerTeam(player);
-                    if (!playerTeam.getName().equalsIgnoreCase(teamName)) playerTeam.team_list.remove(player);
+                    playerTeam.team_list.remove(player);
                 } catch (Exception var5) {
                     var5.printStackTrace();
                 }
@@ -61,6 +62,10 @@ public class Teams {
         }else{
             new PluginMessage(player).Err("You are already in this team");
         }
+    }
+    public void removePlayerFromTeam(Player player){
+        Teams playerTeam = getPlayerTeam(player);
+        playerTeam.getTeam_list().remove(player);
     }
 
     public void clearList() {
