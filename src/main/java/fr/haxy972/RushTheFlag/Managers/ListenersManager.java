@@ -14,12 +14,12 @@ public class ListenersManager {
     }
 
     public void registerListeners(){
-        pluginManager.registerEvents(new onJoinListener(), plugin);
-        pluginManager.registerEvents(new onQuitListener(), plugin);
-        pluginManager.registerEvents(new onDropEvent(), plugin);
-        pluginManager.registerEvents(new onInteractEvent(), plugin);
-        pluginManager.registerEvents(new onSneak(), plugin);
-        pluginManager.registerEvents(new onInventoryClick(), plugin);
+        pluginManager.registerEvents(new JoinEvent(), plugin);
+        pluginManager.registerEvents(new QuitEvent(), plugin);
+        pluginManager.registerEvents(new DropEvent(), plugin);
+        pluginManager.registerEvents(new InteractEvent(), plugin);
+        pluginManager.registerEvents(new SneakEvent(), plugin);
+        pluginManager.registerEvents(new InventoryClickEvent(), plugin);
 
     }
 }
