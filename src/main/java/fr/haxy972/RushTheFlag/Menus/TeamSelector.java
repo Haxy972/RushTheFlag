@@ -1,12 +1,14 @@
 package fr.haxy972.RushTheFlag.Menus;
 
 import fr.haxy972.RushTheFlag.Main;
+import fr.haxy972.RushTheFlag.Managers.GameManager;
 import fr.haxy972.RushTheFlag.Managers.SoundManager;
 import fr.haxy972.RushTheFlag.Managers.Team.FirstTeam;
 import fr.haxy972.RushTheFlag.Managers.Team.SecondTeam;
 import fr.haxy972.RushTheFlag.Managers.Team.Teams;
 import fr.haxy972.RushTheFlag.Runnables.TeamSelRunnable;
 import fr.haxy972.RushTheFlag.Utils.ItemCreator;
+import fr.haxy972.RushTheFlag.Utils.PluginMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -18,9 +20,10 @@ import java.util.ArrayList;
 public class TeamSelector {
     Player player;
     Inventory inventory;
+    GameManager gameManager = new GameManager();
     public TeamSelector(Player player) {
         this.player = player;
-        inventory = Bukkit.createInventory(player, 9, "                 §eTeam Selector");
+        inventory = Bukkit.createInventory(player, 9, "                §fTeam Selector");
         addItems();
     }
 
@@ -55,8 +58,12 @@ public class TeamSelector {
 
 
     public void open() {
-        player.openInventory(inventory);
-        new TeamSelRunnable(player).runTaskTimer(Main.INSTANCE, 0, 2);
-        new SoundManager(player).playerSucess();
+        if(!gameManager.getPlayerInGameList().contains(player)) {
+            player.openInventory(inventory);
+            new TeamSelRunnable(player).runTaskTimer(Main.INSTANCE, 0, 2);
+            new SoundManager(player).playerSucess();
+        }else{
+            new PluginMessage(player).Err("Vous êtes déjà en jeu vous ne pouvez pas changer d'équipe");
+        }
     }
 }
