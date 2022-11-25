@@ -1,6 +1,7 @@
 package fr.haxy972.RushTheFlag.Listeners;
 
 import fr.haxy972.RushTheFlag.Managers.GameManager;
+import fr.haxy972.RushTheFlag.Utils.TitleManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,13 +15,13 @@ public class JoinEvent implements Listener {
         Player player = event.getPlayer();
         GameManager gameManager = new GameManager(player);
 
-        // Setting up default attributes
+        // Setting up default attributes and messages
         event.setJoinMessage("");
         Bukkit.broadcastMessage("§e" + player.getName() + "§7 has joined the game");
         player.sendMessage("§7You can join the game with §e\"/join\"");
         new GameManager(player).setJoinAttributes();
-        // Hiding from all players
-        for(Player players : Bukkit.getOnlinePlayers()){players.hidePlayer(player);}
+        TitleManager.setPlayerList(player, "§b§lRush§f§lThe§b§lFlag\n", "");
+
     }
 
 }
