@@ -11,3 +11,6 @@ commands:
   test:
     aliases: debug
     description: Test command
+  leave:
+    aliases: quit
+    description: Command to return to spectator mode

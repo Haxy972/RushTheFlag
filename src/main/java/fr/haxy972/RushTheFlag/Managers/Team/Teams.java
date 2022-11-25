@@ -1,7 +1,9 @@
 package fr.haxy972.RushTheFlag.Managers.Team;
 
+import fr.haxy972.RushTheFlag.Managers.GameInventoryManager;
 import fr.haxy972.RushTheFlag.Managers.GameManager;
 import fr.haxy972.RushTheFlag.Utils.PluginMessage;
+import fr.haxy972.RushTheFlag.Utils.TitleManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -53,7 +55,10 @@ public class Teams {
                 } catch (Exception ignored) {}
 
                 team_list.add(player);
+                new GameManager(player).addPlayerToGame();
+                new GameInventoryManager(player).clear();
                 new PluginMessage(player).Notif("§7You have joined the " + getColorCode() + getName() + " §7team");
+                TitleManager.sendActionBar(player,"§7You have joined the " + getColorCode() + getName() + " §7team");
             }else{
                 new PluginMessage(player).Err("This team is full, try to join later");
             }

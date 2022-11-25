@@ -61,9 +61,8 @@ public class TeamSelector {
         if(!gameManager.getPlayerInGameList().contains(player)) {
             player.openInventory(inventory);
             new TeamSelRunnable(player).runTaskTimer(Main.INSTANCE, 0, 2);
-            new SoundManager(player).playerSucess();
         }else{
-            new PluginMessage(player).Err("Vous êtes déjà en jeu vous ne pouvez pas changer d'équipe");
+            new PluginMessage(player).Err("You are already in game you can't choose a team");
         }
     }
 }

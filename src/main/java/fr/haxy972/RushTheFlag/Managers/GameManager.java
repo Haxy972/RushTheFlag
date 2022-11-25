@@ -18,7 +18,7 @@ public class GameManager {
     }
     public GameManager(){}
 
-    public void addPlayerToGame() {playersList.add(player);}
+    public void addPlayerToGame() {playersList.add(player);for(Player players : Bukkit.getOnlinePlayers()){players.showPlayer(player);}}
 
     public Integer getGameMaxPlayer(){return maxPlayer;}
     public void removePlayerFromGame(){playersList.remove(player);}
@@ -34,5 +34,6 @@ public class GameManager {
         new GameInventoryManager(player).setSpectatorItems();
         player.setGameMode(GameMode.ADVENTURE);
         player.setAllowFlight(true);player.setFlying(true);player.setInvulnerable(true);
+        for(Player players : Bukkit.getOnlinePlayers()){players.hidePlayer(player);}
     }
 }
