@@ -16,12 +16,12 @@ This will help me develop the plugin.
 
 The latest version of the plugin can be found in [Release Page](https://github.com/Haxy972/RushTheFlag/releases) so you can see what’s new as well.
 
-# ➕ ABOUT / PLUS
+# ➕ About
 
 This plugin was developed by Haxy972, contributions are allowed, the project is open source.
 ``Please tell me about use on Mini-Games servers ``
 
-# 🟢 MISE A JOUR
+# 🟢 Updates
 
 The latest version of the plugin has just been released you will be updated in case of future news right here!
 The plugin include a news update detection so you will be noticed if you have the "update_check" parameter on true.
