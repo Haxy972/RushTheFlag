@@ -1,7 +1,6 @@
 package fr.haxy972.RushTheFlag.Menus;
 
 import fr.haxy972.RushTheFlag.Main;
-import fr.haxy972.RushTheFlag.Managers.GameManager;
 import fr.haxy972.RushTheFlag.Managers.SoundManager;
 import fr.haxy972.RushTheFlag.Managers.Team.FirstTeam;
 import fr.haxy972.RushTheFlag.Managers.Team.SecondTeam;
@@ -13,17 +12,15 @@ import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
-import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
 
 public class TeamSelector {
     Player player;
-    GameManager gameManager = new GameManager();
-    Inventory inventory = Bukkit.createInventory(player, 9, "                 §eTeam Selector");
+    Inventory inventory;
     public TeamSelector(Player player) {
         this.player = player;
+        inventory = Bukkit.createInventory(player, 9, "                 §eTeam Selector");
         addItems();
     }
 
@@ -49,6 +46,7 @@ public class TeamSelector {
     }
 
     public void refreshInventory(){
+        if(!player.getOpenInventory().getTitle().contains("Team Selector"))return;
         Teams firstTeam = new FirstTeam();
         Teams secondTeam = new SecondTeam();
         player.getOpenInventory().setItem(3,new ItemCreator(Material.WOOL, firstTeam.getDataColor()).setName(firstTeam.getColorCode() + firstTeam.getName() + " §8(§7" + firstTeam.getSize() +"§8/§7" + firstTeam.maxCount +"§8)").setArrayLore(new TeamSelector(player).getArrayLore(firstTeam)).done());

@@ -1,8 +1,6 @@
 package fr.haxy972.RushTheFlag.Managers.Team;
 
-import fr.haxy972.RushTheFlag.Managers.GameManager;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
